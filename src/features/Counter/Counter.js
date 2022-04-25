@@ -8,7 +8,7 @@ class Counter extends React.Component {
   //   const dispatch = useDispatch();
 
   render() {
-    const { increment, decrement, count } = this.props;
+    const { count, dispatch, increment, decrement } = this.props;
 
     return (
       <div>
