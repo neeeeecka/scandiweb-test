@@ -3,27 +3,54 @@ import styled from "styled-components";
 
 const StyledHeader = styled.header`
   display: flex;
+  align-items: center;
+  width: 100%;
 `;
 
 const StyledHeaderButton = styled.button`
-  color: #5ece7b;
+  transition: all 0.25s ease;
+  color: var(--color-text);
   padding: 30px 16px;
   text-transform: uppercase;
   font-weight: 600;
-  border-bottom: 2px solid transparent;
-  ${(props) => (props.selected ? "border-color: #5ece7b;" : "")}
+  border-bottom: 2px solid white;
+  ${(props) =>
+    props.selected
+      ? "border-color: var(--color-primary); color: var(--color-primary);"
+      : ""}
   &:hover {
-    border-color: #5ece7b;
+    color: var(--color-primary);
+    border-color: var(--color-primary);
   }
+`;
+
+const RightWrapper = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-left: auto;
+`;
+
+const Logo = styled.span`
+  background-image: url("/assets/logo.svg");
+  width: 41px;
+  height: 41px;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
 `;
 
 class Header extends Component {
   render() {
     return (
       <StyledHeader>
-        <StyledHeaderButton selected={true}>women</StyledHeaderButton>
-        <StyledHeaderButton>men</StyledHeaderButton>
-        <StyledHeaderButton>kids</StyledHeaderButton>
+        <nav>
+          <StyledHeaderButton selected={true}>women</StyledHeaderButton>
+          <StyledHeaderButton>men</StyledHeaderButton>
+          <StyledHeaderButton>kids</StyledHeaderButton>
+        </nav>
+        <RightWrapper>Hii</RightWrapper>
+        <Logo />
       </StyledHeader>
     );
   }

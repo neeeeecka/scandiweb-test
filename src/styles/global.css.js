@@ -1,6 +1,10 @@
 import { createGlobalStyle } from "styled-components";
 
 export default createGlobalStyle`
+  :root{
+    --color-primary: #5ece7b;
+    --color-text: #1D1F22;
+  }
   *{
     font-family: 'Raleway', sans-serif;
   }
