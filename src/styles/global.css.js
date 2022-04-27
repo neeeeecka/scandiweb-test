@@ -16,6 +16,7 @@ export default createGlobalStyle`
       background: transparent;
       border: 0;
       cursor: pointer;
+      padding: 0;
   }
   
 `;

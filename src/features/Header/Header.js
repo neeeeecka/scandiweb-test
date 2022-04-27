@@ -1,5 +1,6 @@
 import { Component } from "react";
 import styled from "styled-components";
+import CurrenctyPicker from "../../core/CurrencyPicker";
 
 const StyledHeader = styled.header`
   display: flex;
@@ -49,7 +50,9 @@ class Header extends Component {
           <StyledHeaderButton>men</StyledHeaderButton>
           <StyledHeaderButton>kids</StyledHeaderButton>
         </nav>
-        <RightWrapper>Hii</RightWrapper>
+        <RightWrapper>
+          <CurrenctyPicker />
+        </RightWrapper>
         <Logo />
       </StyledHeader>
     );
