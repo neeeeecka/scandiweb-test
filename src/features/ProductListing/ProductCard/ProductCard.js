@@ -2,6 +2,21 @@ import React from "react";
 import styled from "styled-components";
 import Icon from "../../../assets/icon";
 
+const ProductCardStyle = styled.div`
+  transition: all 0.25s ease;
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
+  font-size: 18px;
+  margin: 30px 0;
+  background: white;
+
+  &:hover {
+    transition: all 0.25s ease;
+    filter: drop-shadow(0px 4px 35px rgba(168, 172, 176, 0.19));
+  }
+`;
+
 const PopupButton = styled.button`
   transition: all 0.25s ease;
   cursor: pointer;
@@ -12,23 +27,8 @@ const PopupButton = styled.button`
   margin-right: 15px;
   filter: drop-shadow(0px 4px 11px rgba(29, 31, 34, 0.1));
   transform: translateY(0) scale(0);
-`;
 
-const ProductCardStyle = styled.div`
-  transition: all 0.25s ease;
-  display: flex;
-  flex-direction: column;
-  padding: 15px;
-  font-size: 18px;
-  margin: 30px max(5px, 1vw);
-  background: white;
-
-  &:hover {
-    transition: all 0.25s ease;
-    filter: drop-shadow(0px 4px 35px rgba(168, 172, 176, 0.19));
-  }
-
-  &:hover ${PopupButton} {
+  ${ProductCardStyle}:hover &, &:focus {
     transform: translateY(-50%) scale(1);
   }
 `;
@@ -41,7 +41,8 @@ const CardImage = styled.img`
 
 const CardTitle = styled.h3`
   font-weight: 300;
-  margin-bottom: 10px;
+  margin: 0;
+  padding-bottom: 10px;
 `;
 
 const CardPrice = styled.span`
@@ -52,6 +53,8 @@ const CardPrice = styled.span`
 const ButtonWrapper = styled.div`
   display: flex;
   justify-content: flex-end;
+  margin-top: 0;
+  height: 25px;
 `;
 
 const iconStyle = `

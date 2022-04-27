@@ -12,13 +12,15 @@ const Title = styled.h1`
   font-style: normal;
   font-weight: 400;
   font-size: 42px;
-  padding: 50px 0;
+  padding: 80px 0;
+  margin: 0;
 `;
 
 const ProductList = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grind-template-rows: auto;
+  gap: max(5px, 3.5vw);
 `;
 
 class ProductListing extends CustomComponent {
