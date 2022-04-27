@@ -1,5 +1,6 @@
 import { Component } from "react";
 import styled from "styled-components";
+import Cart from "../../core/Cart";
 import CurrenctyPicker from "../../core/CurrencyPicker";
 
 const StyledHeader = styled.header`
@@ -52,6 +53,7 @@ class Header extends Component {
         </nav>
         <RightWrapper>
           <CurrenctyPicker />
+          <Cart />
         </RightWrapper>
         <Logo />
       </StyledHeader>
