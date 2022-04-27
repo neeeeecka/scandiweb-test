@@ -18,5 +18,10 @@ export default createGlobalStyle`
       cursor: pointer;
       padding: 0;
   }
+
+  iframe
+  {
+     /* display: none; */
+  }
   
 `;

@@ -5,6 +5,8 @@ import Header from "./features/Header";
 import styled from "styled-components";
 import GlobalCSS from "./styles/global.css";
 import Counter from "./features/Counter/Counter";
+import { Route, Routes } from "react-router-dom";
+import ProductListing from "./features/ProductListing";
 
 const AppContainer = styled.div`
   padding: 0 80px;
@@ -17,7 +19,9 @@ class App extends React.Component {
         <GlobalCSS />
         <AppContainer>
           <Header />
-          <Counter />
+          <Routes>
+            <Route path="/" element={<ProductListing />} />
+          </Routes>
         </AppContainer>
       </>
     );

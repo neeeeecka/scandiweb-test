@@ -2,13 +2,22 @@ import React from "react";
 import { useSelector, useDispatch, connect } from "react-redux";
 import styled from "styled-components";
 import Icon from "../../assets/icon";
+import handleClickOutsideModal from "../../handlers/handleClickOutsideModal";
+import CustomComponent from "../CustomComponent";
 
-const ButtonStyle = styled.button`
+const ButtonWrapperStyle = styled.div`
+  cursor: pointer;
   display: flex;
   font-weight: 500;
   font-size: 18px;
   padding: 0 9px;
   position: relative;
+`;
+
+const ButtonStyle = styled.button`
+  display: flex;
+  font-size: inherit;
+  font-weight: inherit;
 `;
 
 const ArrowDown = `
@@ -20,7 +29,6 @@ const ArrowDown = `
 `;
 
 const CurrencyDropdownStyle = styled.div`
-  display: flex;
   flex-direction: column;
   position: absolute;
   top: calc(100% + 15px);
@@ -29,9 +37,11 @@ const CurrencyDropdownStyle = styled.div`
   font-size: inherit;
   background: white;
   filter: drop-shadow(0px 4px 35px rgba(168, 172, 176, 0.19));
+  ${(props) => (props.visible ? "display: flex;" : "display: none;")}
 `;
 
 const CurrencyDropdownButton = styled.button`
+  transition: all 0.25s ease;
   font-weight: inherit;
   font-size: inherit;
   padding-left: 20px;
@@ -41,28 +51,78 @@ const CurrencyDropdownButton = styled.button`
     margin-right: 5px;
   }
   &:hover {
+    transition: all 0.25s ease;
     background: #eeeeee;
   }
 `;
 
-class CurrenctyPicker extends React.Component {
+class CurrencyPicker extends CustomComponent {
+  state = { menuVisible: false };
+
+  constructor(props) {
+    super(props);
+
+    this.clickRef = React.createRef();
+
+    const [cleanupClickHandler, safeToggle] = handleClickOutsideModal(
+      this.clickRef,
+      this.handleClickOutside
+    );
+
+    this.safeToggle = safeToggle;
+
+    this.addCleanup(cleanupClickHandler);
+  }
+
+  handleClickOutside = () => {
+    if (this.state.menuVisible) {
+      this.closeMenu();
+    }
+  };
+
+  toggleMenu = (e) => {
+    this.safeToggle(() => {
+      this.setState({ menuVisible: !this.state.menuVisible });
+    });
+  };
+
+  closeMenu = () => {
+    this.setState({ menuVisible: false });
+  };
+
+  chooseCurrency = (currency) => {
+    // redux...
+    this.toggleMenu();
+  };
+
   render() {
+    const { menuVisible } = this.state;
+
     const currencies = { $: "USD", "€": "EUR", "£": "GBP" };
+
     return (
-      <ButtonStyle>
-        <span>$</span>
-        <Icon name={"arrow-down"} style={ArrowDown} />
-        <CurrencyDropdownStyle>
+      <ButtonWrapperStyle>
+        <ButtonStyle onClick={(e) => this.toggleMenu(e)}>
+          <span>$</span>
+          <Icon
+            name={menuVisible ? "arrow-up" : "arrow-down"}
+            style={ArrowDown}
+          />
+        </ButtonStyle>
+        <CurrencyDropdownStyle visible={menuVisible} ref={this.clickRef}>
           {Object.keys(currencies).map((currency) => (
-            <CurrencyDropdownButton>
+            <CurrencyDropdownButton
+              key={currency}
+              onClick={() => this.chooseCurrency(currency)}
+            >
               <span>{currency}</span>
               <span>{currencies[currency]}</span>
             </CurrencyDropdownButton>
           ))}
         </CurrencyDropdownStyle>
-      </ButtonStyle>
+      </ButtonWrapperStyle>
     );
   }
 }
 
-export default CurrenctyPicker;
+export default CurrencyPicker;
