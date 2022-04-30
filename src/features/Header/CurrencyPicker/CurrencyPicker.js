@@ -1,16 +1,15 @@
 import React from "react";
 import { useSelector, useDispatch, connect } from "react-redux";
 import styled from "styled-components";
-import Icon from "../../assets/icon";
-import handleClickOutsideModal from "../../handlers/handleClickOutsideModal";
-import CustomComponent from "../CustomComponent";
+import Icon from "../../../assets/icon";
+import handleClickOutsideModal from "../../../handlers/handleClickOutsideModal";
+import CustomComponent from "../../../core/CustomComponent";
 
 const ButtonWrapperStyle = styled.div`
   cursor: pointer;
   display: flex;
   font-weight: 500;
   font-size: 18px;
-  padding: 0 9px;
   position: relative;
 `;
 
@@ -18,6 +17,7 @@ const ButtonStyle = styled.button`
   display: flex;
   font-size: inherit;
   font-weight: inherit;
+  padding: 0 9px;
 `;
 
 const ArrowDown = `

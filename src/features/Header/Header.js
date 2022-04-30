@@ -1,12 +1,16 @@
 import { Component } from "react";
 import styled from "styled-components";
-import Cart from "../../core/Cart";
-import CurrenctyPicker from "../../core/CurrencyPicker";
+import Cart from "./Cart";
+import CurrenctyPicker from "./CurrencyPicker";
 
 const StyledHeader = styled.header`
   display: flex;
   align-items: center;
-  width: 100%;
+  width: calc(100% - 160px);
+  position: fixed;
+  top: 0;
+  background: white;
+  z-index: 1;
 `;
 
 const StyledHeaderButton = styled.button`
@@ -45,18 +49,21 @@ const Logo = styled.span`
 class Header extends Component {
   render() {
     return (
-      <StyledHeader>
-        <nav>
-          <StyledHeaderButton selected={true}>women</StyledHeaderButton>
-          <StyledHeaderButton>men</StyledHeaderButton>
-          <StyledHeaderButton>kids</StyledHeaderButton>
-        </nav>
-        <RightWrapper>
-          <CurrenctyPicker />
-          <Cart />
-        </RightWrapper>
-        <Logo />
-      </StyledHeader>
+      <>
+        <StyledHeader>
+          <Logo />
+
+          <nav>
+            <StyledHeaderButton selected={true}>women</StyledHeaderButton>
+            <StyledHeaderButton>men</StyledHeaderButton>
+            <StyledHeaderButton>kids</StyledHeaderButton>
+          </nav>
+          <RightWrapper>
+            <CurrenctyPicker />
+            <Cart />
+          </RightWrapper>
+        </StyledHeader>
+      </>
     );
   }
 }

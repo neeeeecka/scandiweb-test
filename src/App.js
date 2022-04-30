@@ -10,6 +10,8 @@ import ProductListing from "./features/ProductListing";
 
 const AppContainer = styled.div`
   padding: 0 80px;
+  margin-top: 80px;
+  position: relative;
 `;
 
 class App extends React.Component {
