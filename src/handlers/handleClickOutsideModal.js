@@ -18,11 +18,19 @@ const handleClickOutsideModal = (ref, callback) => {
     }
   };
 
+  const isEscapeKey = (e) => {
+    if (e.key === "Escape") {
+      callback();
+    }
+  };
+
   // console.log("Init");
   document.addEventListener("click", handleClick);
+  document.addEventListener("keydown", isEscapeKey);
 
   const cleanup = () => {
     document.removeEventListener("click", handleClick);
+    document.removeEventListener("keydown", isEscapeKey);
   };
 
   /**

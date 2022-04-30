@@ -3,9 +3,9 @@ import { useSelector, useDispatch, connect } from "react-redux";
 import styled from "styled-components";
 import Icon from "../../../assets/icon";
 import CustomComponent from "../../../core/CustomComponent";
-import Modal from "../../../core/Modal/Modal";
 import handleClickOutsideModal from "../../../handlers/handleClickOutsideModal";
 import { keyframes } from "styled-components";
+import CartModal from "./CartModal";
 
 const WrapperStyle = styled.div`
   position: relative;
@@ -39,47 +39,16 @@ const CartCounter = styled.span`
 
   & span {
     position: absolute;
-    top: 42%;
+    top: 40%;
     left: 50%;
     transform: translate(-50%, -50%);
   }
 `;
 
-const CartModal = styled.div`
-  transition: all 0.15s ease;
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  top: 80px;
-
-  pointer-events: ${(props) =>
-    props.animationGoing || props.visible ? "auto" : "none"};
-
-  opacity: ${(props) => (props.visible ? 1 : 0)};
-
-  &:before {
-    transition: all 0.15s ease;
-    content: "";
-    display: block;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-  }
-`;
-
-const CartModalContent = styled.div`
-  background: white;
-  padding: 15px;
-  position: absolute;
-  top: 0;
-  left: calc(100% - 380px);
-  width: 325px;
-`;
-
 class Cart extends CustomComponent {
   state = {
     animationGoing: false,
+    animationTime: 150,
   };
 
   constructor(props) {
@@ -105,37 +74,35 @@ class Cart extends CustomComponent {
 
   toggleModal = () => {
     this.safeToggle(() => {
-      console.log("toggleModal");
-
       this.setState({
         modalVisible: !this.state.modalVisible,
         animationGoing: true,
       });
       setTimeout(() => {
         this.setState({ animationGoing: false });
-      }, 150);
+      }, this.state.animationTime);
     });
   };
 
   render() {
-    const { modalVisible, animationGoing } = this.state;
+    const { modalVisible, animationGoing, animationTime } = this.state;
 
     return (
       <WrapperStyle>
-        <ButtonStyle onClick={() => this.toggleModal()}>
-          <Icon name={"cart"} style={CartStyle} />
-          <CartCounter>
-            <span>3</span>
-          </CartCounter>
-        </ButtonStyle>
-        <Modal>
-          <CartModal visible={modalVisible} animationGoing={animationGoing}>
-            <CartModalContent ref={this.clickRef}>
-              <h1>My bag</h1>
-              <span>3 items lorem10 </span>
-            </CartModalContent>
-          </CartModal>
-        </Modal>
+        <label htmlFor="cartModal">
+          <ButtonStyle onClick={() => this.toggleModal()}>
+            <Icon name={"cart"} style={CartStyle} />
+            <CartCounter>
+              <span>3</span>
+            </CartCounter>
+          </ButtonStyle>
+        </label>
+        <CartModal
+          modalVisible={modalVisible}
+          animationGoing={animationGoing}
+          animationTime={animationTime / 1000}
+          clickRef={this.clickRef}
+        />
       </WrapperStyle>
     );
   }

@@ -7,11 +7,11 @@ class Modal extends React.Component {
   constructor(props) {
     super(props);
     this.el = document.createElement("div");
-    this.el.style.position = "absolute";
-    this.el.style.top = "0";
-    this.el.style.left = "0";
-    this.el.style.width = "100%";
-    this.el.style.height = "100%";
+    // this.el.style.position = "absolute";
+    // this.el.style.top = "0";
+    // this.el.style.left = "0";
+    // this.el.style.width = "100%";
+    // this.el.style.height = "100%";
   }
 
   componentDidMount() {

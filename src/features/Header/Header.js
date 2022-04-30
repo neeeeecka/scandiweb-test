@@ -27,7 +27,7 @@ const StyledHeaderButton = styled.button`
     props.selected
       ? "border-color: var(--color-primary); color: var(--color-primary);"
       : ""}
-  &:hover {
+  &:hover, &:focus {
     color: var(--color-primary);
     border-color: var(--color-primary);
   }

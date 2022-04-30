@@ -10,6 +10,7 @@ const ProductCardStyle = styled.div`
   font-size: 18px;
   margin: 30px 0;
   background: white;
+  position: relative;
 
   &:hover {
     transition: all 0.25s ease;
