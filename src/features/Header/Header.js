@@ -6,11 +6,14 @@ import CurrenctyPicker from "./CurrencyPicker";
 const StyledHeader = styled.header`
   display: flex;
   align-items: center;
-  width: calc(100% - 160px);
+  width: 100%;
   position: fixed;
   top: 0;
+  left: 0;
   background: white;
-  z-index: 1;
+  z-index: 3;
+  padding: 0 80px;
+  height: 80px;
 `;
 
 const StyledHeaderButton = styled.button`
@@ -32,6 +35,7 @@ const StyledHeaderButton = styled.button`
 
 const RightWrapper = styled.div`
   display: flex;
+
   justify-content: flex-end;
   align-items: center;
   margin-left: auto;
@@ -52,7 +56,6 @@ class Header extends Component {
       <>
         <StyledHeader>
           <Logo />
-
           <nav>
             <StyledHeaderButton selected={true}>women</StyledHeaderButton>
             <StyledHeaderButton>men</StyledHeaderButton>

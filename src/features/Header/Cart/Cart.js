@@ -3,10 +3,13 @@ import { useSelector, useDispatch, connect } from "react-redux";
 import styled from "styled-components";
 import Icon from "../../../assets/icon";
 import CustomComponent from "../../../core/CustomComponent";
+import Modal from "../../../core/Modal/Modal";
 import handleClickOutsideModal from "../../../handlers/handleClickOutsideModal";
+import { keyframes } from "styled-components";
 
 const WrapperStyle = styled.div`
   position: relative;
+  display: flex;
 `;
 
 const ButtonStyle = styled.button`
@@ -42,22 +45,22 @@ const CartCounter = styled.span`
   }
 `;
 
-const CartContent = styled.div`
-  background: white;
-  padding: 15px;
-  position: relative;
-`;
-
 const CartModal = styled.div`
-  position: absolute;
-  top: calc(100% + 15px);
-  display: ${(props) => (props.visible ? "block" : "none")};
+  transition: all 0.15s ease;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 80px;
+
+  pointer-events: ${(props) =>
+    props.animationGoing || props.visible ? "auto" : "none"};
+
+  opacity: ${(props) => (props.visible ? 1 : 0)};
 
   &:before {
     transition: all 0.15s ease;
     content: "";
     display: block;
-    position: fixed;
     left: 0;
     width: 100%;
     height: 100%;
@@ -65,8 +68,19 @@ const CartModal = styled.div`
   }
 `;
 
+const CartModalContent = styled.div`
+  background: white;
+  padding: 15px;
+  position: absolute;
+  top: 0;
+  left: calc(100% - 380px);
+  width: 325px;
+`;
+
 class Cart extends CustomComponent {
-  state = {};
+  state = {
+    animationGoing: false,
+  };
 
   constructor(props) {
     super(props);
@@ -84,19 +98,28 @@ class Cart extends CustomComponent {
   }
 
   handleClickOutside = () => {
-    this.safeToggle(() => {
-      this.setState({ modalVisible: false });
-    });
+    if (this.state.modalVisible) {
+      this.toggleModal();
+    }
   };
 
   toggleModal = () => {
     this.safeToggle(() => {
-      this.setState({ modalVisible: !this.state.modalVisible });
+      console.log("toggleModal");
+
+      this.setState({
+        modalVisible: !this.state.modalVisible,
+        animationGoing: true,
+      });
+      setTimeout(() => {
+        this.setState({ animationGoing: false });
+      }, 150);
     });
   };
 
   render() {
-    const { modalVisible } = this.state;
+    const { modalVisible, animationGoing } = this.state;
+
     return (
       <WrapperStyle>
         <ButtonStyle onClick={() => this.toggleModal()}>
@@ -105,12 +128,14 @@ class Cart extends CustomComponent {
             <span>3</span>
           </CartCounter>
         </ButtonStyle>
-        <CartModal visible={modalVisible}>
-          <CartContent ref={this.clickRef}>
-            <h1>My bag</h1>
-            <span>3 items lorem10 </span>
-          </CartContent>
-        </CartModal>
+        <Modal>
+          <CartModal visible={modalVisible} animationGoing={animationGoing}>
+            <CartModalContent ref={this.clickRef}>
+              <h1>My bag</h1>
+              <span>3 items lorem10 </span>
+            </CartModalContent>
+          </CartModal>
+        </Modal>
       </WrapperStyle>
     );
   }

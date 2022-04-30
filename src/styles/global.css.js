@@ -7,6 +7,7 @@ export default createGlobalStyle`
   }
   *{
     font-family: 'Raleway', sans-serif;
+    box-sizing: border-box;
   }
   body {
     margin: 0;
