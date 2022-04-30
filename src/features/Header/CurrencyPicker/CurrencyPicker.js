@@ -102,7 +102,10 @@ class CurrencyPicker extends CustomComponent {
 
     return (
       <ButtonWrapperStyle>
-        <ButtonStyle onClick={(e) => this.toggleMenu(e)}>
+        <ButtonStyle
+          onClick={(e) => this.toggleMenu(e)}
+          aria-label="Choose currency"
+        >
           <span>$</span>
           <Icon
             name={menuVisible ? "arrow-up" : "arrow-down"}

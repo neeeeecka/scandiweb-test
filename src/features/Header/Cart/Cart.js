@@ -89,14 +89,13 @@ class Cart extends CustomComponent {
 
     return (
       <WrapperStyle>
-        <label htmlFor="cartModal">
-          <ButtonStyle onClick={() => this.toggleModal()}>
-            <Icon name={"cart"} style={CartStyle} />
-            <CartCounter>
-              <span>3</span>
-            </CartCounter>
-          </ButtonStyle>
-        </label>
+        <ButtonStyle onClick={() => this.toggleModal()} aria-label="See cart">
+          <Icon name={"cart"} style={CartStyle} />
+          <CartCounter>
+            <span>3</span>
+          </CartCounter>
+        </ButtonStyle>
+
         <CartModal
           modalVisible={modalVisible}
           animationGoing={animationGoing}
