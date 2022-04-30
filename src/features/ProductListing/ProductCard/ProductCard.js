@@ -40,7 +40,8 @@ const CardImage = styled.img`
   object-fit: cover;
 `;
 
-const CardTitle = styled.h3`
+const CardTitle = styled.h1`
+  font-size: 18px;
   font-weight: 300;
   margin: 0;
   padding-bottom: 10px;
@@ -67,9 +68,12 @@ class ProductCard extends React.Component {
   render() {
     return (
       <ProductCardStyle>
-        <CardImage src="https://via.placeholder.com/300x300" />
+        <CardImage
+          src="https://via.placeholder.com/300x300"
+          alt="Product preview"
+        />
         <ButtonWrapper>
-          <PopupButton>
+          <PopupButton aria-label="Add item to cart">
             <Icon name="cart" style={iconStyle} />
           </PopupButton>
         </ButtonWrapper>
