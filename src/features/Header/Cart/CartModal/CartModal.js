@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import Modal from "../../../../core/Modal";
 import { ButtonFill, ButtonOutline } from "../../../../styles/global.css";
+import CompactItem from "../../../../core/ProductTweaker/Layouts/CompactItem/";
 
 const CartModalStyle = styled.div`
   transition: all ${(props) => props.animationTime}s ease;
@@ -41,6 +42,7 @@ const CartModalContent = styled.div`
 
 const Paragraph = styled.p`
   font-weight: 500;
+  margin-bottom: 0;
   & b {
     font-weight: 700;
   }
@@ -49,6 +51,7 @@ const Paragraph = styled.p`
 const ItemContainer = styled.div`
   max-height: 600px;
   overflow: auto;
+  padding: 30px 0;
 `;
 
 const FooterParagraph = styled.p`
@@ -100,7 +103,9 @@ class CartModal extends React.Component {
               <b>My bag</b>
               <span>, 3 items</span>
             </Paragraph>
-            <ItemContainer></ItemContainer>
+            <ItemContainer>
+              <CompactItem />
+            </ItemContainer>
             <FooterParagraph>
               <span>Total:</span>
               <b>$200.00</b>
