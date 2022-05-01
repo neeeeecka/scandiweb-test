@@ -1,12 +1,11 @@
 import React from "react";
 import styled from "styled-components";
-import MultipleChoiceButtons from "../../../MultipleChoiceButtons";
+import MultipleChoiceButtons from "../../../SizePicker";
 
 const ItemWrapper = styled.div`
   display: flex;
 `;
-const ItemHeading = styled.p`
-  margin: 0;
+const ItemHeading = styled.div`
   h1,
   h2 {
     margin: 0;
@@ -22,7 +21,8 @@ const ItemPrice = styled.h2`
   font-weight: 500;
   font-size: 16px;
   margin: 0;
-  padding: 15px 0;
+  padding-top: 12px;
+  padding-bottom: 7px;
 `;
 
 const DivFlex = styled.div`
@@ -43,20 +43,11 @@ const ItemPreview = styled.div`
   flex: 1;
 `;
 
-const ItemSizeButton = styled.label`
+const ItemColorButton = styled.label`
   display: flex;
-  width: 24px;
-  height: 24px;
-  align-items: center;
-  justify-content: center;
-  background: #a6a6a633;
-  border: 1px solid #a6a6a6;
-  color: #a6a6a6;
-  font-size: 14px;
-  cursor: pointer;
-
-  ${(props) =>
-    props.active && "background: #1D1F22; border-color: #1D1F22; color: white;"}
+  width: 16px;
+  height: 16px;
+  background: ${(props) => props.color};
 `;
 
 class CompactItem extends React.Component {
@@ -70,18 +61,16 @@ class CompactItem extends React.Component {
           </ItemHeading>
           <ItemPrice>$50.00</ItemPrice>
           <MultipleChoiceButtons
+            label="Size:"
+            activeChoice={"S"}
             choices={[
               { label: "S", value: "S" },
               { label: "M", value: "M" },
             ]}
-            component={ItemSizeButton}
             onChoice={(choice) => {
               console.log(choice);
             }}
           />
-          <div>
-            <span>Color:</span>
-          </div>
         </div>
         <DivFlex>
           <ItemCounter>

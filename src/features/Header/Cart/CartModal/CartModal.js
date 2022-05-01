@@ -23,7 +23,7 @@ const CartModalStyle = styled.div`
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.5);
+    background: #39374838;
   }
 `;
 
@@ -33,7 +33,7 @@ const CartModalContent = styled.div`
   padding: 15px;
   position: absolute;
   top: 0;
-  width: 350px;
+  width: 325px;
   font-size: 16px;
   color: #1d1f22;
 
@@ -83,6 +83,17 @@ const ViewBagButton = ButtonFlex1(ButtonOutline);
 const CheckoutButton = ButtonFlex1(ButtonFill);
 
 class CartModal extends React.Component {
+  constructor(props) {
+    super(props);
+    this.hiddenFocusRef = React.createRef();
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.modalVisible) {
+      this.hiddenFocusRef.current.focus();
+    }
+  }
+
   render() {
     const { modalVisible, animationGoing, animationTime, clickRef } =
       this.props;
@@ -95,10 +106,19 @@ class CartModal extends React.Component {
           animationTime={animationTime}
         >
           <CartModalContent
+            aria-modal={modalVisible}
             ref={clickRef}
             visible={modalVisible}
             id="cartModal"
           >
+            <input
+              type="text"
+              ref={this.hiddenFocusRef}
+              style={{
+                position: "absolute",
+                opacity: 0,
+              }}
+            />
             <Paragraph>
               <b>My bag</b>
               <span>, 3 items</span>
