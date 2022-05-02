@@ -7,6 +7,11 @@ import SizePicker from "../../../SizePicker";
 const ItemWrapper = styled.div`
   display: flex;
 `;
+
+const ItemMenus = styled.div`
+  flex: 1;
+`;
+
 const ItemHeading = styled.div`
   h1,
   h2 {
@@ -34,14 +39,18 @@ const DivFlex = styled.div`
 
 const ItemPreview = styled.div`
   display: flex;
-  flex: 1;
+  width: 120px;
+  & img {
+    width: 100%;
+    object-fit: cover;
+  }
 `;
 
 class CompactItem extends React.Component {
   render() {
     return (
       <ItemWrapper>
-        <div>
+        <ItemMenus>
           <ItemHeading>
             <h1>Apollo</h1>
             <h2>Running Short</h2>
@@ -64,21 +73,19 @@ class CompactItem extends React.Component {
               console.log(choice);
             }}
           />
-        </div>
-        <DivFlex>
-          <CountPicker
-            count={0}
-            onChange={(newCount) => {
-              console.log(newCount);
-            }}
+        </ItemMenus>
+        <CountPicker
+          count={0}
+          onChange={(newCount) => {
+            console.log(newCount);
+          }}
+        />
+        <ItemPreview>
+          <img
+            src="https://i.imgur.com/XqnXKXb.jpg"
+            alt="Aplllo Running Short"
           />
-          <ItemPreview>
-            <img
-              src="https://i.imgur.com/XqnXKXb.jpg"
-              alt="Aplllo Running Short"
-            />
-          </ItemPreview>
-        </DivFlex>
+        </ItemPreview>
       </ItemWrapper>
     );
   }

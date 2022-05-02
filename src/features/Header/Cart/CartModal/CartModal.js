@@ -93,7 +93,8 @@ class CartModal extends React.Component {
 
   componentDidUpdate(prevProps) {
     if (this.props.modalVisible) {
-      this.hiddenFocusRef.current.focus();
+      // this.hiddenFocusRef.current.focus();
+      this.props.clickRef.current.focus();
     }
   }
 
@@ -109,19 +110,21 @@ class CartModal extends React.Component {
           animationTime={animationTime}
         >
           <CartModalContent
-            aria-modal={modalVisible}
             ref={clickRef}
             visible={modalVisible}
             id="cartModal"
+            tabIndex={-1}
+            role="dialog"
+            aria-modal={modalVisible}
           >
-            <input
+            {/* <input
               type="text"
               ref={this.hiddenFocusRef}
               style={{
                 position: "absolute",
                 opacity: 0,
               }}
-            />
+            /> */}
             <Paragraph>
               <b>My bag</b>
               <span>, 3 items</span>

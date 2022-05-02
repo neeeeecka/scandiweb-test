@@ -20,7 +20,7 @@ const ItemColor = styled.fieldset`
 const ItemsColorButtons = styled.div`
   display: flex;
   gap: 8px;
-  padding-top: 10px;
+  padding-top: 5px;
 `;
 
 const ItemColorButton = styled.label`

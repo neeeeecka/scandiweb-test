@@ -49,7 +49,7 @@ class CountPicker extends React.Component {
         <Button aria-label="increment" onClick={() => this.handleChange(1)}>
           <Icon name="plus" style={iconStyle} />
         </Button>
-        <Value>{count}</Value>
+        <Value aria-label="count">{count}</Value>
         <Button aria-label="decrement" onClick={() => this.handleChange(-1)}>
           <Icon name="minus" style={iconStyle} />
         </Button>
