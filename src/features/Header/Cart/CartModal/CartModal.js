@@ -37,7 +37,10 @@ const CartModalContent = styled.div`
   font-size: 16px;
   color: #1d1f22;
 
-  left: ${(props) => (props.visible ? "calc(100% - 380px)" : "100%")};
+  ${(props) =>
+    props.visible
+      ? "left: calc(100% - 390px);"
+      : "left: 100%; visibility: hidden;"}
 `;
 
 const Paragraph = styled.p`

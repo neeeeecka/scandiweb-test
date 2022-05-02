@@ -64,6 +64,8 @@ class Cart extends CustomComponent {
     this.safeToggle = safeToggle;
 
     this.addCleanup(cleanupClickHandler);
+
+    this.focusRef = React.createRef();
   }
 
   handleClickOutside = () => {
@@ -71,6 +73,12 @@ class Cart extends CustomComponent {
       this.toggleModal();
     }
   };
+
+  componentDidUpdate(prevProps) {
+    if (!this.state.modalVisible) {
+      this.focusRef.current.focus();
+    }
+  }
 
   toggleModal = () => {
     this.safeToggle(() => {
@@ -89,7 +97,11 @@ class Cart extends CustomComponent {
 
     return (
       <WrapperStyle>
-        <ButtonStyle onClick={() => this.toggleModal()} aria-label="See cart">
+        <ButtonStyle
+          onClick={() => this.toggleModal()}
+          aria-label="See cart"
+          ref={this.focusRef}
+        >
           <Icon name={"cart"} style={CartStyle} />
           <CartCounter>
             <span>3</span>
