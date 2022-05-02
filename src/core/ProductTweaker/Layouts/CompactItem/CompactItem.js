@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import MultipleChoiceButtons from "../../../SizePicker";
+import ColorPicker from "../../../ColorPicker/ColorPicker";
+import SizePicker from "../../../SizePicker";
 
 const ItemWrapper = styled.div`
   display: flex;
@@ -60,13 +61,19 @@ class CompactItem extends React.Component {
             <h2>Running Short</h2>
           </ItemHeading>
           <ItemPrice>$50.00</ItemPrice>
-          <MultipleChoiceButtons
-            label="Size:"
+          <SizePicker
             activeChoice={"S"}
             choices={[
               { label: "S", value: "S" },
               { label: "M", value: "M" },
             ]}
+            onChoice={(choice) => {
+              console.log(choice);
+            }}
+          />
+          <ColorPicker
+            activeChoice={"#1D1F22"}
+            colors={["#5ECE7B", "#1D1F22", "#0F6450"]}
             onChoice={(choice) => {
               console.log(choice);
             }}

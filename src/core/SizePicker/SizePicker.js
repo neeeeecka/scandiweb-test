@@ -44,11 +44,11 @@ const ItemSizeButton = styled.label`
 
 class SizePicker extends React.Component {
   render() {
-    const { choices, activeChoice, onChoice, label } = this.props;
+    const { choices, activeChoice, onChoice } = this.props;
 
     return (
       <ItemSize>
-        <span>{label}</span>
+        <span>Size:</span>
         <ItemsSizeButtons>
           {choices.map(({ label, value }) => {
             const active = value === activeChoice;
