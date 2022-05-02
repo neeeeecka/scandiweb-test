@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import ColorPicker from "../../../ColorPicker/ColorPicker";
+import CountPicker from "../../../CountPicker";
 import SizePicker from "../../../SizePicker";
 
 const ItemWrapper = styled.div`
@@ -31,24 +32,9 @@ const DivFlex = styled.div`
   flex: 1;
 `;
 
-const ItemCounter = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  flex: 1;
-  justify-content: space-between;
-`;
-
 const ItemPreview = styled.div`
   display: flex;
   flex: 1;
-`;
-
-const ItemColorButton = styled.label`
-  display: flex;
-  width: 16px;
-  height: 16px;
-  background: ${(props) => props.color};
 `;
 
 class CompactItem extends React.Component {
@@ -80,11 +66,12 @@ class CompactItem extends React.Component {
           />
         </div>
         <DivFlex>
-          <ItemCounter>
-            <button>+</button>
-            <span>1</span>
-            <button>-</button>
-          </ItemCounter>
+          <CountPicker
+            count={0}
+            onChange={(newCount) => {
+              console.log(newCount);
+            }}
+          />
           <ItemPreview>
             <img
               src="https://i.imgur.com/XqnXKXb.jpg"

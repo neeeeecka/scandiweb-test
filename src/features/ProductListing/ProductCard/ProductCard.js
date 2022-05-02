@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import Icon from "../../../assets/icon";
+import Icon from "../../../assets/Icon";
 
 const ProductCardStyle = styled.div`
   transition: all 0.25s ease;

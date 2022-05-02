@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector, useDispatch, connect } from "react-redux";
 import styled from "styled-components";
-import Icon from "../../../assets/icon";
+import Icon from "../../../assets/Icon";
 import handleClickOutsideModal from "../../../handlers/handleClickOutsideModal";
 import CustomComponent from "../../../core/CustomComponent";
 
