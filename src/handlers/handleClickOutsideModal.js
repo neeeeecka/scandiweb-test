@@ -13,6 +13,7 @@ const handleClickOutsideModal = (ref, callback) => {
      */
     if (transitionFinished.current) {
       if (ref.current && !ref.current.contains(e.target)) {
+        console.log(ref.current, e.target);
         callback();
       }
     }

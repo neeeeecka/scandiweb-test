@@ -1,5 +1,7 @@
 import React from "react";
 import styled from "styled-components";
+import makeUniqueId from "../../utils/uniqueId";
+import curryDashStr from "../../utils/curryDashStr";
 
 const ItemSize = styled.fieldset`
   display: flex;
@@ -43,8 +45,17 @@ const ItemSizeButton = styled.label`
 `;
 
 class SizePicker extends React.Component {
+  state = {
+    uid: makeUniqueId(),
+  };
+
   render() {
-    const { choices, activeChoice, onChoice } = this.props;
+    const {
+      choices,
+      activeChoice,
+      onChoice,
+      unique = this.state.uid,
+    } = this.props;
 
     return (
       <ItemSize>
@@ -52,19 +63,21 @@ class SizePicker extends React.Component {
         <ItemsSizeButtons>
           {choices.map(({ label, value }) => {
             const active = value === activeChoice;
+            const uniqueId = curryDashStr("sizePicker")(unique)(value)();
+
             return (
               <div key={value}>
                 <input
                   type="radio"
                   name="size"
                   value={value}
-                  id={value}
+                  id={uniqueId}
                   checked={active}
                   onChange={() => {
                     onChoice(value);
                   }}
                 />
-                <ItemSizeButton htmlFor={value} active={active}>
+                <ItemSizeButton htmlFor={uniqueId} active={active}>
                   {label}
                 </ItemSizeButton>
               </div>

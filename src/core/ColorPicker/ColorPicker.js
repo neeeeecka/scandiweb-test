@@ -1,5 +1,7 @@
 import React from "react";
 import styled from "styled-components";
+import curryDashStr from "../../utils/curryDashStr";
+import makeUniqueId from "../../utils/uniqueId";
 
 const ItemColor = styled.fieldset`
   display: flex;
@@ -44,8 +46,17 @@ const ItemColorButton = styled.label`
 `;
 
 class ColorPicker extends React.Component {
+  state = {
+    uid: makeUniqueId(),
+  };
+
   render() {
-    const { colors, activeChoice, onChoice } = this.props;
+    const {
+      colors,
+      activeChoice,
+      onChoice,
+      unique = this.state.uid,
+    } = this.props;
 
     return (
       <ItemColor>
@@ -53,20 +64,22 @@ class ColorPicker extends React.Component {
         <ItemsColorButtons>
           {colors.map((color) => {
             const active = color === activeChoice;
+            const uniqueId = curryDashStr("colorPicker")(unique)(color)();
+
             return (
               <div key={color}>
                 <input
                   type="radio"
                   name="size"
                   value={color}
-                  id={color}
+                  id={uniqueId}
                   checked={active}
                   onChange={() => {
                     onChoice(color);
                   }}
                 />
                 <ItemColorButton
-                  htmlFor={color}
+                  htmlFor={uniqueId}
                   active={active}
                   color={color}
                 />
