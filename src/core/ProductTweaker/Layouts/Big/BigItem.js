@@ -6,6 +6,14 @@ import SizePicker from "../../../SizePicker";
 
 const ItemWrapper = styled.div`
   display: flex;
+  padding-top: 24px;
+  padding-bottom: 32px;
+
+  border-bottom: 1px solid #e5e5e5;
+
+  &:first-child {
+    border-top: 1px solid #e5e5e5;
+  }
 `;
 
 const ItemMenus = styled.div`
@@ -41,7 +49,7 @@ const ItemPreview = styled.div`
   }
 `;
 
-class CompactItem extends React.Component {
+class BigItem extends React.Component {
   render() {
     return (
       <ItemWrapper>
@@ -86,4 +94,4 @@ class CompactItem extends React.Component {
   }
 }
 
-export default CompactItem;
+export default BigItem;

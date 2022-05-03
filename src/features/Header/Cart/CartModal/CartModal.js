@@ -3,6 +3,9 @@ import styled from "styled-components";
 import Modal from "../../../../core/Modal";
 import { ButtonFill, ButtonOutline } from "../../../../styles/global.css";
 import CompactItem from "../../../../core/ProductTweaker/Layouts/CompactItem/";
+import { Link } from "react-router-dom";
+
+import withRouter from "../../../../HOCs/withRouter";
 
 const CartModalStyle = styled.div`
   transition: all ${(props) => props.animationTime}s ease;
@@ -98,6 +101,10 @@ class CartModal extends React.Component {
     }
   }
 
+  goToCartPage = () => {
+    this.props.navigate("/cart");
+  };
+
   render() {
     const { modalVisible, animationGoing, animationTime, clickRef } =
       this.props;
@@ -137,8 +144,12 @@ class CartModal extends React.Component {
               <b>$200.00</b>
             </FooterParagraph>
             <ButtonsWrapper>
-              <ViewBagButton>View bag</ViewBagButton>
-              <CheckoutButton>Checkout</CheckoutButton>
+              <ViewBagButton onClick={this.goToCartPage}>
+                View bag
+              </ViewBagButton>
+              <CheckoutButton onClick={this.goToCartPage}>
+                Checkout
+              </CheckoutButton>
             </ButtonsWrapper>
           </CartModalContent>
         </CartModalStyle>
@@ -146,4 +157,5 @@ class CartModal extends React.Component {
     );
   }
 }
-export default CartModal;
+
+export default withRouter(CartModal);

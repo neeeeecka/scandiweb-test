@@ -1,6 +1,7 @@
 import CustomComponent from "../../core/CustomComponent";
 import styled from "styled-components";
 import ProductCard from "./ProductCard";
+import { PageTitleWrapper } from "../../styles/global.css";
 
 const ProductListingSection = styled.section`
   display: flex;
@@ -8,8 +9,6 @@ const ProductListingSection = styled.section`
 `;
 
 const Title = styled.h1`
-  font-family: "Raleway";
-  font-style: normal;
   font-weight: 400;
   font-size: 42px;
   padding: 80px 0;
