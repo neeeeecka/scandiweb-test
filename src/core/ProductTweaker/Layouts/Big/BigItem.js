@@ -2,19 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import ColorPicker from "../../ColorPicker";
 import CountPicker from "../../CountPicker";
+import { BigItemWrapper } from "../../productTweaker.css";
 import SizePicker from "../../SizePicker";
-
-export const BigItemWrapper = styled.div`
-  display: flex;
-  padding-top: 24px;
-  padding-bottom: 20px;
-
-  border-bottom: 1px solid #e5e5e5;
-
-  &:first-child {
-    border-top: 1px solid #e5e5e5;
-  }
-`;
 
 const ItemMenus = styled.div`
   flex: 1;
@@ -61,7 +50,6 @@ class BigItem extends React.Component {
           </ItemHeading>
           <ItemPrice>$50.00</ItemPrice>
           <SizePicker
-            layout="big"
             activeChoice={"S"}
             choices={[
               { label: "S", value: "S" },
@@ -72,7 +60,6 @@ class BigItem extends React.Component {
             }}
           />
           <ColorPicker
-            layout="big"
             activeChoice={"#1D1F22"}
             colors={["#5ECE7B", "#1D1F22", "#0F6450"]}
             onChoice={(choice) => {

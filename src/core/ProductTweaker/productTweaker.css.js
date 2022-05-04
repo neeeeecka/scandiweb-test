@@ -1,5 +1,16 @@
 import styled from "styled-components";
-import { BigItemWrapper } from "./Layouts/Big/BigItem";
+
+export const BigItemWrapper = styled.div`
+  display: flex;
+  padding-top: 24px;
+  padding-bottom: 20px;
+
+  border-bottom: 1px solid #e5e5e5;
+
+  &:first-child {
+    border-top: 1px solid #e5e5e5;
+  }
+`;
 
 export const PickerWrapper = styled.fieldset`
   display: flex;

@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import Icon from "../../../assets/Icon";
+import { BigItemWrapper } from "../productTweaker.css";
 
 const ItemCounter = styled.div`
   display: flex;
@@ -11,6 +12,11 @@ const ItemCounter = styled.div`
   font-size: 16px;
   text-align: center;
   padding: 0 8px;
+
+  ${BigItemWrapper} & {
+    font-size: 24px;
+    padding: 0 24px;
+  }
 `;
 
 const Button = styled.button`
@@ -26,6 +32,11 @@ const Button = styled.button`
   }
   &:active {
     background-color: #bababa;
+  }
+
+  ${BigItemWrapper} & {
+    width: 45px;
+    height: 45px;
   }
 `;
 

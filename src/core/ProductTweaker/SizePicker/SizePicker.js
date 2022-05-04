@@ -3,8 +3,11 @@ import styled from "styled-components";
 import makeUniqueId from "../../../utils/uniqueId";
 import curryDashStr from "../../../utils/curryDashStr";
 import ofLayouts from "../../../HOCs/ofLayouts";
-import { BigItemWrapper } from "../Layouts/Big/BigItem";
-import { PickerLabel, PickerWrapper } from "../productTweaker.css";
+import {
+  PickerLabel,
+  PickerWrapper,
+  BigItemWrapper,
+} from "../productTweaker.css";
 
 const SizeWrapper = styled(PickerWrapper)`
   input {
@@ -15,7 +18,7 @@ const SizeWrapper = styled(PickerWrapper)`
   }
 `;
 
-const SizeLabel = styled(PickerLabel)``;
+// const SizeLabel = styled(PickerLabel)``;
 
 const ItemsSizeButtons = styled.div`
   display: flex;
@@ -63,7 +66,7 @@ class SizePicker extends React.Component {
 
     return (
       <SizeWrapper>
-        <SizeLabel>Size:</SizeLabel>
+        <PickerLabel>Size:</PickerLabel>
         <ItemsSizeButtons>
           {choices.map(({ label, value }) => {
             const active = value === activeChoice;

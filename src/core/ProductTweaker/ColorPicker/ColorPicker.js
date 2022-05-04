@@ -3,39 +3,33 @@ import styled from "styled-components";
 import ofLayouts from "../../../HOCs/ofLayouts";
 import curryDashStr from "../../../utils/curryDashStr";
 import makeUniqueId from "../../../utils/uniqueId";
-import { PickerLabel, PickerWrapper } from "../productTweaker.css";
+import {
+  BigItemWrapper,
+  PickerLabel,
+  PickerWrapper,
+} from "../productTweaker.css";
 
-const Wrapper = styled(PickerWrapper)`
-  &:focus + label:before {
-    outline-color: black;
+const ColorWrapper = styled(PickerWrapper)`
+  input {
+    &:focus + label:before {
+      outline-color: black;
+    }
   }
 `;
 
-const getWrapper = ofLayouts({
-  default: Wrapper,
-  big: styled(Wrapper)`
-    padding: 10px 0;
-  `,
-});
+// const getWrapper = ofLayouts({
+//   default: Wrapper,
+//   big: styled(Wrapper)`
+//     padding: 10px 0;
+//   `,
+// });
 const ItemsColorButtons = styled.div`
   display: flex;
   gap: 8px;
   padding-top: 5px;
 `;
 
-const getColorLabel = ofLayouts({
-  default: styled.span`
-    font-size: 14px;
-  `,
-  big: styled.span`
-    font-weight: 700;
-    font-size: 18px;
-    text-transform: uppercase;
-    font-family: "Roboto";
-  `,
-});
-
-const ColorButtonStyle = styled.label`
+const ColorButton = styled.label`
   width: 22px;
   height: 22px;
   display: flex;
@@ -53,19 +47,16 @@ const ColorButtonStyle = styled.label`
     outline-offset: 2px;
     ${(props) => props.active && "outline-color: var(--color-primary);"}
   }
-`;
 
-const getColorButton = ofLayouts({
-  default: ColorButtonStyle,
-  big: styled(ColorButtonStyle)`
+  ${BigItemWrapper} & {
     width: 36px;
     height: 36px;
     &:before {
       width: 32px;
       height: 32px;
     }
-  `,
-});
+  }
+`;
 
 class ColorPicker extends React.Component {
   state = {
@@ -81,13 +72,9 @@ class ColorPicker extends React.Component {
       layout = "default",
     } = this.props;
 
-    const Wrapper = getWrapper(layout);
-    const ColorLabel = getColorLabel(layout);
-    const ColorButton = getColorButton(layout);
-
     return (
-      <Wrapper>
-        <ColorLabel>Color:</ColorLabel>
+      <ColorWrapper>
+        <PickerLabel>Color:</PickerLabel>
         <ItemsColorButtons>
           {colors.map((color) => {
             const active = color === activeChoice;
@@ -110,7 +97,7 @@ class ColorPicker extends React.Component {
             );
           })}
         </ItemsColorButtons>
-      </Wrapper>
+      </ColorWrapper>
     );
   }
 }
