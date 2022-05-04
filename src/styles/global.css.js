@@ -44,6 +44,7 @@ export const ButtonStyle = styled.button`
 
 export const ButtonOutline = styled(ButtonStyle)`
   border: 1px solid #1d1f22;
+  color: #1d1f22;
   &:hover,
   &:focus {
     transition: all 0.15s ease;

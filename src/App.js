@@ -12,6 +12,7 @@ const AppContainer = styled.div`
   padding: 0 80px;
   margin-top: 80px;
   position: relative;
+  padding-bottom: 100px;
 `;
 
 class App extends React.Component {

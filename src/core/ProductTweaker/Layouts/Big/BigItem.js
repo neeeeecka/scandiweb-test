@@ -26,13 +26,13 @@ const ItemPrice = styled.h2`
   font-weight: 700;
   font-size: 24px;
   margin: 0;
-  padding-top: 20px;
-  padding-bottom: 15px;
+  padding-top: 15px;
+  padding-bottom: 10px;
 `;
 
 const ItemPreview = styled.div`
   display: flex;
-  width: 120px;
+  width: 200px;
   & img {
     width: 100%;
     object-fit: cover;

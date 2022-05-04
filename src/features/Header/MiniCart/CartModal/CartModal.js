@@ -84,7 +84,6 @@ const ButtonFlex1 = (ButtonStyle) => {
     flex: 1;
     display: flex;
     text-decoration: none;
-    color: inherit;
   `;
 };
 

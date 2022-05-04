@@ -25,7 +25,7 @@ export const PickerWrapper = styled.fieldset`
   }
 
   ${BigItemWrapper} & {
-    padding: 10px 0;
+    padding-bottom: 8px;
   }
 `;
 
