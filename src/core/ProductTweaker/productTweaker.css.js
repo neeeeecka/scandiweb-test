@@ -11,6 +11,11 @@ export const BigItemWrapper = styled.div`
     border-top: 1px solid #e5e5e5;
   }
 `;
+export const FullPageItemWrapper = styled(BigItemWrapper)`
+  && {
+    border: 0;
+  }
+`;
 
 export const PickerWrapper = styled.fieldset`
   display: flex;
@@ -27,6 +32,9 @@ export const PickerWrapper = styled.fieldset`
   ${BigItemWrapper} & {
     padding-bottom: 8px;
   }
+  ${FullPageItemWrapper} & {
+    padding-bottom: 15px;
+  }
 `;
 
 export const PickerLabel = styled.span`
@@ -36,5 +44,22 @@ export const PickerLabel = styled.span`
     font-size: 18px;
     text-transform: uppercase;
     font-family: "Roboto";
+  }
+`;
+
+export const ItemHeading = styled.div`
+  h1,
+  h2 {
+    margin: 0;
+    font-weight: 600;
+    font-size: 30px;
+  }
+  h2 {
+    padding-top: 5px;
+    font-weight: 400;
+  }
+
+  ${FullPageItemWrapper} & {
+    padding-bottom: 40px;
   }
 `;

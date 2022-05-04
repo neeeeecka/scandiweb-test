@@ -7,6 +7,7 @@ import GlobalCSS from "./styles/global.css";
 import { Route, Routes } from "react-router-dom";
 import ProductListing from "./features/ProductListing";
 import CartPage from "./features/CartPage";
+import PDP from "./features/PDP";
 
 const AppContainer = styled.div`
   padding: 0 80px;
@@ -25,6 +26,7 @@ class App extends React.Component {
           <Routes>
             <Route path="/" element={<ProductListing />} />
             <Route path="/cart" element={<CartPage />} />
+            <Route path="/pdp" element={<PDP />} />
           </Routes>
         </AppContainer>
       </>
