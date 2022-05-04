@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import Icon from "../../../assets/Icon";
+import withRouter from "../../../HOCs/withRouter";
 
 const ProductCardStyle = styled.div`
   transition: all 0.25s ease;
@@ -64,14 +65,25 @@ const iconStyle = `
   filter: brightness(0) invert(1);
 `;
 
+const CardLink = styled.a`
+  cursor: pointer;
+`;
+
 class ProductCard extends React.Component {
+  goToPDP = (e) => {
+    e.preventDefault();
+    this.props.navigate("/pdp");
+  };
+
   render() {
     return (
       <ProductCardStyle>
-        <CardImage
-          src="https://via.placeholder.com/300x300"
-          alt="Product preview"
-        />
+        <CardLink href="/pdp" onClick={this.goToPDP}>
+          <CardImage
+            src="https://via.placeholder.com/300x300"
+            alt="Product preview"
+          />
+        </CardLink>
         <ButtonWrapper>
           <PopupButton aria-label="Add item to cart">
             <Icon name="cart" style={iconStyle} />
@@ -84,4 +96,4 @@ class ProductCard extends React.Component {
   }
 }
 
-export default ProductCard;
+export default withRouter(ProductCard);
