@@ -13,7 +13,7 @@ const SizeWrapper = styled(PickerWrapper)`
   input {
     &:focus + label {
       outline: 2px solid var(--color-primary);
-      outline-offset: -1px;
+      outline-offset: 2px;
     }
   }
 `;
@@ -24,6 +24,12 @@ const ItemsSizeButtons = styled.div`
   display: flex;
   gap: 8px;
   padding-top: 10px;
+  position: relative;
+  margin-left: 3px;
+
+  ${BigItemWrapper} & {
+    margin-left: 0;
+  }
 `;
 
 const SizeButton = styled.label`
@@ -33,12 +39,11 @@ const SizeButton = styled.label`
   align-items: center;
   justify-content: center;
   background: #a6a6a633;
-  border: 1px solid #a6a6a6;
+  border: 2px solid #a6a6a6;
   color: #a6a6a6;
   font-size: 14px;
   cursor: pointer;
   position: relative;
-  user-select: none;
 
   ${(props) =>
     props.active && "background: #1D1F22; border-color: #1D1F22; color: white;"}
@@ -70,13 +75,15 @@ class SizePicker extends React.Component {
         <ItemsSizeButtons>
           {choices.map(({ label, value }) => {
             const active = value === activeChoice;
-            const uniqueId = curryDashStr("sizePicker")(unique)(value)();
+
+            const uniqueName = curryDashStr("sizePicker")(unique)();
+            const uniqueId = curryDashStr(uniqueName)(value)();
 
             return (
               <div key={value}>
                 <input
                   type="radio"
-                  name="size"
+                  name={uniqueName}
                   value={value}
                   id={uniqueId}
                   checked={active}

@@ -27,6 +27,10 @@ const ItemsColorButtons = styled.div`
   display: flex;
   gap: 8px;
   padding-top: 5px;
+
+  ${BigItemWrapper} & {
+    margin-left: -2px;
+  }
 `;
 
 const ColorButton = styled.label`
@@ -78,13 +82,15 @@ class ColorPicker extends React.Component {
         <ItemsColorButtons>
           {colors.map((color) => {
             const active = color === activeChoice;
-            const uniqueId = curryDashStr("colorPicker")(unique)(color)();
+
+            const uniqueName = curryDashStr("colorPicker")(unique)();
+            const uniqueId = curryDashStr(uniqueName)(color)();
 
             return (
               <div key={color}>
                 <input
                   type="radio"
-                  name="size"
+                  name={uniqueName}
                   value={color}
                   id={uniqueId}
                   checked={active}
