@@ -1,31 +1,41 @@
 import React from "react";
 import styled from "styled-components";
-import curryDashStr from "../../utils/curryDashStr";
-import makeUniqueId from "../../utils/uniqueId";
+import ofLayouts from "../../../HOCs/ofLayouts";
+import curryDashStr from "../../../utils/curryDashStr";
+import makeUniqueId from "../../../utils/uniqueId";
+import { PickerLabel, PickerWrapper } from "../productTweaker.css";
 
-const ItemColor = styled.fieldset`
-  display: flex;
-  flex-direction: column;
-  border: 0;
-  margin: 0;
-  padding: 5px 0;
-  font-size: 14px;
-  input {
-    opacity: 0;
-    position: absolute;
-    &:focus + label:before {
-      outline-color: black;
-    }
+const Wrapper = styled(PickerWrapper)`
+  &:focus + label:before {
+    outline-color: black;
   }
 `;
 
+const getWrapper = ofLayouts({
+  default: Wrapper,
+  big: styled(Wrapper)`
+    padding: 10px 0;
+  `,
+});
 const ItemsColorButtons = styled.div`
   display: flex;
   gap: 8px;
   padding-top: 5px;
 `;
 
-const ItemColorButton = styled.label`
+const getColorLabel = ofLayouts({
+  default: styled.span`
+    font-size: 14px;
+  `,
+  big: styled.span`
+    font-weight: 700;
+    font-size: 18px;
+    text-transform: uppercase;
+    font-family: "Roboto";
+  `,
+});
+
+const ColorButtonStyle = styled.label`
   width: 22px;
   height: 22px;
   display: flex;
@@ -45,6 +55,18 @@ const ItemColorButton = styled.label`
   }
 `;
 
+const getColorButton = ofLayouts({
+  default: ColorButtonStyle,
+  big: styled(ColorButtonStyle)`
+    width: 36px;
+    height: 36px;
+    &:before {
+      width: 32px;
+      height: 32px;
+    }
+  `,
+});
+
 class ColorPicker extends React.Component {
   state = {
     uid: makeUniqueId(),
@@ -56,11 +78,16 @@ class ColorPicker extends React.Component {
       activeChoice,
       onChoice,
       unique = this.state.uid,
+      layout = "default",
     } = this.props;
 
+    const Wrapper = getWrapper(layout);
+    const ColorLabel = getColorLabel(layout);
+    const ColorButton = getColorButton(layout);
+
     return (
-      <ItemColor>
-        <span>Color:</span>
+      <Wrapper>
+        <ColorLabel>Color:</ColorLabel>
         <ItemsColorButtons>
           {colors.map((color) => {
             const active = color === activeChoice;
@@ -78,16 +105,12 @@ class ColorPicker extends React.Component {
                     onChoice(color);
                   }}
                 />
-                <ItemColorButton
-                  htmlFor={uniqueId}
-                  active={active}
-                  color={color}
-                />
+                <ColorButton htmlFor={uniqueId} active={active} color={color} />
               </div>
             );
           })}
         </ItemsColorButtons>
-      </ItemColor>
+      </Wrapper>
     );
   }
 }

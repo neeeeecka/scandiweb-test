@@ -1,18 +1,13 @@
 import React from "react";
 import styled from "styled-components";
-import makeUniqueId from "../../utils/uniqueId";
-import curryDashStr from "../../utils/curryDashStr";
+import makeUniqueId from "../../../utils/uniqueId";
+import curryDashStr from "../../../utils/curryDashStr";
+import ofLayouts from "../../../HOCs/ofLayouts";
+import { BigItemWrapper } from "../Layouts/Big/BigItem";
+import { PickerLabel, PickerWrapper } from "../productTweaker.css";
 
-const ItemSize = styled.fieldset`
-  display: flex;
-  flex-direction: column;
-  border: 0;
-  margin: 0;
-  padding: 5px 0;
-  font-size: 14px;
+const SizeWrapper = styled(PickerWrapper)`
   input {
-    opacity: 0;
-    position: absolute;
     &:focus + label {
       outline: 2px solid var(--color-primary);
       outline-offset: -1px;
@@ -20,13 +15,15 @@ const ItemSize = styled.fieldset`
   }
 `;
 
+const SizeLabel = styled(PickerLabel)``;
+
 const ItemsSizeButtons = styled.div`
   display: flex;
   gap: 8px;
   padding-top: 10px;
 `;
 
-const ItemSizeButton = styled.label`
+const SizeButton = styled.label`
   display: flex;
   width: 24px;
   height: 24px;
@@ -42,6 +39,12 @@ const ItemSizeButton = styled.label`
 
   ${(props) =>
     props.active && "background: #1D1F22; border-color: #1D1F22; color: white;"}
+
+  ${BigItemWrapper} & {
+    width: 63px;
+    height: 45px;
+    font-size: 16px;
+  }
 `;
 
 class SizePicker extends React.Component {
@@ -55,11 +58,12 @@ class SizePicker extends React.Component {
       activeChoice,
       onChoice,
       unique = this.state.uid,
+      layout = "default",
     } = this.props;
 
     return (
-      <ItemSize>
-        <span>Size:</span>
+      <SizeWrapper>
+        <SizeLabel>Size:</SizeLabel>
         <ItemsSizeButtons>
           {choices.map(({ label, value }) => {
             const active = value === activeChoice;
@@ -77,14 +81,14 @@ class SizePicker extends React.Component {
                     onChoice(value);
                   }}
                 />
-                <ItemSizeButton htmlFor={uniqueId} active={active}>
+                <SizeButton htmlFor={uniqueId} active={active}>
                   {label}
-                </ItemSizeButton>
+                </SizeButton>
               </div>
             );
           })}
         </ItemsSizeButtons>
-      </ItemSize>
+      </SizeWrapper>
     );
   }
 }

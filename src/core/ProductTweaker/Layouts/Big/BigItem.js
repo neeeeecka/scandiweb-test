@@ -1,13 +1,13 @@
 import React from "react";
 import styled from "styled-components";
-import ColorPicker from "../../../ColorPicker/ColorPicker";
-import CountPicker from "../../../CountPicker";
-import SizePicker from "../../../SizePicker";
+import ColorPicker from "../../ColorPicker";
+import CountPicker from "../../CountPicker";
+import SizePicker from "../../SizePicker";
 
-const ItemWrapper = styled.div`
+export const BigItemWrapper = styled.div`
   display: flex;
   padding-top: 24px;
-  padding-bottom: 32px;
+  padding-bottom: 20px;
 
   border-bottom: 1px solid #e5e5e5;
 
@@ -24,20 +24,21 @@ const ItemHeading = styled.div`
   h1,
   h2 {
     margin: 0;
-    font-weight: 300;
-    font-size: 16px;
+    font-weight: 600;
+    font-size: 30px;
   }
   h2 {
     padding-top: 5px;
+    font-weight: 400;
   }
 `;
 const ItemPrice = styled.h2`
   color: #1d1f22;
-  font-weight: 500;
-  font-size: 16px;
+  font-weight: 700;
+  font-size: 24px;
   margin: 0;
-  padding-top: 12px;
-  padding-bottom: 7px;
+  padding-top: 20px;
+  padding-bottom: 15px;
 `;
 
 const ItemPreview = styled.div`
@@ -52,7 +53,7 @@ const ItemPreview = styled.div`
 class BigItem extends React.Component {
   render() {
     return (
-      <ItemWrapper>
+      <BigItemWrapper>
         <ItemMenus>
           <ItemHeading>
             <h1>Apollo</h1>
@@ -60,6 +61,7 @@ class BigItem extends React.Component {
           </ItemHeading>
           <ItemPrice>$50.00</ItemPrice>
           <SizePicker
+            layout="big"
             activeChoice={"S"}
             choices={[
               { label: "S", value: "S" },
@@ -70,6 +72,7 @@ class BigItem extends React.Component {
             }}
           />
           <ColorPicker
+            layout="big"
             activeChoice={"#1D1F22"}
             colors={["#5ECE7B", "#1D1F22", "#0F6450"]}
             onChoice={(choice) => {
@@ -78,6 +81,7 @@ class BigItem extends React.Component {
           />
         </ItemMenus>
         <CountPicker
+          layout="big"
           count={0}
           onChange={(newCount) => {
             console.log(newCount);
@@ -89,7 +93,7 @@ class BigItem extends React.Component {
             alt="Aplllo Running Short"
           />
         </ItemPreview>
-      </ItemWrapper>
+      </BigItemWrapper>
     );
   }
 }

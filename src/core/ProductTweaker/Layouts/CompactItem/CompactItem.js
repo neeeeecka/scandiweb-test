@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components";
-import ColorPicker from "../../../ColorPicker/ColorPicker";
-import CountPicker from "../../../CountPicker";
-import SizePicker from "../../../SizePicker";
+import ColorPicker from "../../ColorPicker";
+import CountPicker from "../../CountPicker";
+import SizePicker from "../../SizePicker";
 
 const ItemWrapper = styled.div`
   display: flex;
