@@ -1,7 +1,8 @@
 import { Component } from "react";
 import styled from "styled-components";
-import Cart from "./Cart";
+import MiniCart from "./MiniCart";
 import CurrenctyPicker from "./CurrencyPicker";
+import withRouter from "../../HOCs/withRouter";
 
 const StyledHeader = styled.header`
   display: flex;
@@ -41,7 +42,7 @@ const RightWrapper = styled.div`
   margin-left: auto;
 `;
 
-const Logo = styled.span`
+const Logo = styled.a`
   background-image: url("/assets/logo.svg");
   width: 41px;
   height: 41px;
@@ -51,11 +52,16 @@ const Logo = styled.span`
 `;
 
 class Header extends Component {
+  goToMainPage = (e) => {
+    e.preventDefault();
+    this.props.navigate("/");
+  };
+
   render() {
     return (
       <>
         <StyledHeader>
-          <Logo />
+          <Logo href="/" onClick={this.goToMainPage} />
           <nav>
             <StyledHeaderButton selected={true}>women</StyledHeaderButton>
             <StyledHeaderButton>men</StyledHeaderButton>
@@ -63,7 +69,7 @@ class Header extends Component {
           </nav>
           <RightWrapper>
             <CurrenctyPicker />
-            <Cart />
+            <MiniCart />
           </RightWrapper>
         </StyledHeader>
       </>
@@ -71,4 +77,4 @@ class Header extends Component {
   }
 }
 
-export default Header;
+export default withRouter(Header);

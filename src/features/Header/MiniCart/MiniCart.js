@@ -45,7 +45,7 @@ const CartCounter = styled.span`
   }
 `;
 
-class Cart extends CustomComponent {
+class MiniCart extends CustomComponent {
   state = {
     animationGoing: false,
     animationTime: 150,
@@ -99,7 +99,7 @@ class Cart extends CustomComponent {
       <WrapperStyle>
         <ButtonStyle
           onClick={() => this.toggleModal()}
-          aria-label="See cart"
+          aria-label="See minicart"
           ref={this.focusRef}
         >
           <Icon name={"cart"} style={CartStyle} />
@@ -119,4 +119,4 @@ class Cart extends CustomComponent {
   }
 }
 
-export default Cart;
+export default MiniCart;

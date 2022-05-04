@@ -82,6 +82,9 @@ const ButtonsWrapper = styled.div`
 const ButtonFlex1 = (ButtonStyle) => {
   return styled(ButtonStyle)`
     flex: 1;
+    display: flex;
+    text-decoration: none;
+    color: inherit;
   `;
 };
 
@@ -101,7 +104,8 @@ class CartModal extends React.Component {
     }
   }
 
-  goToCartPage = () => {
+  goToCartPage = (e) => {
+    e.preventDefault();
     this.props.navigate("/cart");
   };
 
@@ -124,14 +128,6 @@ class CartModal extends React.Component {
             role="dialog"
             aria-modal={modalVisible}
           >
-            {/* <input
-              type="text"
-              ref={this.hiddenFocusRef}
-              style={{
-                position: "absolute",
-                opacity: 0,
-              }}
-            /> */}
             <Paragraph>
               <b>My bag</b>
               <span>, 3 items</span>
@@ -144,10 +140,10 @@ class CartModal extends React.Component {
               <b>$200.00</b>
             </FooterParagraph>
             <ButtonsWrapper>
-              <ViewBagButton onClick={this.goToCartPage}>
+              <ViewBagButton href="/cart" onClick={this.goToCartPage} as="a">
                 View bag
               </ViewBagButton>
-              <CheckoutButton onClick={this.goToCartPage}>
+              <CheckoutButton href="/cart" onClick={this.goToCartPage} as="a">
                 Checkout
               </CheckoutButton>
             </ButtonsWrapper>
