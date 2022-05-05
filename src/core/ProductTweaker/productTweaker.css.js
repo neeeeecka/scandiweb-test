@@ -12,6 +12,8 @@ export const BigItemWrapper = styled.div`
   }
 `;
 export const FullPageItemWrapper = styled(BigItemWrapper)`
+  gap: 100px;
+  margin-top: 80px;
   && {
     border: 0;
   }

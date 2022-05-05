@@ -14,8 +14,7 @@ import {
 import SizePicker from "../../SizePicker";
 
 const ItemMenus = styled.div`
-  flex: 1;
-  padding-left: 100px;
+  width: 292px;
 `;
 
 const ItemPrice = styled.h2`
@@ -37,7 +36,16 @@ const ItemPreview = styled.div`
 `;
 
 const AddToCartButton = styled(ButtonFill)`
-  width: 292px;
+  width: 100%;
+`;
+
+const ItemDescription = styled.div`
+  margin-top: 40px;
+  font-family: "Roboto";
+  font-weight: 400;
+  font-size: 16px;
+  color: #1d1f22;
+  line-height: 26px;
 `;
 
 class FullPage extends React.Component {
@@ -77,6 +85,11 @@ class FullPage extends React.Component {
             <ItemPrice>$50.00</ItemPrice>
           </PickerWrapper>
           <AddToCartButton>Add to cart</AddToCartButton>
+          <ItemDescription>
+            Find stunning women's cocktail dresses and party dresses. Stand out
+            in lace and metallic cocktail dresses and party dresses from all
+            your favorite brands.
+          </ItemDescription>
         </ItemMenus>
       </FullPageItemWrapper>
     );
