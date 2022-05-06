@@ -4,8 +4,6 @@ import MiniCart from "./MiniCart";
 import CurrenctyPicker from "./CurrencyPicker";
 import withRouter from "../../HOCs/withRouter";
 
-//test from nvim
-
 const StyledHeader = styled.header`
   display: flex;
   align-items: center;

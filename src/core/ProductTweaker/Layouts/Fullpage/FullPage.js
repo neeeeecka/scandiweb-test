@@ -1,17 +1,18 @@
-import React from "react";
-import styled from "styled-components";
-import { ButtonFill } from "../../../../styles/global.css";
-import ColorPicker from "../../ColorPicker";
+import React from 'react';
+import styled from 'styled-components';
+import { ButtonFill } from '../../../../styles/global.css';
+import BigPreview from '../../BigPreview';
+import ColorPicker from '../../ColorPicker';
 
 import {
   BigItemWrapper,
   FullPageItemWrapper,
   ItemHeading,
   PickerLabel,
-  PickerWrapper,
-} from "../../productTweaker.css";
+  PickerWrapper
+} from '../../productTweaker.css';
 
-import SizePicker from "../../SizePicker";
+import SizePicker from '../../SizePicker';
 
 const ItemMenus = styled.div`
   width: 292px;
@@ -41,7 +42,6 @@ const AddToCartButton = styled(ButtonFill)`
 
 const ItemDescription = styled.div`
   margin-top: 40px;
-  font-family: "Roboto";
   font-weight: 400;
   font-size: 16px;
   color: #1d1f22;
@@ -52,30 +52,25 @@ class FullPage extends React.Component {
   render() {
     return (
       <FullPageItemWrapper>
-        <ItemPreview>
-          <img
-            src="https://i.imgur.com/XqnXKXb.jpg"
-            alt="Aplllo Running Short"
-          />
-        </ItemPreview>
+        <BigPreview />
         <ItemMenus>
           <ItemHeading>
             <h1>Apollo</h1>
             <h2>Running Short</h2>
           </ItemHeading>
           <SizePicker
-            activeChoice={"S"}
+            activeChoice={'S'}
             choices={[
-              { label: "S", value: "S" },
-              { label: "M", value: "M" },
+              { label: 'S', value: 'S' },
+              { label: 'M', value: 'M' }
             ]}
             onChoice={(choice) => {
               console.log(choice);
             }}
           />
           <ColorPicker
-            activeChoice={"#1D1F22"}
-            colors={["#5ECE7B", "#1D1F22", "#0F6450"]}
+            activeChoice={'#1D1F22'}
+            colors={['#5ECE7B', '#1D1F22', '#0F6450']}
             onChoice={(choice) => {
               console.log(choice);
             }}
