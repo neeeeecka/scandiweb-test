@@ -3,14 +3,16 @@ import styled from 'styled-components';
 
 const PreviewWrapper = styled.div`
   display: flex;
-  width: 50%;
+  width: 60%;
+  gap: max(10px, 2.5vw);
 `;
 
 const LeftBarWrapper = styled.div`
-  width: 120px;
-  padding-right: 40px;
-  padding-left: 5px;
-  overflow: auto;
+  width: max(80px, 8vw);
+  padding: 5px;
+  margin: -5px;
+  overflow: hidden;
+  overflow-y: auto;
 `;
 
 const RightBarWrapper = styled.div`
@@ -18,9 +20,9 @@ const RightBarWrapper = styled.div`
 `;
 
 const SmallPreviewButton = styled.button`
-  transition: all 0.25s ease;
+  transition: transform 0.25s ease;
   width: 100%;
-  margin-bottom: 30px;
+  margin-bottom: max(10px, 2.5vw);
   cursor: pointer;
 
   &:hover,

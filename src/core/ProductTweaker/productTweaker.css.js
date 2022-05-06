@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const BigItemWrapper = styled.div`
   display: flex;
@@ -12,7 +12,8 @@ export const BigItemWrapper = styled.div`
   }
 `;
 export const FullPageItemWrapper = styled(BigItemWrapper)`
-  gap: 100px;
+  padding: 0;
+  gap: max(50px, calc(7vw));
   margin-top: 80px;
   && {
     border: 0;
@@ -45,7 +46,7 @@ export const PickerLabel = styled.span`
     font-weight: 700;
     font-size: 18px;
     text-transform: uppercase;
-    font-family: "Roboto";
+    font-family: 'Roboto';
   }
 `;
 
