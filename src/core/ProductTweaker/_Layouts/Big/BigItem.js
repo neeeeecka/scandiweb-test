@@ -1,21 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
-import { ButtonFill } from '../../../../styles/global.css';
-import BigPreview from '../../BigPreview';
 import ColorPicker from '../../ColorPicker';
-
-import {
-  BigItemWrapper,
-  FullPageItemWrapper,
-  ItemHeading,
-  PickerLabel,
-  PickerWrapper
-} from '../../productTweaker.css';
-
+import CountPicker from '../../CountPicker';
+import PreviewSmall from '../../PreviewSmall/';
+import { BigItemWrapper, ItemHeading } from '../../productTweaker.css';
 import SizePicker from '../../SizePicker';
 
 const ItemMenus = styled.div`
-  width: 292px;
+  flex: 1;
 `;
 
 const ItemPrice = styled.h2`
@@ -29,35 +21,23 @@ const ItemPrice = styled.h2`
 
 const ItemPreview = styled.div`
   display: flex;
-  width: 50%;
+  width: 200px;
   & img {
     width: 100%;
     object-fit: cover;
   }
 `;
 
-const AddToCartButton = styled(ButtonFill)`
-  width: 100%;
-`;
-
-const ItemDescription = styled.div`
-  margin-top: 40px;
-  font-weight: 400;
-  font-size: 16px;
-  color: #1d1f22;
-  line-height: 26px;
-`;
-
-class FullPage extends React.Component {
+class BigItem extends React.Component {
   render() {
     return (
-      <FullPageItemWrapper>
-        <BigPreview />
+      <BigItemWrapper>
         <ItemMenus>
           <ItemHeading>
             <h1>Apollo</h1>
             <h2>Running Short</h2>
           </ItemHeading>
+          <ItemPrice>$50.00</ItemPrice>
           <SizePicker
             activeChoice={'S'}
             choices={[
@@ -75,20 +55,18 @@ class FullPage extends React.Component {
               console.log(choice);
             }}
           />
-          <PickerWrapper>
-            <PickerLabel>Price:</PickerLabel>
-            <ItemPrice>$50.00</ItemPrice>
-          </PickerWrapper>
-          <AddToCartButton>Add to cart</AddToCartButton>
-          <ItemDescription>
-            Find stunning women's cocktail dresses and party dresses. Stand out
-            in lace and metallic cocktail dresses and party dresses from all
-            your favorite brands.
-          </ItemDescription>
         </ItemMenus>
-      </FullPageItemWrapper>
+        <CountPicker
+          layout="big"
+          count={0}
+          onChange={(newCount) => {
+            console.log(newCount);
+          }}
+        />
+        <PreviewSmall />
+      </BigItemWrapper>
     );
   }
 }
 
-export default FullPage;
+export default BigItem;

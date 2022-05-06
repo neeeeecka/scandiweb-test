@@ -1,11 +1,11 @@
-import React from "react";
-import styled from "styled-components";
-import Modal from "../../../../core/Modal";
-import { ButtonFill, ButtonOutline } from "../../../../styles/global.css";
-import CompactItem from "../../../../core/ProductTweaker/Layouts/CompactItem/";
-import { Link } from "react-router-dom";
+import React from 'react';
+import styled from 'styled-components';
+import Modal from '../../../../core/Modal';
+import { ButtonFill, ButtonOutline } from '../../../../styles/global.css';
+import CompactItem from '../../../../core/ProductTweaker/_Layouts/CompactItem/';
+import { Link } from 'react-router-dom';
 
-import withRouter from "../../../../HOCs/withRouter";
+import withRouter from '../../../../HOCs/withRouter';
 
 const CartModalStyle = styled.div`
   transition: all ${(props) => props.animationTime}s ease;
@@ -15,13 +15,13 @@ const CartModalStyle = styled.div`
   top: 80px;
 
   pointer-events: ${(props) =>
-    props.animationGoing || props.visible ? "auto" : "none"};
+    props.animationGoing || props.visible ? 'auto' : 'none'};
 
   opacity: ${(props) => (props.visible ? 1 : 0)};
 
   &:before {
     transition: all ${(props) => props.animationTime}s ease;
-    content: "";
+    content: '';
     display: block;
     left: 0;
     width: 100%;
@@ -42,8 +42,8 @@ const CartModalContent = styled.div`
 
   ${(props) =>
     props.visible
-      ? "left: calc(100% - 390px);"
-      : "left: 100%; visibility: hidden;"}
+      ? 'left: calc(100% - 390px);'
+      : 'left: 100%; visibility: hidden;'}
 `;
 
 const Paragraph = styled.p`
@@ -105,7 +105,7 @@ class CartModal extends React.Component {
 
   goToCartPage = (e) => {
     e.preventDefault();
-    this.props.navigate("/cart");
+    this.props.navigate('/cart');
   };
 
   render() {
