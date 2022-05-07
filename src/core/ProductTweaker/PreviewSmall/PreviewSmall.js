@@ -89,7 +89,7 @@ class PreviewSmall extends React.Component {
     setTimeout(() => {
       this.sliderRef.current.style.transitionDuration = `${this.state.transitionDuration}s`;
       this.isTransitioning = false;
-    });
+    }, 100);
   };
 
   rotatePreview = (delta) => {
