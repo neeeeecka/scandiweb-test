@@ -63,7 +63,13 @@ class BigItem extends React.Component {
             console.log(newCount);
           }}
         />
-        <PreviewSmall />
+        <PreviewSmall
+          previews={[
+            'https://via.placeholder.com/300x300&text=A',
+            'https://via.placeholder.com/300x300&text=B',
+            'https://via.placeholder.com/300x300&text=C'
+          ]}
+        />
       </BigItemWrapper>
     );
   }

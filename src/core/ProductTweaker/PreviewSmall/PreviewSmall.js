@@ -8,11 +8,6 @@ const SmallPreview = styled.div`
   position: relative;
 `;
 
-const ItemsWrapper = styled.div`
-  flex: 1;
-  background: gray;
-`;
-
 const ButtonsWrapper = styled.div`
   position: absolute;
   bottom: 0;
@@ -42,31 +37,127 @@ const IconStyle = `
     width: 8px;
 `;
 
+const ItemsWrapper = styled.div`
+  flex: 1;
+  display: flex;
+  background: gray;
+  position: relative;
+  overflow: hidden;
+`;
+
+const Slider = styled.div`
+  transition: all 1s ease;
+  flex: 1;
+  display: flex;
+`;
+
+const Item = styled.div`
+  flex-grow: 0;
+  flex-shrink: 0;
+  width: 100%;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+`;
+
 class PreviewSmall extends React.Component {
   state = {
-    selectedPreview: 0
+    selectedPreview: 0,
+    transitionDuration: 0.25
+  };
+
+  constructor(props) {
+    super(props);
+    this.sliderRef = React.createRef();
+
+    this.leftItemRef = React.createRef();
+    this.middleItemRef = React.createRef();
+    this.rightItemRef = React.createRef();
+  }
+
+  componentDidMount() {
+    this.initSlider();
+  }
+
+  initSlider = () => {
+    this.sliderRef.current.style.transitionDuration = '0s';
+    this.sliderRef.current.style.transform = `translateX(-200px)`;
+
+    setTimeout(() => {
+      this.sliderRef.current.style.transitionDuration = `${this.state.transitionDuration}s`;
+      this.isTransitioning = false;
+    });
   };
 
   rotatePreview = (delta) => {
-    this.setState({ selectedPreview: this.state.selectedPreview + delta });
+    if (!this.isTransitioning) {
+      this.isTransitioning = true;
+
+      const sliderWidth = this.sliderRef.current.offsetWidth;
+
+      const newPosition = -200 - sliderWidth * delta;
+
+      this.sliderRef.current.style.transform = `translateX(${newPosition}px)`;
+
+      const { previews } = this.props;
+      const count = previews.length;
+
+      setTimeout(() => {
+        this.setState(
+          {
+            selectedPreview: actualIndex(
+              count,
+              this.state.selectedPreview + delta
+            )
+          },
+          () => {
+            // this.stateUpdated();
+            this.initSlider();
+          }
+        );
+      }, this.state.transitionDuration * 1000);
+    }
   };
 
   render() {
     const { previews } = this.props;
+    const count = previews.length;
+
+    const itemLeft =
+      previews[actualIndex(count, this.state.selectedPreview - 1)];
+    const itemRight =
+      previews[actualIndex(count, this.state.selectedPreview + 1)];
+
+    const item = previews[this.state.selectedPreview];
 
     return (
       <SmallPreview>
-        <ItemsWrapper></ItemsWrapper>
+        <ItemsWrapper>
+          <Slider ref={this.sliderRef}>
+            <Item>
+              <img src={itemLeft} alt="preview" />
+            </Item>
+            <Item>
+              <img src={item} alt="preview" />
+            </Item>
+            <Item>
+              <img src={itemRight} alt="preview" />
+            </Item>
+          </Slider>
+        </ItemsWrapper>
         <ButtonsWrapper>
           <CaretButton
             onClick={() => this.rotatePreview(-1)}
-            aria-label="Next image"
+            aria-label="Previous image"
           >
             <Icon name="caret-left" style={IconStyle} />
           </CaretButton>
           <CaretButton
-            onClick={() => this.rotatePreview(1)}
-            aria-label="Previous image"
+            onClick={() => this.rotatePreview(+1)}
+            aria-label="Next image"
           >
             <Icon name="caret-right" style={IconStyle} />
           </CaretButton>
@@ -74,6 +165,10 @@ class PreviewSmall extends React.Component {
       </SmallPreview>
     );
   }
+}
+
+function actualIndex(count, index) {
+  return (count + index) % count;
 }
 
 export default PreviewSmall;
