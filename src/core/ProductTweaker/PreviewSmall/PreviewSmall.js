@@ -66,7 +66,7 @@ const Item = styled.div`
 class PreviewSmall extends React.Component {
   state = {
     selectedPreview: 0,
-    transitionDuration: 0.25
+    transitionDuration: 0.2
   };
 
   constructor(props) {
@@ -89,7 +89,7 @@ class PreviewSmall extends React.Component {
     setTimeout(() => {
       this.sliderRef.current.style.transitionDuration = `${this.state.transitionDuration}s`;
       this.isTransitioning = false;
-    }, 100);
+    }, 30);
   };
 
   rotatePreview = (delta) => {

@@ -19,15 +19,6 @@ const ItemPrice = styled.h2`
   padding-bottom: 10px;
 `;
 
-const ItemPreview = styled.div`
-  display: flex;
-  width: 200px;
-  & img {
-    width: 100%;
-    object-fit: cover;
-  }
-`;
-
 class BigItem extends React.Component {
   render() {
     return (
