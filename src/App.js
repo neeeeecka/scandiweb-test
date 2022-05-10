@@ -1,7 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
 import React from 'react';
-import Header from './features/Header';
+import Header from './features/Categories';
 import styled from 'styled-components';
 import GlobalCSS from './styles/global.css';
 import { Route, Routes } from 'react-router-dom';

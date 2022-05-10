@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import Modal from '../../../../core/Modal';
 import { ButtonFill, ButtonOutline } from '../../../../styles/global.css';
-import CompactItem from '../../../../core/ProductTweaker/_Layouts/CompactItem/';
+import CompactItem from '../../../../core/ProductTweaker/_Layouts/CompactItem';
 import { Link } from 'react-router-dom';
 
 import withRouter from '../../../../HOCs/withRouter';

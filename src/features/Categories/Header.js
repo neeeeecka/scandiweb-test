@@ -5,6 +5,13 @@ import CurrenctyPicker from './CurrencyPicker';
 import { fetchFromGQL } from '../../services/fetch/fetchFromGQL';
 import { GQL_GET_CATEGORIES } from '../../services/graphql/queries';
 import { Link } from 'react-router-dom';
+import {
+  categorySelected,
+  fetchCategories,
+  selectCategories,
+  selectSelectedCategory
+} from './categoriesSlice';
+import { connect } from 'react-redux';
 
 //test from nvim
 
@@ -20,7 +27,7 @@ const StyledHeader = styled.header`
   padding: 0 80px;
   height: 80px;
 
-  a {
+  :not(nav) > a {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
@@ -59,9 +66,17 @@ const Logo = styled.span`
 `;
 
 class Header extends Component {
-  async componentDidMount() {}
+  async componentDidMount() {
+    const { fetchCategories } = this.props;
+    fetchCategories();
+  }
 
   render() {
+    const { categories, selectedCategory, categorySelected } = this.props;
+    const urlParams = new URLSearchParams(window.location.search);
+    const urlCategory =
+      urlParams.get('category') || selectedCategory.name || categories[0]?.name;
+
     return (
       <>
         <StyledHeader>
@@ -69,9 +84,19 @@ class Header extends Component {
             <Logo />
           </Link>
           <nav>
-            <StyledHeaderButton selected={true}>women</StyledHeaderButton>
-            <StyledHeaderButton>men</StyledHeaderButton>
-            <StyledHeaderButton>kids</StyledHeaderButton>
+            {categories.map((category) => (
+              <Link
+                key={category.name}
+                to={`/?category=${category.name}`}
+                onClick={() => {
+                  categorySelected(category.name);
+                }}
+              >
+                <StyledHeaderButton selected={category.name === urlCategory}>
+                  {category.name}
+                </StyledHeaderButton>
+              </Link>
+            ))}
           </nav>
           <RightWrapper>
             <CurrenctyPicker />
@@ -83,4 +108,16 @@ class Header extends Component {
   }
 }
 
-export default Header;
+const mapStateToProps = (state) => {
+  return {
+    categories: selectCategories(state),
+    selectedCategory: selectSelectedCategory(state)
+  };
+};
+
+const mapDispatchToProps = {
+  fetchCategories,
+  categorySelected
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);
