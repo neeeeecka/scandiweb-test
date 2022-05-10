@@ -1,22 +1,19 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { fetchFromGQL } from '../../services/fetch/fetchFromGQL';
-import {
-  GQL_GET_CATEGORIES,
-  GQL_GET_CATEGORY
-} from '../../services/graphql/queries';
+import { GQL_GET_CATEGORY } from '../../services/graphql/queries';
 
 export const fetchCategoryItems = createAsyncThunk(
   'productListing/fetchCategoryItems',
   async (title) => {
     const { data } = await fetchFromGQL(GQL_GET_CATEGORY, { title });
-    return data.categories;
+    return data.category.products;
   }
 );
 
 export const productListingSlice = createSlice({
   name: 'productListing',
   initialState: {
-    items: [],
+    products: [],
     status: 'idle'
   },
   extraReducers(builder) {
@@ -26,8 +23,7 @@ export const productListingSlice = createSlice({
       })
       .addCase(fetchCategoryItems.fulfilled, (state, action) => {
         state.status = 'succeeded';
-        // Add any fetched posts to the array
-        state.posts = state.posts.concat(action.payload);
+        state.products = action.payload;
       })
       .addCase(fetchCategoryItems.rejected, (state, action) => {
         state.status = 'failed';
@@ -36,6 +32,6 @@ export const productListingSlice = createSlice({
   }
 });
 
-export const selectItems = (state) => state.items;
+export const selectProducts = (state) => state.productListing.products;
 
 export default productListingSlice.reducer;

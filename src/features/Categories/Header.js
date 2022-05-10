@@ -11,7 +11,9 @@ import {
   selectCategories,
   selectSelectedCategory
 } from './categoriesSlice';
+
 import { connect } from 'react-redux';
+import { fetchCategoryItems } from '../ProductListing/productListingSlice';
 
 //test from nvim
 
@@ -66,16 +68,16 @@ const Logo = styled.span`
 `;
 
 class Header extends Component {
-  async componentDidMount() {
-    const { fetchCategories } = this.props;
-    fetchCategories();
-  }
+  async componentDidMount() {}
 
   render() {
-    const { categories, selectedCategory, categorySelected } = this.props;
-    const urlParams = new URLSearchParams(window.location.search);
-    const urlCategory =
-      urlParams.get('category') || selectedCategory.name || categories[0]?.name;
+    const {
+      categories,
+      selectedCategory,
+      categorySelected,
+      fetchCategoryItems
+    } = this.props;
+    const selectedCategoryName = selectedCategory.name || categories[0]?.name;
 
     return (
       <>
@@ -90,9 +92,12 @@ class Header extends Component {
                 to={`/?category=${category.name}`}
                 onClick={() => {
                   categorySelected(category.name);
+                  fetchCategoryItems(category.name);
                 }}
               >
-                <StyledHeaderButton selected={category.name === urlCategory}>
+                <StyledHeaderButton
+                  selected={category.name === selectedCategoryName}
+                >
                   {category.name}
                 </StyledHeaderButton>
               </Link>
@@ -116,8 +121,8 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = {
-  fetchCategories,
-  categorySelected
+  categorySelected,
+  fetchCategoryItems
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Header);

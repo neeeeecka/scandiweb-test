@@ -71,6 +71,7 @@ const CardLink = styled.a`
 
 class ProductCard extends React.Component {
   render() {
+    const { name, price } = this.props;
     return (
       <ProductCardStyle>
         <Link to="/pdp">
@@ -84,8 +85,8 @@ class ProductCard extends React.Component {
             <Icon name="cart" style={iconStyle} />
           </PopupButton>
         </ButtonWrapper>
-        <CardTitle>Apollo Running Short</CardTitle>
-        <CardPrice>$50.00</CardPrice>
+        <CardTitle>{name}</CardTitle>
+        <CardPrice>${price}</CardPrice>
       </ProductCardStyle>
     );
   }

@@ -7,6 +7,9 @@ import {
   GQL_GET_CATEGORIES,
   GQL_GET_CATEGORY
 } from '../../services/graphql/queries';
+import { connect } from 'react-redux';
+import { selectSelectedCategory } from '../Categories/categoriesSlice';
+import { fetchCategoryItems, selectProducts } from './productListingSlice';
 
 const ProductListingSection = styled.section`
   display: flex;
@@ -31,20 +34,27 @@ class ProductListing extends CustomComponent {
   // static contextType = getApolloContext();
 
   async componentDidMount() {
+    const { fetchCategoryItems } = this.props;
     // const client = this.context.client;
     // const { data } = await fetchFromGQL(GQL_GET_CATEGORY, { title: 'clothes' });
     // console.log(data);
   }
 
   render() {
-    const data = [1, 2, 3, 4, 5, 6];
+    const { products, selectedCategory } = this.props;
+
+    console.log(products);
 
     return (
       <ProductListingSection>
-        <Title>Category name</Title>
+        <Title>{selectedCategory.name}</Title>
         <ProductList>
-          {data.map((item) => (
-            <ProductCard key={item} />
+          {products.map((product) => (
+            <ProductCard
+              key={product.id}
+              name={product.name}
+              price={product.prices[0].amount}
+            />
           ))}
         </ProductList>
       </ProductListingSection>
@@ -52,4 +62,15 @@ class ProductListing extends CustomComponent {
   }
 }
 
-export default ProductListing;
+const mapStateToProps = (state) => {
+  return {
+    selectedCategory: selectSelectedCategory(state),
+    products: selectProducts(state)
+  };
+};
+
+const mapDispatchToProps = {
+  fetchCategoryItems
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProductListing);

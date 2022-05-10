@@ -8,6 +8,11 @@ import { Route, Routes } from 'react-router-dom';
 import ProductListing from './features/ProductListing';
 import CartPage from './features/CartPage';
 import PDP from './features/PDP';
+import { connect } from 'react-redux';
+import {
+  fetchCategories,
+  selectSelectedCategory
+} from './features/Categories/categoriesSlice';
 
 const AppContainer = styled.div`
   padding: 0 80px;
@@ -17,6 +22,10 @@ const AppContainer = styled.div`
 `;
 
 class App extends React.Component {
+  componentDidMount() {
+    const { fetchCategories } = this.props;
+    fetchCategories();
+  }
   render() {
     return (
       <>
@@ -34,4 +43,12 @@ class App extends React.Component {
   }
 }
 
-export default App;
+const mapDispatchToProps = {
+  fetchCategories
+};
+
+const mapStateToProps = (state) => ({
+  selectedCategory: selectSelectedCategory(state)
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
