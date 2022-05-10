@@ -1,4 +1,4 @@
-import styled, { createGlobalStyle } from "styled-components";
+import styled, { createGlobalStyle } from 'styled-components';
 
 export default createGlobalStyle`
   :root{
@@ -26,13 +26,17 @@ export default createGlobalStyle`
   {
      /* display: none; */
   }
-  
+  a{
+    display: inline-flex;
+    text-decoration: none;
+    color: var(--color-text);
+  }
 `;
 
 export const ButtonStyle = styled.button`
   transition: all 0.15s ease;
   display: flex;
-  font-family: "Raleway";
+  font-family: 'Raleway';
   font-size: 14px;
   text-transform: uppercase;
   font-weight: 600;

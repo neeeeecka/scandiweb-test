@@ -1,7 +1,12 @@
-import CustomComponent from "../../core/CustomComponent";
-import styled from "styled-components";
-import ProductCard from "./ProductCard";
-import { PageTitleWrapper } from "../../styles/global.css";
+import CustomComponent from '../../core/CustomComponent';
+import styled from 'styled-components';
+import ProductCard from './ProductCard';
+import { PageTitleWrapper } from '../../styles/global.css';
+import { fetchFromGQL } from '../../services/fetch/fetchFromGQL';
+import {
+  GQL_GET_CATEGORIES,
+  GQL_GET_CATEGORY
+} from '../../services/graphql/queries';
 
 const ProductListingSection = styled.section`
   display: flex;
@@ -23,6 +28,14 @@ const ProductList = styled.div`
 `;
 
 class ProductListing extends CustomComponent {
+  // static contextType = getApolloContext();
+
+  async componentDidMount() {
+    // const client = this.context.client;
+    // const { data } = await fetchFromGQL(GQL_GET_CATEGORY, { title: 'clothes' });
+    // console.log(data);
+  }
+
   render() {
     const data = [1, 2, 3, 4, 5, 6];
 

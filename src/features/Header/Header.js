@@ -1,8 +1,10 @@
-import { Component } from "react";
-import styled from "styled-components";
-import MiniCart from "./MiniCart";
-import CurrenctyPicker from "./CurrencyPicker";
-import withRouter from "../../HOCs/withRouter";
+import { Component } from 'react';
+import styled from 'styled-components';
+import MiniCart from './MiniCart';
+import CurrenctyPicker from './CurrencyPicker';
+import { fetchFromGQL } from '../../services/fetch/fetchFromGQL';
+import { GQL_GET_CATEGORIES } from '../../services/graphql/queries';
+import { Link } from 'react-router-dom';
 
 //test from nvim
 
@@ -17,6 +19,12 @@ const StyledHeader = styled.header`
   z-index: 3;
   padding: 0 80px;
   height: 80px;
+
+  a {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
 `;
 
 const StyledHeaderButton = styled.button`
@@ -28,8 +36,8 @@ const StyledHeaderButton = styled.button`
   border-bottom: 2px solid white;
   ${(props) =>
     props.selected
-      ? "border-color: var(--color-primary); color: var(--color-primary);"
-      : ""}
+      ? 'border-color: var(--color-primary); color: var(--color-primary);'
+      : ''}
   &:hover, &:focus {
     color: var(--color-primary);
     border-color: var(--color-primary);
@@ -44,26 +52,22 @@ const RightWrapper = styled.div`
   margin-left: auto;
 `;
 
-const Logo = styled.a`
-  background-image: url("/assets/logo.svg");
+const Logo = styled.span`
+  background-image: url('/assets/logo.svg');
   width: 41px;
   height: 41px;
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
 `;
 
 class Header extends Component {
-  goToMainPage = (e) => {
-    e.preventDefault();
-    this.props.navigate("/");
-  };
+  async componentDidMount() {}
 
   render() {
     return (
       <>
         <StyledHeader>
-          <Logo href="/" onClick={this.goToMainPage} />
+          <Link to="/">
+            <Logo />
+          </Link>
           <nav>
             <StyledHeaderButton selected={true}>women</StyledHeaderButton>
             <StyledHeaderButton>men</StyledHeaderButton>
@@ -79,4 +83,4 @@ class Header extends Component {
   }
 }
 
-export default withRouter(Header);
+export default Header;
