@@ -1,9 +1,14 @@
-import React from "react";
-import { useSelector, useDispatch, connect } from "react-redux";
-import styled from "styled-components";
-import Icon from "../../../assets/Icon";
-import handleClickOutsideModal from "../../../handlers/handleClickOutsideModal";
-import CustomComponent from "../../../core/CustomComponent";
+import React from 'react';
+import { useSelector, useDispatch, connect } from 'react-redux';
+import styled from 'styled-components';
+import Icon from '../../../assets/Icon';
+import handleClickOutsideModal from '../../../handlers/handleClickOutsideModal';
+import CustomComponent from '../../../core/CustomComponent';
+import {
+  selectCurrencies,
+  selectSelectedCurrency,
+  selectCurrency
+} from './currencySlice';
 
 const ButtonWrapperStyle = styled.div`
   cursor: pointer;
@@ -37,7 +42,7 @@ const CurrencyDropdownStyle = styled.div`
   font-size: inherit;
   background: white;
   filter: drop-shadow(0px 4px 35px rgba(168, 172, 176, 0.19));
-  ${(props) => (props.visible ? "display: flex;" : "display: none;")}
+  ${(props) => (props.visible ? 'display: flex;' : 'display: none;')}
 `;
 
 const CurrencyDropdownButton = styled.button`
@@ -54,6 +59,7 @@ const CurrencyDropdownButton = styled.button`
     transition: all 0.25s ease;
     background: #eeeeee;
   }
+  ${(props) => (props.selected ? 'background: #eeeeee;' : '')}
 `;
 
 class CurrencyPicker extends CustomComponent {
@@ -90,15 +96,22 @@ class CurrencyPicker extends CustomComponent {
     this.setState({ menuVisible: false });
   };
 
-  chooseCurrency = (currency) => {
-    // redux...
+  chooseCurrency = (currencyLabel) => {
+    const { currencies, selectCurrency, selectedCurrency } = this.props;
+
+    const currencyIndex = currencies.findIndex(
+      (currency) => currency.label === currencyLabel
+    );
+
+    selectCurrency(currencyIndex);
+
     this.toggleMenu();
   };
 
   render() {
     const { menuVisible } = this.state;
 
-    const currencies = { $: "USD", "€": "EUR", "£": "GBP" };
+    const { currencies, selectedCurrency } = this.props;
 
     return (
       <ButtonWrapperStyle>
@@ -108,18 +121,19 @@ class CurrencyPicker extends CustomComponent {
         >
           <span>$</span>
           <Icon
-            name={menuVisible ? "arrow-up" : "arrow-down"}
+            name={menuVisible ? 'arrow-up' : 'arrow-down'}
             style={ArrowDown}
           />
         </ButtonStyle>
         <CurrencyDropdownStyle visible={menuVisible} ref={this.clickRef}>
-          {Object.keys(currencies).map((currency) => (
+          {currencies.map(({ label, symbol }) => (
             <CurrencyDropdownButton
-              key={currency}
-              onClick={() => this.chooseCurrency(currency)}
+              selected={currencies[selectedCurrency].label === label}
+              key={label}
+              onClick={() => this.chooseCurrency(label)}
             >
-              <span>{currency}</span>
-              <span>{currencies[currency]}</span>
+              <span>{symbol}</span>
+              <span>{label}</span>
             </CurrencyDropdownButton>
           ))}
         </CurrencyDropdownStyle>
@@ -128,4 +142,13 @@ class CurrencyPicker extends CustomComponent {
   }
 }
 
-export default CurrencyPicker;
+const mapStateToProps = (state) => ({
+  currencies: selectCurrencies(state),
+  selectedCurrency: selectSelectedCurrency(state)
+});
+
+const mapDispatchToProps = {
+  selectCurrency
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(CurrencyPicker);

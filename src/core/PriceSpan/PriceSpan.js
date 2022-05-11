@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { selectSelectedCurrency } from '../../features/Categories/CurrencyPicker/currencySlice';
 
 class PriceSpan extends React.Component {
   render() {
@@ -18,7 +19,7 @@ class PriceSpan extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  selectedCurrency: 0
+  selectedCurrency: selectSelectedCurrency(state)
 });
 
 export default connect(mapStateToProps)(PriceSpan);

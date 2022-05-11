@@ -12,8 +12,7 @@ import {
 const SizeWrapper = styled(PickerWrapper)`
   input {
     &:focus + label {
-      outline: 2px solid var(--color-primary);
-      outline-offset: 2px;
+      border-color: black;
     }
   }
 `;
@@ -33,38 +32,40 @@ const ItemsSizeButtons = styled.div`
 `;
 
 const SizeButton = styled.label`
+  font-family: 'Roboto', sans-serif;
+
   display: flex;
-  width: 24px;
-  height: 24px;
   align-items: center;
   justify-content: center;
   border: 2px solid #a6a6a6;
   font-size: 14px;
+  font-weight: 500;
   cursor: pointer;
   position: relative;
 
+  color: #282828;
+
   ${(props) =>
-    props.active && 'background: #1D1F22; border-color: #1D1F22; color: white;'}
+    props.active &&
+    `
+    background: #1D1F22; 
+    border-color: #1D1F22; 
+    color: white;
+    
+    `}
 
   &:hover {
     border-color: black;
+    color: black;
   }
 
   ${BigItemWrapper} & {
-    width: 50px;
-    height: 45px;
+    padding: 8px 15px;
     font-size: 16px;
   }
 `;
 
-const textToSizeSymbols = {
-  Small: 'S',
-  Medium: 'M',
-  Large: 'L',
-  'Extra Large': 'XL'
-};
-
-class SizePicker extends React.Component {
+class TextPicker extends React.Component {
   state = {
     uid: makeUniqueId()
   };
@@ -72,10 +73,10 @@ class SizePicker extends React.Component {
   render() {
     const {
       items,
+      name,
       activeChoice,
       onChoice,
-      unique = this.state.uid,
-      layout = 'default'
+      unique = this.state.uid
     } = this.props;
 
     if (!items) {
@@ -84,12 +85,12 @@ class SizePicker extends React.Component {
 
     return (
       <SizeWrapper>
-        <PickerLabel>Size:</PickerLabel>
+        <PickerLabel>{name}:</PickerLabel>
         <ItemsSizeButtons>
           {items.map(({ displayValue, value }) => {
             const active = value === activeChoice;
 
-            const uniqueName = curryDashStr('sizePicker')(unique)();
+            const uniqueName = curryDashStr('textPicker')(unique)();
             const uniqueId = curryDashStr(uniqueName)(value)();
 
             return (
@@ -105,9 +106,7 @@ class SizePicker extends React.Component {
                   }}
                 />
                 <SizeButton htmlFor={uniqueId} active={active}>
-                  {Number(displayValue)
-                    ? displayValue
-                    : textToSizeSymbols[displayValue]}
+                  {displayValue}
                 </SizeButton>
               </div>
             );
@@ -118,4 +117,4 @@ class SizePicker extends React.Component {
   }
 }
 
-export default SizePicker;
+export default TextPicker;

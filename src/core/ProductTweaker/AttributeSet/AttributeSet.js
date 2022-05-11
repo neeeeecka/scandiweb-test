@@ -2,6 +2,7 @@ import ColorPicker from './ColorPicker';
 import SizePicker from './SizePicker';
 
 import React from 'react';
+import TextPicker from './TextPicker/TextPicker';
 
 class AttributeSet extends React.Component {
   render() {
@@ -14,7 +15,7 @@ class AttributeSet extends React.Component {
             case 'Size':
               return (
                 <SizePicker
-                  key={attribute.id}
+                  key={attribute.name}
                   items={attribute.items}
                   onChoice={(value) => {
                     onChange('Size', value);
@@ -24,7 +25,7 @@ class AttributeSet extends React.Component {
             case 'Color':
               return (
                 <ColorPicker
-                  key={attribute.id}
+                  key={attribute.name}
                   items={attribute.items}
                   onChoice={(value) => {
                     onChange('Color', value);
@@ -32,7 +33,16 @@ class AttributeSet extends React.Component {
                 />
               );
             default:
-              return null;
+              return (
+                <TextPicker
+                  key={attribute.name}
+                  items={attribute.items}
+                  name={attribute.name}
+                  onChoice={(value) => {
+                    onChange(attribute.name, value);
+                  }}
+                />
+              );
           }
         })}
       </>

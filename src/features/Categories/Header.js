@@ -68,8 +68,6 @@ const Logo = styled.span`
 `;
 
 class Header extends Component {
-  async componentDidMount() {}
-
   render() {
     const {
       categories,

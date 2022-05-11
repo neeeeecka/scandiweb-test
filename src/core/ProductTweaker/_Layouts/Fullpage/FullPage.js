@@ -59,7 +59,7 @@ class FullPage extends React.Component {
 
     if (product) {
       const { name, brand, prices, gallery, description, attributes } = product;
-      console.log(attributes);
+
       return (
         <FullPageItemWrapper>
           {gallery && <PreviewBig previews={gallery} />}

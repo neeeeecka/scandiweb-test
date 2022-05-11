@@ -13,6 +13,10 @@ import {
   fetchCategories,
   selectSelectedCategory
 } from './features/Categories/categoriesSlice';
+import {
+  fetchCurrencies,
+  selectCurrencies
+} from './features/Categories/CurrencyPicker/currencySlice';
 
 const AppContainer = styled.div`
   padding: 0 80px;
@@ -23,17 +27,18 @@ const AppContainer = styled.div`
 
 class App extends React.Component {
   componentDidMount() {
-    const { fetchCategories } = this.props;
+    const { fetchCategories, fetchCurrencies } = this.props;
     fetchCategories();
+    fetchCurrencies();
   }
   render() {
-    const { selectedCategory } = this.props;
+    const { selectedCategory, currencies } = this.props;
 
     return (
       <>
         <GlobalCSS />
         <AppContainer>
-          <Header />
+          {selectedCategory && currencies && <Header />}
           <Routes>
             <Route path="/cart" element={<CartPage />} />
             <Route path="/pdp" element={<PDP />} />
@@ -49,11 +54,13 @@ class App extends React.Component {
 }
 
 const mapDispatchToProps = {
-  fetchCategories
+  fetchCategories,
+  fetchCurrencies
 };
 
 const mapStateToProps = (state) => ({
-  selectedCategory: selectSelectedCategory(state)
+  selectedCategory: selectSelectedCategory(state),
+  currencies: selectCurrencies(state)
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
