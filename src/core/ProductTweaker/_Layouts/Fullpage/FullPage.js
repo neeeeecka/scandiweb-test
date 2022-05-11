@@ -2,7 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 import { ButtonFill } from '../../../../styles/global.css';
 import PreviewBig from '../../PreviewBig';
-import ColorPicker from '../../ColorPicker';
+
+import ColorPicker from '../../AttributeSet/ColorPicker';
+import SizePicker from '../../AttributeSet/SizePicker';
 
 import {
   BigItemWrapper,
@@ -12,12 +14,12 @@ import {
   PickerWrapper
 } from '../../productTweaker.css';
 
-import SizePicker from '../../SizePicker';
 import { connect } from 'react-redux';
 import {
   selectProductById,
   fetchProductAdditionals
 } from '../../../../features/ProductListing/productListingSlice';
+
 import PriceSpan from '../../../PriceSpan';
 
 const ItemMenus = styled.div`
@@ -45,6 +47,8 @@ const ItemDescription = styled.div`
   line-height: 26px;
 `;
 
+const attributeComponents = {};
+
 class FullPage extends React.Component {
   componentDidMount() {
     const { fetchProductAdditionals, id } = this.props;
@@ -56,6 +60,7 @@ class FullPage extends React.Component {
 
     if (product) {
       const { name, brand, prices, gallery, description, attributes } = product;
+      console.log(attributes);
       return (
         <FullPageItemWrapper>
           {gallery && <PreviewBig previews={gallery} />}
@@ -86,11 +91,11 @@ class FullPage extends React.Component {
               <ItemPrice>{prices && <PriceSpan prices={prices} />}</ItemPrice>
             </PickerWrapper>
             <AddToCartButton>Add to cart</AddToCartButton>
-            <ItemDescription>
-              Find stunning women's cocktail dresses and party dresses. Stand
-              out in lace and metallic cocktail dresses and party dresses from
-              all your favorite brands.
-            </ItemDescription>
+            <ItemDescription
+              dangerouslySetInnerHTML={{
+                __html: description
+              }}
+            ></ItemDescription>
           </ItemMenus>
         </FullPageItemWrapper>
       );

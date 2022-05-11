@@ -1,8 +1,8 @@
-import React from "react";
-import styled from "styled-components";
-import ColorPicker from "../../ColorPicker";
-import CountPicker from "../../CountPicker";
-import SizePicker from "../../SizePicker";
+import React from 'react';
+import styled from 'styled-components';
+import ColorPicker from '../../AttributeSet/ColorPicker';
+import CountPicker from '../../AttributeSet/CountPicker';
+import SizePicker from '../../AttributeSet/SizePicker';
 
 const ItemWrapper = styled.div`
   display: flex;
@@ -52,18 +52,18 @@ class CompactItem extends React.Component {
           </ItemHeading>
           <ItemPrice>$50.00</ItemPrice>
           <SizePicker
-            activeChoice={"S"}
+            activeChoice={'S'}
             choices={[
-              { label: "S", value: "S" },
-              { label: "M", value: "M" },
+              { label: 'S', value: 'S' },
+              { label: 'M', value: 'M' }
             ]}
             onChoice={(choice) => {
               console.log(choice);
             }}
           />
           <ColorPicker
-            activeChoice={"#1D1F22"}
-            colors={["#5ECE7B", "#1D1F22", "#0F6450"]}
+            activeChoice={'#1D1F22'}
+            colors={['#5ECE7B', '#1D1F22', '#0F6450']}
             onChoice={(choice) => {
               console.log(choice);
             }}

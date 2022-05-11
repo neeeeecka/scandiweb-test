@@ -1,13 +1,13 @@
-import React from "react";
-import styled from "styled-components";
-import makeUniqueId from "../../../utils/uniqueId";
-import curryDashStr from "../../../utils/curryDashStr";
-import ofLayouts from "../../../HOCs/ofLayouts";
+import React from 'react';
+import styled from 'styled-components';
+import makeUniqueId from '../../../../utils/uniqueId';
+import curryDashStr from '../../../../utils/curryDashStr';
+
 import {
   PickerLabel,
   PickerWrapper,
-  BigItemWrapper,
-} from "../productTweaker.css";
+  BigItemWrapper
+} from '../../productTweaker.css';
 
 const SizeWrapper = styled(PickerWrapper)`
   input {
@@ -46,7 +46,7 @@ const SizeButton = styled.label`
   position: relative;
 
   ${(props) =>
-    props.active && "background: #1D1F22; border-color: #1D1F22; color: white;"}
+    props.active && 'background: #1D1F22; border-color: #1D1F22; color: white;'}
 
   ${BigItemWrapper} & {
     width: 63px;
@@ -57,7 +57,7 @@ const SizeButton = styled.label`
 
 class SizePicker extends React.Component {
   state = {
-    uid: makeUniqueId(),
+    uid: makeUniqueId()
   };
 
   render() {
@@ -66,7 +66,7 @@ class SizePicker extends React.Component {
       activeChoice,
       onChoice,
       unique = this.state.uid,
-      layout = "default",
+      layout = 'default'
     } = this.props;
 
     return (
@@ -76,7 +76,7 @@ class SizePicker extends React.Component {
           {choices.map(({ label, value }) => {
             const active = value === activeChoice;
 
-            const uniqueName = curryDashStr("sizePicker")(unique)();
+            const uniqueName = curryDashStr('sizePicker')(unique)();
             const uniqueId = curryDashStr(uniqueName)(value)();
 
             return (

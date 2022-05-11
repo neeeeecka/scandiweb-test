@@ -1,10 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
-import ColorPicker from '../../ColorPicker';
-import CountPicker from '../../CountPicker';
+import ColorPicker from '../../AttributeSet/ColorPicker';
+import CountPicker from '../../AttributeSet/CountPicker';
+import SizePicker from '../../AttributeSet/SizePicker';
+
 import PreviewSmall from '../../PreviewSmall/';
 import { BigItemWrapper, ItemHeading } from '../../productTweaker.css';
-import SizePicker from '../../SizePicker';
 
 const ItemMenus = styled.div`
   flex: 1;

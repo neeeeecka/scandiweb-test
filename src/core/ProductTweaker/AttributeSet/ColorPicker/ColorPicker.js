@@ -1,13 +1,13 @@
-import React from "react";
-import styled from "styled-components";
-import ofLayouts from "../../../HOCs/ofLayouts";
-import curryDashStr from "../../../utils/curryDashStr";
-import makeUniqueId from "../../../utils/uniqueId";
+import React from 'react';
+import styled from 'styled-components';
+import curryDashStr from '../../../../utils/curryDashStr';
+import makeUniqueId from '../../../../utils/uniqueId';
+
 import {
   BigItemWrapper,
   PickerLabel,
-  PickerWrapper,
-} from "../productTweaker.css";
+  PickerWrapper
+} from '../../productTweaker.css';
 
 const ColorWrapper = styled(PickerWrapper)`
   input {
@@ -41,7 +41,7 @@ const ColorButton = styled.label`
   position: relative;
 
   &:before {
-    content: "";
+    content: '';
     display: inline-block;
     background: ${(props) => props.color};
     width: 16px;
@@ -49,7 +49,7 @@ const ColorButton = styled.label`
     margin: auto;
     outline: 2px solid transparent;
     outline-offset: 2px;
-    ${(props) => props.active && "outline-color: var(--color-primary);"}
+    ${(props) => props.active && 'outline-color: var(--color-primary);'}
   }
 
   ${BigItemWrapper} & {
@@ -64,7 +64,7 @@ const ColorButton = styled.label`
 
 class ColorPicker extends React.Component {
   state = {
-    uid: makeUniqueId(),
+    uid: makeUniqueId()
   };
 
   render() {
@@ -73,7 +73,7 @@ class ColorPicker extends React.Component {
       activeChoice,
       onChoice,
       unique = this.state.uid,
-      layout = "default",
+      layout = 'default'
     } = this.props;
 
     return (
@@ -83,7 +83,7 @@ class ColorPicker extends React.Component {
           {colors.map((color) => {
             const active = color === activeChoice;
 
-            const uniqueName = curryDashStr("colorPicker")(unique)();
+            const uniqueName = curryDashStr('colorPicker')(unique)();
             const uniqueId = curryDashStr(uniqueName)(color)();
 
             return (
