@@ -9,7 +9,12 @@ import {
 } from '../../services/graphql/queries';
 import { connect } from 'react-redux';
 import { selectSelectedCategory } from '../Categories/categoriesSlice';
-import { fetchCategoryItems, selectProducts } from './productListingSlice';
+import {
+  fetchCategoryItems,
+  selectAllPosts,
+  selectAllProducts,
+  selectProducts
+} from './productListingSlice';
 
 const ProductListingSection = styled.section`
   display: flex;
@@ -41,20 +46,14 @@ class ProductListing extends CustomComponent {
   }
 
   render() {
-    const { products, selectedCategory } = this.props;
-
-    console.log(products);
+    const { selectedCategory, products } = this.props;
 
     return (
       <ProductListingSection>
         <Title>{selectedCategory.name}</Title>
         <ProductList>
           {products.map((product) => (
-            <ProductCard
-              key={product.id}
-              name={product.name}
-              price={product.prices[0].amount}
-            />
+            <ProductCard key={product.id} id={product.id} />
           ))}
         </ProductList>
       </ProductListingSection>
@@ -65,7 +64,7 @@ class ProductListing extends CustomComponent {
 const mapStateToProps = (state) => {
   return {
     selectedCategory: selectSelectedCategory(state),
-    products: selectProducts(state)
+    products: selectAllProducts(state)
   };
 };
 

@@ -15,12 +15,14 @@ export const GQL_GET_CATEGORY = gql`
       products {
         id
         name
+        inStock
         prices {
           currency {
             symbol
           }
           amount
         }
+        gallery
       }
     }
   }

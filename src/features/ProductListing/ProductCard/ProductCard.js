@@ -1,7 +1,9 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import Icon from '../../../assets/Icon';
+import { selectProductById } from '../productListingSlice';
 
 const ProductCardStyle = styled.div`
   transition: all 0.25s ease;
@@ -71,14 +73,21 @@ const CardLink = styled.a`
 
 class ProductCard extends React.Component {
   render() {
-    const { name, price } = this.props;
+    const { product } = this.props;
+
+    const selectedCurrency = 0;
+
+    const { id, name, prices, gallery } = product;
+
+    const price = prices[selectedCurrency].amount;
+    const currencySymbol = prices[selectedCurrency].currency.symbol;
+
+    const image = gallery[0];
+
     return (
       <ProductCardStyle>
         <Link to="/pdp">
-          <CardImage
-            src="https://via.placeholder.com/300x300"
-            alt="Product preview"
-          />
+          <CardImage src={image} alt="Product preview" />
         </Link>
         <ButtonWrapper>
           <PopupButton aria-label="Add item to cart">
@@ -86,10 +95,17 @@ class ProductCard extends React.Component {
           </PopupButton>
         </ButtonWrapper>
         <CardTitle>{name}</CardTitle>
-        <CardPrice>${price}</CardPrice>
+        <CardPrice>
+          {currencySymbol}
+          {price}
+        </CardPrice>
       </ProductCardStyle>
     );
   }
 }
 
-export default ProductCard;
+const mapStateToProps = (state, ownProps) => ({
+  product: selectProductById(state, ownProps.id)
+});
+
+export default connect(mapStateToProps)(ProductCard);
