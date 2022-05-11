@@ -55,6 +55,13 @@ const SizeButton = styled.label`
   }
 `;
 
+const textToSizeSymbols = {
+  Small: 'S',
+  Medium: 'M',
+  Large: 'L',
+  'Extra Large': 'XL'
+};
+
 class SizePicker extends React.Component {
   state = {
     uid: makeUniqueId()
@@ -62,18 +69,22 @@ class SizePicker extends React.Component {
 
   render() {
     const {
-      choices,
+      items,
       activeChoice,
       onChoice,
       unique = this.state.uid,
       layout = 'default'
     } = this.props;
 
+    if (!items) {
+      return null;
+    }
+
     return (
       <SizeWrapper>
         <PickerLabel>Size:</PickerLabel>
         <ItemsSizeButtons>
-          {choices.map(({ label, value }) => {
+          {items.map(({ displayValue, value }) => {
             const active = value === activeChoice;
 
             const uniqueName = curryDashStr('sizePicker')(unique)();
@@ -92,7 +103,9 @@ class SizePicker extends React.Component {
                   }}
                 />
                 <SizeButton htmlFor={uniqueId} active={active}>
-                  {label}
+                  {Number(displayValue)
+                    ? displayValue
+                    : textToSizeSymbols[displayValue]}
                 </SizeButton>
               </div>
             );

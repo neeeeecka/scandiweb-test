@@ -5,6 +5,7 @@ import Icon from '../../../assets/Icon';
 const SmallPreview = styled.div`
   display: flex;
   width: 200px;
+  min-height: 280px;
   position: relative;
 `;
 

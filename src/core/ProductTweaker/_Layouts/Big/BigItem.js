@@ -1,8 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
+
 import ColorPicker from '../../AttributeSet/ColorPicker';
-import CountPicker from '../../AttributeSet/CountPicker';
 import SizePicker from '../../AttributeSet/SizePicker';
+import CountPicker from '../../CountPicker';
 
 import PreviewSmall from '../../PreviewSmall/';
 import { BigItemWrapper, ItemHeading } from '../../productTweaker.css';

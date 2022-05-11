@@ -1,8 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
+
 import ColorPicker from '../../AttributeSet/ColorPicker';
-import CountPicker from '../../AttributeSet/CountPicker';
 import SizePicker from '../../AttributeSet/SizePicker';
+import CountPicker from '../../CountPicker';
 
 const ItemWrapper = styled.div`
   display: flex;
@@ -53,7 +54,7 @@ class CompactItem extends React.Component {
           <ItemPrice>$50.00</ItemPrice>
           <SizePicker
             activeChoice={'S'}
-            choices={[
+            items={[
               { label: 'S', value: 'S' },
               { label: 'M', value: 'M' }
             ]}

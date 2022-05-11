@@ -5,6 +5,7 @@ import PreviewBig from '../../PreviewBig';
 
 import ColorPicker from '../../AttributeSet/ColorPicker';
 import SizePicker from '../../AttributeSet/SizePicker';
+import AttributeSet from '../../AttributeSet/';
 
 import {
   BigItemWrapper,
@@ -47,8 +48,6 @@ const ItemDescription = styled.div`
   line-height: 26px;
 `;
 
-const attributeComponents = {};
-
 class FullPage extends React.Component {
   componentDidMount() {
     const { fetchProductAdditionals, id } = this.props;
@@ -69,23 +68,15 @@ class FullPage extends React.Component {
               <h1>{brand}</h1>
               <h2>{name}</h2>
             </ItemHeading>
-            <SizePicker
-              activeChoice={'S'}
-              choices={[
-                { label: 'S', value: 'S' },
-                { label: 'M', value: 'M' }
-              ]}
-              onChoice={(choice) => {
-                console.log(choice);
-              }}
-            />
-            <ColorPicker
-              activeChoice={'#1D1F22'}
-              colors={['#5ECE7B', '#1D1F22', '#0F6450']}
-              onChoice={(choice) => {
-                console.log(choice);
-              }}
-            />
+            {attributes && (
+              <AttributeSet
+                attributes={attributes}
+                onChange={(attribute, value) => {
+                  console.log(attribute, value, id);
+                }}
+              />
+            )}
+
             <PickerWrapper>
               <PickerLabel>Price:</PickerLabel>
               <ItemPrice>{prices && <PriceSpan prices={prices} />}</ItemPrice>

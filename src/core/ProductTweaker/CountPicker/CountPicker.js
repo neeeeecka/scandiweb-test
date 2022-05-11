@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import Icon from '../../../../assets/Icon';
-import { BigItemWrapper } from '../../productTweaker.css';
+import Icon from '../../../assets/Icon';
+import { BigItemWrapper } from '../productTweaker.css';
 
 const ItemCounter = styled.div`
   display: flex;

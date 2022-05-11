@@ -13,25 +13,25 @@ const handleClickOutsideModal = (ref, callback) => {
      */
     if (transitionFinished.current) {
       if (ref.current && !ref.current.contains(e.target)) {
-        console.log(ref.current, e.target);
+        // console.log(ref.current, e.target);
         callback();
       }
     }
   };
 
   const isEscapeKey = (e) => {
-    if (e.key === "Escape") {
+    if (e.key === 'Escape') {
       callback();
     }
   };
 
   // console.log("Init");
-  document.addEventListener("click", handleClick);
-  document.addEventListener("keydown", isEscapeKey);
+  document.addEventListener('click', handleClick);
+  document.addEventListener('keydown', isEscapeKey);
 
   const cleanup = () => {
-    document.removeEventListener("click", handleClick);
-    document.removeEventListener("keydown", isEscapeKey);
+    document.removeEventListener('click', handleClick);
+    document.removeEventListener('keydown', isEscapeKey);
   };
 
   /**

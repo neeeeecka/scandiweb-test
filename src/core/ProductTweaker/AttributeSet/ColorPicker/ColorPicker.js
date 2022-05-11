@@ -69,36 +69,40 @@ class ColorPicker extends React.Component {
 
   render() {
     const {
-      colors,
+      items,
       activeChoice,
       onChoice,
       unique = this.state.uid,
       layout = 'default'
     } = this.props;
 
+    if (!items) {
+      return null;
+    }
+
     return (
       <ColorWrapper>
         <PickerLabel>Color:</PickerLabel>
         <ItemsColorButtons>
-          {colors.map((color) => {
-            const active = color === activeChoice;
+          {items.map(({ value }) => {
+            const active = value === activeChoice;
 
             const uniqueName = curryDashStr('colorPicker')(unique)();
-            const uniqueId = curryDashStr(uniqueName)(color)();
+            const uniqueId = curryDashStr(uniqueName)(value)();
 
             return (
-              <div key={color}>
+              <div key={value}>
                 <input
                   type="radio"
                   name={uniqueName}
-                  value={color}
+                  value={value}
                   id={uniqueId}
                   checked={active}
                   onChange={() => {
-                    onChoice(color);
+                    onChoice(value);
                   }}
                 />
-                <ColorButton htmlFor={uniqueId} active={active} color={color} />
+                <ColorButton htmlFor={uniqueId} active={active} color={value} />
               </div>
             );
           })}
