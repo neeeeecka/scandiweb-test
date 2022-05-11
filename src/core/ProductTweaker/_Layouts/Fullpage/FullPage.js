@@ -13,6 +13,9 @@ import {
 } from '../../productTweaker.css';
 
 import SizePicker from '../../SizePicker';
+import { connect } from 'react-redux';
+import { selectProductById } from '../../../../features/ProductListing/productListingSlice';
+import PriceSpan from '../../../PriceSpan';
 
 const ItemMenus = styled.div`
   width: 292px;
@@ -41,51 +44,59 @@ const ItemDescription = styled.div`
 
 class FullPage extends React.Component {
   render() {
-    return (
-      <FullPageItemWrapper>
-        <PreviewBig
-          previews={[
-            'https://via.placeholder.com/300x300?text=hello',
-            'https://via.placeholder.com/300x300?text=two',
-            'https://via.placeholder.com/300x300?text=three'
-          ]}
-        />
-        <ItemMenus>
-          <ItemHeading>
-            <h1>Apollo</h1>
-            <h2>Running Short</h2>
-          </ItemHeading>
-          <SizePicker
-            activeChoice={'S'}
-            choices={[
-              { label: 'S', value: 'S' },
-              { label: 'M', value: 'M' }
-            ]}
-            onChoice={(choice) => {
-              console.log(choice);
-            }}
-          />
-          <ColorPicker
-            activeChoice={'#1D1F22'}
-            colors={['#5ECE7B', '#1D1F22', '#0F6450']}
-            onChoice={(choice) => {
-              console.log(choice);
-            }}
-          />
-          <PickerWrapper>
-            <PickerLabel>Price:</PickerLabel>
-            <ItemPrice>$50.00</ItemPrice>
-          </PickerWrapper>
-          <AddToCartButton>Add to cart</AddToCartButton>
-          <ItemDescription>
-            Find stunning women's cocktail dresses and party dresses. Stand out
-            in lace and metallic cocktail dresses and party dresses from all
-            your favorite brands.
-          </ItemDescription>
-        </ItemMenus>
-      </FullPageItemWrapper>
-    );
+    const { product } = this.props;
+
+    if (product) {
+      const { id, name, brand, prices, gallery, description } = product;
+
+      return (
+        <FullPageItemWrapper>
+          <PreviewBig previews={gallery} />
+          <ItemMenus>
+            <ItemHeading>
+              <h1>{brand}</h1>
+              <h2>{name}</h2>
+            </ItemHeading>
+            <SizePicker
+              activeChoice={'S'}
+              choices={[
+                { label: 'S', value: 'S' },
+                { label: 'M', value: 'M' }
+              ]}
+              onChoice={(choice) => {
+                console.log(choice);
+              }}
+            />
+            <ColorPicker
+              activeChoice={'#1D1F22'}
+              colors={['#5ECE7B', '#1D1F22', '#0F6450']}
+              onChoice={(choice) => {
+                console.log(choice);
+              }}
+            />
+            <PickerWrapper>
+              <PickerLabel>Price:</PickerLabel>
+              <ItemPrice>
+                <PriceSpan prices={prices} />
+              </ItemPrice>
+            </PickerWrapper>
+            <AddToCartButton>Add to cart</AddToCartButton>
+            <ItemDescription>
+              Find stunning women's cocktail dresses and party dresses. Stand
+              out in lace and metallic cocktail dresses and party dresses from
+              all your favorite brands.
+            </ItemDescription>
+          </ItemMenus>
+        </FullPageItemWrapper>
+      );
+    } else {
+      return null;
+    }
   }
 }
 
-export default FullPage;
+const mapStateToProps = (state, ownProps) => ({
+  product: selectProductById(state, ownProps.id)
+});
+
+export default connect(mapStateToProps)(FullPage);

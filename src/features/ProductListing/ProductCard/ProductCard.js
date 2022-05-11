@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import Icon from '../../../assets/Icon';
+import PriceSpan from '../../../core/PriceSpan';
 import { selectProductById } from '../productListingSlice';
 
 const ProductCardStyle = styled.div`
@@ -77,16 +78,13 @@ class ProductCard extends React.Component {
 
     const selectedCurrency = 0;
 
-    const { id, name, prices, gallery } = product;
-
-    const price = prices[selectedCurrency].amount;
-    const currencySymbol = prices[selectedCurrency].currency.symbol;
+    const { id, name, brand, prices, gallery } = product;
 
     const image = gallery[0];
 
     return (
       <ProductCardStyle>
-        <Link to="/pdp">
+        <Link to={`/pdp?product=${id}`}>
           <CardImage src={image} alt="Product preview" />
         </Link>
         <ButtonWrapper>
@@ -94,10 +92,9 @@ class ProductCard extends React.Component {
             <Icon name="cart" style={iconStyle} />
           </PopupButton>
         </ButtonWrapper>
-        <CardTitle>{name}</CardTitle>
+        <CardTitle>{`${brand} ${name}`}</CardTitle>
         <CardPrice>
-          {currencySymbol}
-          {price}
+          <PriceSpan prices={prices} />
         </CardPrice>
       </ProductCardStyle>
     );

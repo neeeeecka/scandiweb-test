@@ -9,9 +9,13 @@ const CartPageSection = styled.section`
 
 class PDP extends React.Component {
   render() {
+    const productIdFromUrl = new URLSearchParams(window.location.search).get(
+      'product'
+    );
+
     return (
       <CartPageSection>
-        <FullPage />
+        <FullPage id={productIdFromUrl} />
       </CartPageSection>
     );
   }

@@ -4,7 +4,10 @@ import {
   createEntityAdapter
 } from '@reduxjs/toolkit';
 import { fetchFromGQL } from '../../services/fetch/fetchFromGQL';
-import { GQL_GET_CATEGORY } from '../../services/graphql/queries';
+import {
+  GQL_GET_CATEGORY,
+  GQL_GET_PRODUCT_ADDITIONAL
+} from '../../services/graphql/queries';
 
 const productsAdapter = createEntityAdapter({
   sortComparer: (a, b) => a.id.localeCompare(b.id)
@@ -20,6 +23,14 @@ export const fetchCategoryItems = createAsyncThunk(
   async (title) => {
     const { data } = await fetchFromGQL(GQL_GET_CATEGORY, { title });
     return data.category.products;
+  }
+);
+
+export const fetchProductAdditionals = createAsyncThunk(
+  'productListing/fetchProductAdditionals',
+  async (id) => {
+    const { data } = await fetchFromGQL(GQL_GET_PRODUCT_ADDITIONAL, { id });
+    return data.product;
   }
 );
 

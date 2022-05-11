@@ -13,6 +13,7 @@ const LeftBarWrapper = styled.div`
   margin: -5px;
   overflow: hidden;
   overflow-y: auto;
+  max-height: 600px;
 `;
 
 const RightBarWrapper = styled.div`
