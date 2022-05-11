@@ -11,18 +11,13 @@ const LeftBarWrapper = styled.div`
   width: max(80px, 8vw);
   padding: 5px;
   margin: -5px;
-  overflow: hidden;
+  height: calc(100vh - 170px);
   overflow-y: auto;
-  max-height: 600px;
-`;
-
-const RightBarWrapper = styled.div`
-  flex: 1;
 `;
 
 const SmallPreviewButton = styled.button`
+  flex: 1;
   transition: transform 0.25s ease;
-  width: 100%;
   margin-bottom: max(10px, 2.5vw);
   cursor: pointer;
 
@@ -36,9 +31,16 @@ const SmallPreviewButton = styled.button`
   }
 `;
 
+const RightBarWrapper = styled.div`
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  height: calc(100vh - 170px);
+`;
+
 const BigPreviewImg = styled.img`
-  width: 100%;
   object-fit: cover;
+  height: 100%;
 `;
 
 class PreviewBig extends React.Component {

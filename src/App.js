@@ -27,6 +27,8 @@ class App extends React.Component {
     fetchCategories();
   }
   render() {
+    const { selectedCategory } = this.props;
+
     return (
       <>
         <GlobalCSS />
@@ -35,7 +37,10 @@ class App extends React.Component {
           <Routes>
             <Route path="/cart" element={<CartPage />} />
             <Route path="/pdp" element={<PDP />} />
-            <Route path="/" element={<ProductListing />} />
+            <Route
+              path="/"
+              element={selectedCategory.name && <ProductListing />}
+            />
           </Routes>
         </AppContainer>
       </>

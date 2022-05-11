@@ -17,6 +17,7 @@ export const GQL_GET_CATEGORY = gql`
         name
         brand
         inStock
+        category
         prices {
           currency {
             symbol
@@ -29,10 +30,21 @@ export const GQL_GET_CATEGORY = gql`
   }
 `;
 
-export const GQL_GET_PRODUCT_ADDITIONAL = gql`
-  query GetProductById($id: ID!) {
+export const GQL_GET_PRODUCT = gql`
+  query GetProductById($id: String!) {
     product(id: $id) {
       id
+      name
+      brand
+      inStock
+      category
+      prices {
+        currency {
+          symbol
+        }
+        amount
+      }
+      gallery
       description
       attributes {
         id

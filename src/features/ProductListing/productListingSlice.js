@@ -6,7 +6,7 @@ import {
 import { fetchFromGQL } from '../../services/fetch/fetchFromGQL';
 import {
   GQL_GET_CATEGORY,
-  GQL_GET_PRODUCT_ADDITIONAL
+  GQL_GET_PRODUCT
 } from '../../services/graphql/queries';
 
 const productsAdapter = createEntityAdapter({
@@ -22,6 +22,8 @@ export const fetchCategoryItems = createAsyncThunk(
   'productListing/fetchCategoryItems',
   async (title) => {
     const { data } = await fetchFromGQL(GQL_GET_CATEGORY, { title });
+    console.log(data.category.products);
+
     return data.category.products;
   }
 );
@@ -29,7 +31,7 @@ export const fetchCategoryItems = createAsyncThunk(
 export const fetchProductAdditionals = createAsyncThunk(
   'productListing/fetchProductAdditionals',
   async (id) => {
-    const { data } = await fetchFromGQL(GQL_GET_PRODUCT_ADDITIONAL, { id });
+    const { data } = await fetchFromGQL(GQL_GET_PRODUCT, { id });
     return data.product;
   }
 );
@@ -44,12 +46,32 @@ export const productListingSlice = createSlice({
       })
       .addCase(fetchCategoryItems.fulfilled, (state, action) => {
         state.status = 'succeeded';
-        // state.products = action.payload;
+
+        // action.payload.forEach((product) => {
+        //   const existingProduct = state.entities[product.id];
+        //   if (  existingProduct) {
+        //     productsAdapter.upsertOne(state, {
+        //       ...existingProduct,
+        //       ...product
+        //     });
+        //   } else {
+        //     productsAdapter.upsertOne(state, product);
+        //   }
+        // });
+
         productsAdapter.setAll(state, action.payload);
       })
       .addCase(fetchCategoryItems.rejected, (state, action) => {
         state.status = 'failed';
         state.error = action.error.message;
+      })
+      .addCase(fetchProductAdditionals.fulfilled, (state, action) => {
+        // const existingProduct = state.entities[action.payload.id];
+        // productsAdapter.upsertOne(state, {
+        //   ...existingProduct,
+        //   ...action.payload
+        // });
+        productsAdapter.upsertOne(state, action.payload);
       });
   }
 });

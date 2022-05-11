@@ -39,10 +39,16 @@ class ProductListing extends CustomComponent {
   // static contextType = getApolloContext();
 
   async componentDidMount() {
-    const { fetchCategoryItems } = this.props;
-    // const client = this.context.client;
-    // const { data } = await fetchFromGQL(GQL_GET_CATEGORY, { title: 'clothes' });
-    // console.log(data);
+    const { selectedCategory, fetchCategoryItems } = this.props;
+    fetchCategoryItems(selectedCategory.name);
+  }
+
+  componentDidUpdate(prevProps) {
+    const { selectedCategory, fetchCategoryItems } = this.props;
+
+    if (selectedCategory.name !== prevProps.selectedCategory.name) {
+      fetchCategoryItems(selectedCategory.name);
+    }
   }
 
   render() {
@@ -52,9 +58,15 @@ class ProductListing extends CustomComponent {
       <ProductListingSection>
         <Title>{selectedCategory.name}</Title>
         <ProductList>
-          {products.map((product) => (
-            <ProductCard key={product.id} id={product.id} />
-          ))}
+          {products
+            // .filter(
+            //   (product) =>
+            //     selectedCategory.name === 'all' ||
+            //     product.category === selectedCategory.name
+            // )
+            .map((product) => (
+              <ProductCard key={product.id} id={product.id} />
+            ))}
         </ProductList>
       </ProductListingSection>
     );

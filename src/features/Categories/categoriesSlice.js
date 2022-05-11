@@ -21,9 +21,9 @@ export const fetchCategories = () => {
       payload: data.categories
     });
 
-    const state = getState();
-    const selectedCategory = selectSelectedCategory(state);
-    dispatch(fetchCategoryItems(selectedCategory.name));
+    // const state = getState();
+    // const selectedCategory = selectSelectedCategory(state);
+    // dispatch(fetchCategoryItems(selectedCategory.name));
   };
 };
 

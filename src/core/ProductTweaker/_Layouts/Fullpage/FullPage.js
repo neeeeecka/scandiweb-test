@@ -14,7 +14,10 @@ import {
 
 import SizePicker from '../../SizePicker';
 import { connect } from 'react-redux';
-import { selectProductById } from '../../../../features/ProductListing/productListingSlice';
+import {
+  selectProductById,
+  fetchProductAdditionals
+} from '../../../../features/ProductListing/productListingSlice';
 import PriceSpan from '../../../PriceSpan';
 
 const ItemMenus = styled.div`
@@ -43,15 +46,19 @@ const ItemDescription = styled.div`
 `;
 
 class FullPage extends React.Component {
+  componentDidMount() {
+    const { fetchProductAdditionals, id } = this.props;
+    fetchProductAdditionals(id);
+  }
+
   render() {
-    const { product } = this.props;
+    const { id, product } = this.props;
 
     if (product) {
-      const { id, name, brand, prices, gallery, description } = product;
-
+      const { name, brand, prices, gallery, description, attributes } = product;
       return (
         <FullPageItemWrapper>
-          <PreviewBig previews={gallery} />
+          {gallery && <PreviewBig previews={gallery} />}
           <ItemMenus>
             <ItemHeading>
               <h1>{brand}</h1>
@@ -76,9 +83,7 @@ class FullPage extends React.Component {
             />
             <PickerWrapper>
               <PickerLabel>Price:</PickerLabel>
-              <ItemPrice>
-                <PriceSpan prices={prices} />
-              </ItemPrice>
+              <ItemPrice>{prices && <PriceSpan prices={prices} />}</ItemPrice>
             </PickerWrapper>
             <AddToCartButton>Add to cart</AddToCartButton>
             <ItemDescription>
@@ -99,4 +104,8 @@ const mapStateToProps = (state, ownProps) => ({
   product: selectProductById(state, ownProps.id)
 });
 
-export default connect(mapStateToProps)(FullPage);
+const mapDispatchToProps = {
+  fetchProductAdditionals
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(FullPage);
