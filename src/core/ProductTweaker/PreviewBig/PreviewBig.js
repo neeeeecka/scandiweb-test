@@ -36,11 +36,12 @@ const RightBarWrapper = styled.div`
   display: flex;
   justify-content: center;
   height: calc(100vh - 170px);
+  max-width: calc(100% - 80px);
 `;
 
 const BigPreviewImg = styled.img`
-  object-fit: cover;
-  height: 100%;
+  max-width: 100%;
+  object-fit: contain;
 `;
 
 class PreviewBig extends React.Component {
