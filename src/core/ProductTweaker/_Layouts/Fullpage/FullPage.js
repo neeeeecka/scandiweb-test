@@ -18,6 +18,8 @@ import {
   fetchProductAdditionals
 } from '../../../../features/ProductListing/productListingSlice';
 
+import { updateProduct } from '../../../../features/Cart/cartSlice';
+
 import PriceSpan from '../../../PriceSpan';
 import CartItem from '../../../../models/CartItem';
 
@@ -48,8 +50,7 @@ const ItemDescription = styled.div`
 
 class FullPage extends React.Component {
   state = {
-    cartItem: new CartItem(),
-    selectedAttributes: {}
+    cartItem: new CartItem()
   };
 
   componentDidMount() {
@@ -61,16 +62,21 @@ class FullPage extends React.Component {
     const { product } = this.props;
     if (product && product !== prevProps.product) {
       const cartItem = new CartItem(product);
+
       this.setState({
-        cartItem
+        cartItem: cartItem.serialized
       });
     }
   }
 
   addToCart = () => {
-    const { product } = this.props;
-    const { selectedAttributes } = this.state;
-    const cartItem = new CartItem(product, selectedAttributes, 1);
+    const { updateProduct } = this.props;
+    const { cartItem } = this.state;
+
+    const newCartItem = CartItem.fromSerialized(cartItem);
+    newCartItem.newUID();
+
+    updateProduct(newCartItem.serialized);
   };
 
   render() {
@@ -92,12 +98,14 @@ class FullPage extends React.Component {
                 attributes={attributes}
                 selectedAttributes={this.state.cartItem.selectedAttributes}
                 onChange={(attribute, value) => {
-                  const newCartItem = this.state.cartItem.selectAttribute(
-                    attribute.id,
-                    value
+                  const newCartItem = CartItem.fromSerialized(
+                    this.state.cartItem
                   );
+
+                  newCartItem.selectAttribute(attribute.id, value);
+
                   this.setState({
-                    cartItem: newCartItem
+                    cartItem: newCartItem.serialized
                   });
                 }}
               />
@@ -129,7 +137,8 @@ const mapStateToProps = (state, ownProps) => ({
 });
 
 const mapDispatchToProps = {
-  fetchProductAdditionals
+  fetchProductAdditionals,
+  updateProduct
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(FullPage);

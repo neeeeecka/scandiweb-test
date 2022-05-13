@@ -1,20 +1,10 @@
 import CustomComponent from '../../core/CustomComponent';
 import styled from 'styled-components';
 import ProductCard from './ProductCard';
-import { PageTitleWrapper } from '../../styles/global.css';
-import { fetchFromGQL } from '../../services/fetch/fetchFromGQL';
-import {
-  GQL_GET_CATEGORIES,
-  GQL_GET_CATEGORY
-} from '../../services/graphql/queries';
+
 import { connect } from 'react-redux';
 import { selectSelectedCategory } from '../Categories/categoriesSlice';
-import {
-  fetchCategoryItems,
-  selectAllPosts,
-  selectAllProducts,
-  selectProducts
-} from './productListingSlice';
+import { fetchCategoryItems, selectAllProducts } from './productListingSlice';
 
 const ProductListingSection = styled.section`
   display: flex;

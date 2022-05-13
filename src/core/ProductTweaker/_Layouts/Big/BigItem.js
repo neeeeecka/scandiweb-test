@@ -1,5 +1,12 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import styled from 'styled-components';
+import {
+  selectProductById,
+  fetchProductAdditionals
+} from '../../../../features/ProductListing/productListingSlice';
+
+import { updateProduct } from '../../../../features/Cart/cartSlice';
 
 import ColorPicker from '../../AttributeSet/ColorPicker';
 import SizePicker from '../../AttributeSet/SizePicker';
@@ -7,6 +14,9 @@ import CountPicker from '../../CountPicker';
 
 import PreviewSmall from '../../PreviewSmall/';
 import { BigItemWrapper, ItemHeading } from '../../productTweaker.css';
+import PriceSpan from '../../../PriceSpan';
+import AttributeSet from '../../AttributeSet';
+import CartItem from '../../../../models/CartItem';
 
 const ItemMenus = styled.div`
   flex: 1;
@@ -22,50 +32,60 @@ const ItemPrice = styled.h2`
 `;
 
 class BigItem extends React.Component {
+  componentDidMount() {
+    const { fetchProductAdditionals, id } = this.props;
+    fetchProductAdditionals(id);
+  }
+
   render() {
-    return (
-      <BigItemWrapper>
-        <ItemMenus>
-          <ItemHeading>
-            <h1>Apollo</h1>
-            <h2>Running Short</h2>
-          </ItemHeading>
-          <ItemPrice>$50.00</ItemPrice>
-          <SizePicker
-            activeChoice={'S'}
-            choices={[
-              { label: 'S', value: 'S' },
-              { label: 'M', value: 'M' }
-            ]}
-            onChoice={(choice) => {
-              console.log(choice);
+    const { product, cartItem } = this.props;
+
+    if (product) {
+      const { name, brand, prices, gallery, description, attributes } = product;
+      const { quantity, selectedAttributes } = cartItem;
+
+      return (
+        <BigItemWrapper>
+          <ItemMenus>
+            <ItemHeading>
+              <h1>{brand}</h1>
+              <h2>{name}</h2>
+            </ItemHeading>
+            <ItemPrice>{prices && <PriceSpan prices={prices} />}</ItemPrice>
+            {attributes && (
+              <AttributeSet
+                attributes={attributes}
+                selectedAttributes={selectedAttributes}
+                onChange={(attribute, value) => {
+                  const newCartItem = CartItem.fromSerialized(cartItem);
+
+                  newCartItem.selectAttribute(attribute.id, value);
+                }}
+              />
+            )}
+          </ItemMenus>
+
+          <CountPicker
+            layout="big"
+            count={quantity}
+            onChange={(newCount) => {
+              console.log(newCount);
             }}
           />
-          <ColorPicker
-            activeChoice={'#1D1F22'}
-            colors={['#5ECE7B', '#1D1F22', '#0F6450']}
-            onChoice={(choice) => {
-              console.log(choice);
-            }}
-          />
-        </ItemMenus>
-        <CountPicker
-          layout="big"
-          count={0}
-          onChange={(newCount) => {
-            console.log(newCount);
-          }}
-        />
-        <PreviewSmall
-          previews={[
-            'https://via.placeholder.com/300x300&text=A',
-            'https://via.placeholder.com/300x300&text=B',
-            'https://via.placeholder.com/300x300&text=C'
-          ]}
-        />
-      </BigItemWrapper>
-    );
+          <PreviewSmall previews={gallery} />
+        </BigItemWrapper>
+      );
+    }
   }
 }
 
-export default BigItem;
+const mapStateToProps = (state, ownProps) => ({
+  product: selectProductById(state, ownProps.id)
+});
+
+const mapDispatchToProps = {
+  updateProduct,
+  fetchProductAdditionals
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(BigItem);

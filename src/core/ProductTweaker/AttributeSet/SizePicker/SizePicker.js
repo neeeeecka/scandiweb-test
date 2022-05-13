@@ -89,7 +89,8 @@ class SizePicker extends React.Component {
         <PickerLabel>Size:</PickerLabel>
         <ItemsSizeButtons>
           {items.map(({ displayValue, value }) => {
-            const active = value === activeChoice;
+            const active =
+              value === activeChoice || displayValue === activeChoice;
 
             const uniqueName = curryDashStr('sizePicker')(unique)();
             const uniqueId = curryDashStr(uniqueName)(value)();

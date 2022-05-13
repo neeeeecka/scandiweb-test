@@ -3,6 +3,9 @@ import styled from 'styled-components';
 import BigItem from '../../../core/ProductTweaker/_Layouts/Big/BigItem';
 import { ButtonFill } from '../../../styles/global.css';
 
+import { updateProduct, selectAllCartItems } from '../cartSlice';
+import { connect } from 'react-redux';
+
 const CartPageSection = styled.section`
   display: flex;
   flex-direction: column;
@@ -51,12 +54,19 @@ const OrderButton = styled(ButtonFill)`
 
 class CartPage extends React.Component {
   render() {
+    const { cartItems } = this.props;
+
     return (
       <CartPageSection>
         <Title>Cart</Title>
         <CartPageItems>
-          <BigItem />
-          <BigItem />
+          {cartItems.map((cartItem) => (
+            <BigItem
+              cartItem={cartItem}
+              id={cartItem.id}
+              key={cartItem.attributeHash}
+            />
+          ))}
         </CartPageItems>
         <CartOrderWrapper>
           <CartOrderLabelWrapper>
@@ -78,4 +88,12 @@ class CartPage extends React.Component {
   }
 }
 
-export default CartPage;
+const mapStateToProps = (state) => ({
+  cartItems: selectAllCartItems(state)
+});
+
+const mapDispatchToProps = {
+  updateProduct
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(CartPage);

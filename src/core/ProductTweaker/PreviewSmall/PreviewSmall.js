@@ -41,7 +41,6 @@ const IconStyle = `
 const ItemsWrapper = styled.div`
   flex: 1;
   display: flex;
-  background: gray;
   position: relative;
   overflow: hidden;
 `;
@@ -59,8 +58,7 @@ const Item = styled.div`
 
   img {
     width: 100%;
-    height: 100%;
-    object-fit: cover;
+    object-fit: contain;
   }
 `;
 
@@ -149,20 +147,22 @@ class PreviewSmall extends React.Component {
             </Item>
           </Slider>
         </ItemsWrapper>
-        <ButtonsWrapper>
-          <CaretButton
-            onClick={() => this.rotatePreview(-1)}
-            aria-label="Previous image"
-          >
-            <Icon name="caret-left" style={IconStyle} />
-          </CaretButton>
-          <CaretButton
-            onClick={() => this.rotatePreview(+1)}
-            aria-label="Next image"
-          >
-            <Icon name="caret-right" style={IconStyle} />
-          </CaretButton>
-        </ButtonsWrapper>
+        {previews.length > 1 && (
+          <ButtonsWrapper>
+            <CaretButton
+              onClick={() => this.rotatePreview(-1)}
+              aria-label="Previous image"
+            >
+              <Icon name="caret-left" style={IconStyle} />
+            </CaretButton>
+            <CaretButton
+              onClick={() => this.rotatePreview(+1)}
+              aria-label="Next image"
+            >
+              <Icon name="caret-right" style={IconStyle} />
+            </CaretButton>
+          </ButtonsWrapper>
+        )}
       </SmallPreview>
     );
   }

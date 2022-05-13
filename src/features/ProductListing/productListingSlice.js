@@ -48,18 +48,6 @@ export const productListingSlice = createSlice({
       .addCase(fetchCategoryItems.fulfilled, (state, action) => {
         state.status = 'succeeded';
 
-        // action.payload.forEach((product) => {
-        //   const existingProduct = state.entities[product.id];
-        //   if (  existingProduct) {
-        //     productsAdapter.upsertOne(state, {
-        //       ...existingProduct,
-        //       ...product
-        //     });
-        //   } else {
-        //     productsAdapter.upsertOne(state, product);
-        //   }
-        // });
-
         productsAdapter.setAll(state, action.payload);
       })
       .addCase(fetchCategoryItems.rejected, (state, action) => {
