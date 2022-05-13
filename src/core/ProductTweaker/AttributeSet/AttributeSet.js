@@ -4,6 +4,12 @@ import SizePicker from './SizePicker';
 import React from 'react';
 import TextPicker from './TextPicker/TextPicker';
 
+// function PrepareAttributeSet(props) {
+//   return (AttributeSetComponent) => {
+//     return <AttributeSetComponent {...props} />;
+//   };
+// }
+
 class AttributeSet extends React.Component {
   makeChoiceHandler = (attribute) => {
     const { onChange } = this.props;
@@ -28,35 +34,27 @@ class AttributeSet extends React.Component {
         {attributes.map((attribute) => {
           const choiceHandler = this.makeChoiceHandler(attribute);
 
+          const props = {
+            activeChoice: selectedAttributes[attribute.id],
+            key: attribute.name,
+            items: attribute.items,
+            onChoice: choiceHandler,
+            name: attribute.name
+          };
+
+          // const AttributeSetController = PrepareAttributeSet(props);
+
+          // const SizePickerComponent = AttributeSetController(SizePicker);
+          // const ColorPickerComponent = AttributeSetController(ColorPicker);
+          // const TextPickerComponent = AttributeSetController(TextPicker);
+
           switch (attribute.name) {
             case 'Size':
-              return (
-                <SizePicker
-                  activeChoice={selectedAttributes[attribute.id]}
-                  key={attribute.name}
-                  items={attribute.items}
-                  onChoice={choiceHandler}
-                />
-              );
+              return <SizePicker {...props} />;
             case 'Color':
-              return (
-                <ColorPicker
-                  activeChoice={selectedAttributes[attribute.id]}
-                  key={attribute.name}
-                  items={attribute.items}
-                  onChoice={choiceHandler}
-                />
-              );
+              return <ColorPicker {...props} />;
             default:
-              return (
-                <TextPicker
-                  activeChoice={selectedAttributes[attribute.id]}
-                  key={attribute.name}
-                  items={attribute.items}
-                  name={attribute.name}
-                  onChoice={choiceHandler}
-                />
-              );
+              return <TextPicker {...props} />;
           }
         })}
       </>

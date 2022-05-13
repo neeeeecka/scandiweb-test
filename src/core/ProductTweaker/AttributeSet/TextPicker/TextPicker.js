@@ -3,31 +3,19 @@ import styled from 'styled-components';
 import makeUniqueId from '../../../../utils/uniqueId';
 import curryDashStr from '../../../../utils/curryDashStr';
 
+import { BigItemWrapper } from '../../productTweaker.css';
+
 import {
+  AttributeSetButtonWrapper,
   PickerLabel,
-  PickerWrapper,
-  BigItemWrapper
-} from '../../productTweaker.css';
+  PickerWrapper
+} from '../attributeSet.css';
 
 const SizeWrapper = styled(PickerWrapper)`
   input {
     &:focus + label {
       border-color: black;
     }
-  }
-`;
-
-// const SizeLabel = styled(PickerLabel)``;
-
-const ItemsSizeButtons = styled.div`
-  display: flex;
-  gap: 8px;
-  padding-top: 7px;
-  position: relative;
-  flex-wrap: wrap;
-
-  ${BigItemWrapper} & {
-    margin-left: 0;
   }
 `;
 
@@ -84,7 +72,7 @@ class TextPicker extends React.Component {
     return (
       <SizeWrapper>
         <PickerLabel>{name}:</PickerLabel>
-        <ItemsSizeButtons>
+        <AttributeSetButtonWrapper>
           {items.map(({ displayValue, value }) => {
             const active = value === activeChoice;
 
@@ -109,7 +97,7 @@ class TextPicker extends React.Component {
               </div>
             );
           })}
-        </ItemsSizeButtons>
+        </AttributeSetButtonWrapper>
       </SizeWrapper>
     );
   }

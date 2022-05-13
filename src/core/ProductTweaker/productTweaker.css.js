@@ -20,36 +20,6 @@ export const FullPageItemWrapper = styled(BigItemWrapper)`
   }
 `;
 
-export const PickerWrapper = styled.fieldset`
-  display: flex;
-  flex-direction: column;
-  border: 0;
-  margin: 0;
-  padding: 7px 0;
-
-  input {
-    opacity: 0;
-    position: absolute;
-  }
-
-  ${BigItemWrapper} & {
-    padding-bottom: 8px;
-  }
-  ${FullPageItemWrapper} & {
-    padding-bottom: 15px;
-  }
-`;
-
-export const PickerLabel = styled.span`
-  font-size: 14px;
-  ${BigItemWrapper} & {
-    font-weight: 700;
-    font-size: 18px;
-    text-transform: uppercase;
-    font-family: 'Roboto';
-  }
-`;
-
 export const ItemHeading = styled.div`
   h1,
   h2 {

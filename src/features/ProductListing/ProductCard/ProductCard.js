@@ -114,4 +114,5 @@ const mapStateToProps = (state, ownProps) => ({
 const mapDispatchToProps = {
   updateProduct
 };
+
 export default connect(mapStateToProps, mapDispatchToProps)(ProductCard);

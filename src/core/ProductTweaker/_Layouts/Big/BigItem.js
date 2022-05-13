@@ -25,8 +25,8 @@ const ItemPrice = styled.h2`
   font-weight: 700;
   font-size: 24px;
   margin: 0;
-  padding-top: 15px;
-  padding-bottom: 10px;
+  padding-top: 20px;
+  padding-bottom: 20px;
 `;
 
 class BigItem extends React.Component {

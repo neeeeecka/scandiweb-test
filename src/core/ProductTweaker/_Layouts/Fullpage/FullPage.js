@@ -5,12 +5,12 @@ import PreviewBig from '../../PreviewBig';
 
 import AttributeSet from '../../AttributeSet/';
 
+import { FullPageItemWrapper, ItemHeading } from '../../productTweaker.css';
+
 import {
-  FullPageItemWrapper,
-  ItemHeading,
   PickerLabel,
   PickerWrapper
-} from '../../productTweaker.css';
+} from '../../AttributeSet/attributeSet.css';
 
 import { connect } from 'react-redux';
 import {

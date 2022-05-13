@@ -3,11 +3,13 @@ import styled from 'styled-components';
 import makeUniqueId from '../../../../utils/uniqueId';
 import curryDashStr from '../../../../utils/curryDashStr';
 
+import { BigItemWrapper } from '../../productTweaker.css';
+
 import {
+  AttributeSetButtonWrapper,
   PickerLabel,
-  PickerWrapper,
-  BigItemWrapper
-} from '../../productTweaker.css';
+  PickerWrapper
+} from '../attributeSet.css';
 
 const SizeWrapper = styled(PickerWrapper)`
   input {
@@ -15,21 +17,6 @@ const SizeWrapper = styled(PickerWrapper)`
       outline: 2px solid black;
       outline-offset: 2px;
     }
-  }
-`;
-
-// const SizeLabel = styled(PickerLabel)``;
-
-const ItemsSizeButtons = styled.div`
-  display: flex;
-  gap: 8px;
-  padding-top: 10px;
-  position: relative;
-  margin-left: 3px;
-  flex-wrap: wrap;
-
-  ${BigItemWrapper} & {
-    margin-left: 0;
   }
 `;
 
@@ -77,18 +64,13 @@ class SizePicker extends React.Component {
       items,
       activeChoice,
       onChoice,
-      unique = this.state.uid,
-      layout = 'default'
+      unique = this.state.uid
     } = this.props;
-
-    if (!items) {
-      return null;
-    }
 
     return (
       <SizeWrapper>
         <PickerLabel>Size:</PickerLabel>
-        <ItemsSizeButtons>
+        <AttributeSetButtonWrapper>
           {items.map(({ displayValue, value }) => {
             const active =
               value === activeChoice || displayValue === activeChoice;
@@ -116,7 +98,7 @@ class SizePicker extends React.Component {
               </div>
             );
           })}
-        </ItemsSizeButtons>
+        </AttributeSetButtonWrapper>
       </SizeWrapper>
     );
   }

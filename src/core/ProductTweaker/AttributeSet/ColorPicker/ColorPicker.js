@@ -3,34 +3,19 @@ import styled from 'styled-components';
 import curryDashStr from '../../../../utils/curryDashStr';
 import makeUniqueId from '../../../../utils/uniqueId';
 
+import { BigItemWrapper } from '../../productTweaker.css';
+
 import {
-  BigItemWrapper,
+  AttributeSetButtonWrapper,
   PickerLabel,
   PickerWrapper
-} from '../../productTweaker.css';
+} from '../attributeSet.css';
 
 const ColorWrapper = styled(PickerWrapper)`
   input {
     &:focus + label:before {
       outline-color: black;
     }
-  }
-`;
-
-// const getWrapper = ofLayouts({
-//   default: Wrapper,
-//   big: styled(Wrapper)`
-//     padding: 10px 0;
-//   `,
-// });
-const ItemsColorButtons = styled.div`
-  display: flex;
-  gap: 8px;
-  padding-top: 5px;
-  flex-wrap: wrap;
-
-  ${BigItemWrapper} & {
-    margin-left: -2px;
   }
 `;
 
@@ -75,18 +60,13 @@ class ColorPicker extends React.Component {
       items,
       activeChoice,
       onChoice,
-      unique = this.state.uid,
-      layout = 'default'
+      unique = this.state.uid
     } = this.props;
-
-    if (!items) {
-      return null;
-    }
 
     return (
       <ColorWrapper>
         <PickerLabel>Color:</PickerLabel>
-        <ItemsColorButtons>
+        <AttributeSetButtonWrapper>
           {items.map(({ value }) => {
             const active = value === activeChoice;
 
@@ -109,7 +89,7 @@ class ColorPicker extends React.Component {
               </div>
             );
           })}
-        </ItemsColorButtons>
+        </AttributeSetButtonWrapper>
       </ColorWrapper>
     );
   }
