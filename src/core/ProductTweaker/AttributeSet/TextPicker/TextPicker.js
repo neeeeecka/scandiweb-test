@@ -22,9 +22,9 @@ const SizeWrapper = styled(PickerWrapper)`
 const ItemsSizeButtons = styled.div`
   display: flex;
   gap: 8px;
-  padding-top: 10px;
+  padding-top: 7px;
   position: relative;
-  margin-left: 3px;
+  flex-wrap: wrap;
 
   ${BigItemWrapper} & {
     margin-left: 0;
@@ -58,6 +58,8 @@ const SizeButton = styled.label`
   &:hover {
     border-color: black;
   }
+
+  padding: 5px;
 
   ${BigItemWrapper} & {
     padding: 8px 15px;

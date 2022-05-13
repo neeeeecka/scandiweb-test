@@ -26,6 +26,7 @@ const ItemsSizeButtons = styled.div`
   padding-top: 10px;
   position: relative;
   margin-left: 3px;
+  flex-wrap: wrap;
 
   ${BigItemWrapper} & {
     margin-left: 0;

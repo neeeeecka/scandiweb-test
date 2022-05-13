@@ -27,6 +27,7 @@ const ItemsColorButtons = styled.div`
   display: flex;
   gap: 8px;
   padding-top: 5px;
+  flex-wrap: wrap;
 
   ${BigItemWrapper} & {
     margin-left: -2px;

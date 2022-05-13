@@ -7,12 +7,7 @@ import { Link } from 'react-router-dom';
 
 import withRouter from '../../../../HOCs/withRouter';
 import { connect } from 'react-redux';
-import {
-  quantity,
-  selectAllCartItems,
-  total,
-  updateProduct
-} from '../../cartSlice';
+import { quantity, selectAllCartItems, total } from '../../cartSlice';
 import { selectCurrencySymbolAndLabel } from '../../../CurrencyPicker/currencySlice';
 
 const CartModalStyle = styled.div`
@@ -45,7 +40,7 @@ const CartModalContent = styled.div`
   padding: 15px;
   position: absolute;
   top: 0;
-  width: 325px;
+  width: 335px;
   font-size: 16px;
   color: #1d1f22;
 

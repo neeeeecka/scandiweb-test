@@ -12,12 +12,14 @@ import CartItem from '../../../../models/CartItem';
 
 const ItemWrapper = styled.div`
   display: flex;
-  margin-bottom: 25px;
+  margin-bottom: 40px;
 `;
 
 const ItemMenus = styled.div`
-  width: 145px;
+  width: 125px;
   flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
 `;
 
 const ItemHeading = styled.div`
@@ -28,7 +30,7 @@ const ItemHeading = styled.div`
     font-size: 16px;
   }
   h2 {
-    padding-top: 5px;
+    padding-top: 7px;
   }
 `;
 const ItemPrice = styled.h2`
@@ -43,6 +45,7 @@ const ItemPrice = styled.h2`
 const ItemPreview = styled.div`
   display: flex;
   flex: 1;
+  background: #fcfbfc;
 
   & img {
     width: 100%;
@@ -61,9 +64,8 @@ class CompactItem extends React.Component {
       <ItemWrapper>
         <ItemMenus>
           <ItemHeading>
-            <h1>
-              {brand} {name}
-            </h1>
+            <h1>{brand}</h1>
+            <h2>{name}</h2>
           </ItemHeading>
           <ItemPrice>{prices && <PriceSpan prices={prices} />}</ItemPrice>
           <AttributeSet

@@ -25,7 +25,7 @@ export const PickerWrapper = styled.fieldset`
   flex-direction: column;
   border: 0;
   margin: 0;
-  padding: 5px 0;
+  padding: 7px 0;
 
   input {
     opacity: 0;
