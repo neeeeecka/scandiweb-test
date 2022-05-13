@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import Icon from '../../../assets/Icon';
 import CustomComponent from '../../../core/CustomComponent';
 import handleClickOutsideModal from '../../../handlers/handleClickOutsideModal';
+import { quantity } from '../cartSlice';
 import CartModal from './CartModal';
 
 const WrapperStyle = styled.div`
@@ -94,6 +95,8 @@ class MiniCart extends CustomComponent {
   render() {
     const { modalVisible, animationGoing, animationTime } = this.state;
 
+    const { quantity } = this.props;
+
     return (
       <WrapperStyle>
         <ButtonStyle
@@ -103,7 +106,7 @@ class MiniCart extends CustomComponent {
         >
           <Icon name={'cart'} style={CartStyle} />
           <CartCounter>
-            <span>3</span>
+            <span>{quantity}</span>
           </CartCounter>
         </ButtonStyle>
 
@@ -118,4 +121,8 @@ class MiniCart extends CustomComponent {
   }
 }
 
-export default MiniCart;
+const mapStateToProps = (state) => ({
+  quantity: quantity(state)
+});
+
+export default connect(mapStateToProps)(MiniCart);

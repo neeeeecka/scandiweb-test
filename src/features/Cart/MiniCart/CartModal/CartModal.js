@@ -41,6 +41,7 @@ const CartModalStyle = styled.div`
 const CartModalContent = styled.div`
   transition: all 0.25s ease;
   background: white;
+
   padding: 15px;
   position: absolute;
   top: 0;
@@ -63,9 +64,9 @@ const Paragraph = styled.p`
 `;
 
 const ItemContainer = styled.div`
+  margin: 15px 0;
   max-height: 400px;
   overflow: auto;
-  padding: 30px 0;
 `;
 
 const FooterParagraph = styled.p`
@@ -124,7 +125,8 @@ class CartModal extends React.Component {
       clickRef,
       cartItems,
       currencySymbolAndLabel,
-      total
+      total,
+      quantity
     } = this.props;
 
     const { symbol } = currencySymbolAndLabel;
@@ -145,7 +147,7 @@ class CartModal extends React.Component {
           >
             <Paragraph>
               <b>My bag</b>
-              <span>, {cartItems.length} items</span>
+              <span>, {quantity} items</span>
             </Paragraph>
             <ItemContainer>
               {cartItems.map((cartItem) => (
@@ -181,6 +183,7 @@ class CartModal extends React.Component {
 const mapStateToProps = (state) => ({
   cartItems: selectAllCartItems(state),
   total: total(state),
+  quantity: quantity(state),
   currencySymbolAndLabel: selectCurrencySymbolAndLabel(state)
 });
 
