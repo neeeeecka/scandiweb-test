@@ -55,6 +55,8 @@ const Item = styled.div`
   flex-grow: 0;
   flex-shrink: 0;
   width: 100%;
+  display: flex;
+  justify-content: center;
 
   img {
     width: 100%;

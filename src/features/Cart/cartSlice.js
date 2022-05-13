@@ -2,7 +2,11 @@ import { createSlice, createEntityAdapter } from '@reduxjs/toolkit';
 
 const cartItemsAdapter = createEntityAdapter({
   selectId: (item) => item.uid,
-  sortComparer: (a, b) => a.id.localeCompare(b.id)
+  sortComparer: (a, b) => {
+    const aId = a.id + a.uid;
+    const bId = b.id + b.uid;
+    return aId.localeCompare(bId);
+  }
 });
 
 const initialState = cartItemsAdapter.getInitialState({

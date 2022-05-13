@@ -61,11 +61,7 @@ class CartPage extends React.Component {
         <Title>Cart</Title>
         <CartPageItems>
           {cartItems.map((cartItem) => (
-            <BigItem
-              cartItem={cartItem}
-              id={cartItem.id}
-              key={cartItem.attributeHash}
-            />
+            <BigItem cartItem={cartItem} id={cartItem.id} key={cartItem.uid} />
           ))}
         </CartPageItems>
         <CartOrderWrapper>

@@ -38,11 +38,11 @@ class BigItem extends React.Component {
   }
 
   render() {
-    const { product, cartItem } = this.props;
+    const { product, cartItem, updateProduct } = this.props;
 
     if (product) {
       const { name, brand, prices, gallery, description, attributes } = product;
-      const { quantity, selectedAttributes } = cartItem;
+      const { quantity, selectedAttributes, attributeHash, uid } = cartItem;
 
       return (
         <BigItemWrapper>
@@ -50,6 +50,7 @@ class BigItem extends React.Component {
             <ItemHeading>
               <h1>{brand}</h1>
               <h2>{name}</h2>
+              {uid}
             </ItemHeading>
             <ItemPrice>{prices && <PriceSpan prices={prices} />}</ItemPrice>
             {attributes && (
@@ -58,8 +59,9 @@ class BigItem extends React.Component {
                 selectedAttributes={selectedAttributes}
                 onChange={(attribute, value) => {
                   const newCartItem = CartItem.fromSerialized(cartItem);
-
                   newCartItem.selectAttribute(attribute.id, value);
+
+                  updateProduct(newCartItem.serialized);
                 }}
               />
             )}
