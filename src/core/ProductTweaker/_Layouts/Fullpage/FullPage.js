@@ -49,6 +49,10 @@ const ItemDescription = styled.div`
 `;
 
 class FullPage extends React.Component {
+  state = {
+    selectedAttributes: {}
+  };
+
   componentDidMount() {
     const { fetchProductAdditionals, id } = this.props;
     fetchProductAdditionals(id);
@@ -71,8 +75,14 @@ class FullPage extends React.Component {
             {attributes && (
               <AttributeSet
                 attributes={attributes}
+                selectedAttributes={this.state.selectedAttributes}
                 onChange={(attribute, value) => {
-                  console.log(attribute, value, id);
+                  this.setState({
+                    selectedAttributes: {
+                      ...this.state.selectedAttributes,
+                      [attribute.id]: value
+                    }
+                  });
                 }}
               />
             )}

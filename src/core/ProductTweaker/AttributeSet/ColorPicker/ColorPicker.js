@@ -41,6 +41,8 @@ const ColorButton = styled.label`
   position: relative;
 
   &:before {
+    transition: all 0.25s ease;
+
     content: '';
     display: inline-block;
     background: ${(props) => props.color};

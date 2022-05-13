@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import BigItem from '../../core/ProductTweaker/_Layouts/Big/BigItem';
-import { ButtonFill } from '../../styles/global.css';
+import BigItem from '../../../core/ProductTweaker/_Layouts/Big/BigItem';
+import { ButtonFill } from '../../../styles/global.css';
 
 const CartPageSection = styled.section`
   display: flex;

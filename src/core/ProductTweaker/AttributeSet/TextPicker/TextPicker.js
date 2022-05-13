@@ -32,6 +32,7 @@ const ItemsSizeButtons = styled.div`
 `;
 
 const SizeButton = styled.label`
+  transition: all 0.25s ease;
   font-family: 'Roboto', sans-serif;
 
   display: flex;
@@ -56,7 +57,6 @@ const SizeButton = styled.label`
 
   &:hover {
     border-color: black;
-    color: black;
   }
 
   ${BigItemWrapper} & {

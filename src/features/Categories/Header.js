@@ -1,6 +1,6 @@
 import { Component } from 'react';
 import styled from 'styled-components';
-import MiniCart from './MiniCart';
+import MiniCart from '../Cart/MiniCart';
 import CurrenctyPicker from './CurrencyPicker';
 import { fetchFromGQL } from '../../services/fetch/fetchFromGQL';
 import { GQL_GET_CATEGORIES } from '../../services/graphql/queries';

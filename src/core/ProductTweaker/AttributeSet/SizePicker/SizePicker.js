@@ -12,7 +12,7 @@ import {
 const SizeWrapper = styled(PickerWrapper)`
   input {
     &:focus + label {
-      outline: 2px solid var(--color-primary);
+      outline: 2px solid black;
       outline-offset: 2px;
     }
   }
@@ -33,6 +33,8 @@ const ItemsSizeButtons = styled.div`
 `;
 
 const SizeButton = styled.label`
+  transition: all 0.25s ease;
+
   display: flex;
   width: 24px;
   height: 24px;
