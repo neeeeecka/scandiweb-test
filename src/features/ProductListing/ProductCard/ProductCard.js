@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import Icon from '../../../assets/Icon';
 import PriceSpan from '../../../core/PriceSpan';
+import CartItem from '../../../models/CartItem';
+import { updateProduct } from '../../Cart/cartSlice';
 import { selectProductById } from '../productListingSlice';
 
 const ProductCardStyle = styled.div`
@@ -68,15 +70,19 @@ const iconStyle = `
   filter: brightness(0) invert(1);
 `;
 
-const CardLink = styled.a`
-  cursor: pointer;
-`;
-
 class ProductCard extends React.Component {
+  addToCart = () => {
+    const { updateProduct, product } = this.props;
+
+    const cartItem = new CartItem(product);
+    const newCartItem = CartItem.fromSerialized(cartItem);
+    newCartItem.newUID();
+
+    updateProduct(newCartItem.serialized);
+  };
+
   render() {
     const { product } = this.props;
-
-    const selectedCurrency = 0;
 
     const { id, name, brand, prices, gallery } = product;
 
@@ -88,7 +94,7 @@ class ProductCard extends React.Component {
           <CardImage src={image} alt="Product preview" />
         </Link>
         <ButtonWrapper>
-          <PopupButton aria-label="Add item to cart">
+          <PopupButton aria-label="Add item to cart" onClick={this.addToCart}>
             <Icon name="cart" style={iconStyle} />
           </PopupButton>
         </ButtonWrapper>
@@ -105,4 +111,7 @@ const mapStateToProps = (state, ownProps) => ({
   product: selectProductById(state, ownProps.id)
 });
 
-export default connect(mapStateToProps)(ProductCard);
+const mapDispatchToProps = {
+  updateProduct
+};
+export default connect(mapStateToProps, mapDispatchToProps)(ProductCard);
