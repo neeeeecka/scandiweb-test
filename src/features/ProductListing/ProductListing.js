@@ -49,11 +49,11 @@ class ProductListing extends CustomComponent {
         <Title>{selectedCategory.name}</Title>
         <ProductList>
           {products
-            // .filter(
-            //   (product) =>
-            //     selectedCategory.name === 'all' ||
-            //     product.category === selectedCategory.name
-            // )
+            .filter(
+              (product) =>
+                selectedCategory.name === 'all' ||
+                product.category === selectedCategory.name
+            )
             .map((product) => (
               <ProductCard key={product.id} id={product.id} />
             ))}

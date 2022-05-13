@@ -48,7 +48,9 @@ export const productListingSlice = createSlice({
       .addCase(fetchCategoryItems.fulfilled, (state, action) => {
         state.status = 'succeeded';
 
-        productsAdapter.setAll(state, action.payload);
+        // productsAdapter.setAll(state, action.payload);
+
+        productsAdapter.upsertMany(state, action.payload);
       })
       .addCase(fetchCategoryItems.rejected, (state, action) => {
         state.status = 'failed';

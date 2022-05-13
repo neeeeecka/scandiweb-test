@@ -49,9 +49,9 @@ const ColorButton = styled.label`
     width: 16px;
     height: 16px;
     margin: auto;
-    outline: 2px solid transparent;
+    outline: 2px solid #d2d2d2;
     outline-offset: 2px;
-    ${(props) => props.active && 'outline-color: var(--color-primary);'}
+    ${(props) => props.active && 'outline-color: black;'}
   }
 
   ${BigItemWrapper} & {

@@ -6,7 +6,7 @@ class CartItem {
   uid = null;
   id = null;
 
-  constructor(product, selectedAttributes, quantity = 0) {
+  constructor(product, selectedAttributes, quantity = 1) {
     this.quantity = quantity;
 
     if (product) {
@@ -73,7 +73,7 @@ class CartItem {
   }
 
   setQuantity(quantity) {
-    this.quantity = quantity;
+    this.quantity = Math.max(1, quantity);
   }
 }
 

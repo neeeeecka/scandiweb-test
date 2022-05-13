@@ -6,6 +6,8 @@ import CompactItem from '../../../../core/ProductTweaker/_Layouts/CompactItem';
 import { Link } from 'react-router-dom';
 
 import withRouter from '../../../../HOCs/withRouter';
+import { connect } from 'react-redux';
+import { selectAllCartItems, updateProduct } from '../../cartSlice';
 
 const CartModalStyle = styled.div`
   transition: all ${(props) => props.animationTime}s ease;
@@ -55,7 +57,7 @@ const Paragraph = styled.p`
 `;
 
 const ItemContainer = styled.div`
-  max-height: 600px;
+  max-height: 400px;
   overflow: auto;
   padding: 30px 0;
 `;
@@ -97,9 +99,9 @@ class CartModal extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.modalVisible) {
-      // this.hiddenFocusRef.current.focus();
-      this.props.clickRef.current.focus();
+    const { modalVisible, clickRef } = this.props;
+    if (modalVisible && !prevProps.modalVisible) {
+      clickRef.current.focus();
     }
   }
 
@@ -109,7 +111,7 @@ class CartModal extends React.Component {
   };
 
   render() {
-    const { modalVisible, animationGoing, animationTime, clickRef } =
+    const { modalVisible, animationGoing, animationTime, clickRef, cartItems } =
       this.props;
 
     return (
@@ -120,19 +122,24 @@ class CartModal extends React.Component {
           animationTime={animationTime}
         >
           <CartModalContent
+            key="modal"
             ref={clickRef}
             visible={modalVisible}
             id="cartModal"
-            tabIndex={-1}
-            role="dialog"
-            aria-modal={modalVisible}
+            tabIndex={0}
           >
             <Paragraph>
               <b>My bag</b>
-              <span>, 3 items</span>
+              <span>, {cartItems.length} items</span>
             </Paragraph>
             <ItemContainer>
-              <CompactItem />
+              {cartItems.map((cartItem) => (
+                <CompactItem
+                  cartItem={cartItem}
+                  id={cartItem.id}
+                  key={cartItem.uid}
+                />
+              ))}
             </ItemContainer>
             <FooterParagraph>
               <span>Total:</span>
@@ -153,4 +160,8 @@ class CartModal extends React.Component {
   }
 }
 
-export default withRouter(CartModal);
+const mapStateToProps = (state) => ({
+  cartItems: selectAllCartItems(state)
+});
+
+export default connect(mapStateToProps)(withRouter(CartModal));

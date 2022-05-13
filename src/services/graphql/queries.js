@@ -34,6 +34,17 @@ export const GQL_GET_CATEGORY = gql`
           amount
         }
         gallery
+        description
+        attributes {
+          id
+          name
+          type
+          items {
+            id
+            displayValue
+            value
+          }
+        }
       }
     }
   }

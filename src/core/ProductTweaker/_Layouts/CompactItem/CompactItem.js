@@ -1,16 +1,23 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import styled from 'styled-components';
+import { selectProductById } from '../../../../features/ProductListing/productListingSlice';
 
-import ColorPicker from '../../AttributeSet/ColorPicker';
-import SizePicker from '../../AttributeSet/SizePicker';
 import CountPicker from '../../CountPicker';
+
+import { updateProduct } from '../../../../features/Cart/cartSlice';
+import PriceSpan from '../../../PriceSpan';
+import AttributeSet from '../../AttributeSet';
+import CartItem from '../../../../models/CartItem';
 
 const ItemWrapper = styled.div`
   display: flex;
+  margin-bottom: 25px;
 `;
 
 const ItemMenus = styled.div`
-  flex: 1;
+  width: 145px;
+  flex-shrink: 0;
 `;
 
 const ItemHeading = styled.div`
@@ -35,56 +42,64 @@ const ItemPrice = styled.h2`
 
 const ItemPreview = styled.div`
   display: flex;
-  width: 120px;
+  flex: 1;
+
   & img {
     width: 100%;
-    object-fit: cover;
+    object-fit: contain;
   }
 `;
 
 class CompactItem extends React.Component {
   render() {
+    const { product, cartItem, updateProduct } = this.props;
+
+    const { name, brand, prices, gallery, description, attributes } = product;
+    const { quantity, selectedAttributes, attributeHash, uid } = cartItem;
+
     return (
       <ItemWrapper>
         <ItemMenus>
           <ItemHeading>
-            <h1>Apollo</h1>
-            <h2>Running Short</h2>
+            <h1>
+              {brand} {name}
+            </h1>
           </ItemHeading>
-          <ItemPrice>$50.00</ItemPrice>
-          <SizePicker
-            activeChoice={'S'}
-            items={[
-              { label: 'S', value: 'S' },
-              { label: 'M', value: 'M' }
-            ]}
-            onChoice={(choice) => {
-              console.log(choice);
-            }}
-          />
-          <ColorPicker
-            activeChoice={'#1D1F22'}
-            colors={['#5ECE7B', '#1D1F22', '#0F6450']}
-            onChoice={(choice) => {
-              console.log(choice);
+          <ItemPrice>{prices && <PriceSpan prices={prices} />}</ItemPrice>
+          <AttributeSet
+            attributes={attributes}
+            selectedAttributes={selectedAttributes}
+            onChange={(attribute, value) => {
+              const newCartItem = CartItem.fromSerialized(cartItem);
+              newCartItem.selectAttribute(attribute.id, value);
+
+              updateProduct(newCartItem.serialized);
             }}
           />
         </ItemMenus>
         <CountPicker
-          count={0}
+          count={quantity}
           onChange={(newCount) => {
-            console.log(newCount);
+            const newCartItem = CartItem.fromSerialized(cartItem);
+            newCartItem.setQuantity(newCount);
+
+            updateProduct(newCartItem.serialized);
           }}
         />
         <ItemPreview>
-          <img
-            src="https://i.imgur.com/XqnXKXb.jpg"
-            alt="Aplllo Running Short"
-          />
+          <img src={gallery[0]} alt="Aplllo Running Short" />
         </ItemPreview>
       </ItemWrapper>
     );
   }
 }
 
-export default CompactItem;
+const mapStateToProps = (state, ownProps) => ({
+  product: selectProductById(state, ownProps.id)
+});
+
+const mapDispatchToProps = {
+  updateProduct
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(CompactItem);

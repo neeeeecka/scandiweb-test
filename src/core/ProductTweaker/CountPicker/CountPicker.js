@@ -33,7 +33,9 @@ const Button = styled.button`
   &:active {
     background-color: #bababa;
   }
-
+  i {
+    pointer-events: none;
+  }
   ${BigItemWrapper} & {
     width: 45px;
     height: 45px;

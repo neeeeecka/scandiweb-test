@@ -1,11 +1,11 @@
-import React from "react";
-import { useSelector, useDispatch, connect } from "react-redux";
-import styled from "styled-components";
-import Icon from "../../../assets/Icon";
-import CustomComponent from "../../../core/CustomComponent";
-import handleClickOutsideModal from "../../../handlers/handleClickOutsideModal";
-import { keyframes } from "styled-components";
-import CartModal from "./CartModal";
+import React from 'react';
+import { useSelector, useDispatch, connect } from 'react-redux';
+import styled from 'styled-components';
+import Icon from '../../../assets/Icon';
+import CustomComponent from '../../../core/CustomComponent';
+import handleClickOutsideModal from '../../../handlers/handleClickOutsideModal';
+import { keyframes } from 'styled-components';
+import CartModal from './CartModal';
 
 const WrapperStyle = styled.div`
   position: relative;
@@ -34,7 +34,7 @@ const CartCounter = styled.span`
   width: 20px;
   height: 20px;
   font-weight: 700;
-  font-family: "Roboto";
+  font-family: 'Roboto';
   font-size: 15px;
 
   & span {
@@ -48,7 +48,7 @@ const CartCounter = styled.span`
 class MiniCart extends CustomComponent {
   state = {
     animationGoing: false,
-    animationTime: 150,
+    animationTime: 150
   };
 
   constructor(props) {
@@ -84,7 +84,7 @@ class MiniCart extends CustomComponent {
     this.safeToggle(() => {
       this.setState({
         modalVisible: !this.state.modalVisible,
-        animationGoing: true,
+        animationGoing: true
       });
       setTimeout(() => {
         this.setState({ animationGoing: false });
@@ -102,7 +102,7 @@ class MiniCart extends CustomComponent {
           aria-label="See minicart"
           ref={this.focusRef}
         >
-          <Icon name={"cart"} style={CartStyle} />
+          <Icon name={'cart'} style={CartStyle} />
           <CartCounter>
             <span>3</span>
           </CartCounter>

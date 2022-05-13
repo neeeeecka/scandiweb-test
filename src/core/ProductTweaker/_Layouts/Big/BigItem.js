@@ -8,8 +8,6 @@ import {
 
 import { updateProduct } from '../../../../features/Cart/cartSlice';
 
-import ColorPicker from '../../AttributeSet/ColorPicker';
-import SizePicker from '../../AttributeSet/SizePicker';
 import CountPicker from '../../CountPicker';
 
 import PreviewSmall from '../../PreviewSmall/';
@@ -50,7 +48,7 @@ class BigItem extends React.Component {
             <ItemHeading>
               <h1>{brand}</h1>
               <h2>{name}</h2>
-              {uid}
+              {/* {uid} */}
             </ItemHeading>
             <ItemPrice>{prices && <PriceSpan prices={prices} />}</ItemPrice>
             {attributes && (
@@ -71,12 +69,17 @@ class BigItem extends React.Component {
             layout="big"
             count={quantity}
             onChange={(newCount) => {
-              console.log(newCount);
+              const newCartItem = CartItem.fromSerialized(cartItem);
+              newCartItem.setQuantity(newCount);
+
+              updateProduct(newCartItem.serialized);
             }}
           />
           <PreviewSmall previews={gallery} />
         </BigItemWrapper>
       );
+    } else {
+      return null;
     }
   }
 }

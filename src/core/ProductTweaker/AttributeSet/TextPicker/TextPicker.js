@@ -79,10 +79,6 @@ class TextPicker extends React.Component {
       unique = this.state.uid
     } = this.props;
 
-    if (!items) {
-      return null;
-    }
-
     return (
       <SizeWrapper>
         <PickerLabel>{name}:</PickerLabel>
