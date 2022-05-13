@@ -7,7 +7,13 @@ import { Link } from 'react-router-dom';
 
 import withRouter from '../../../../HOCs/withRouter';
 import { connect } from 'react-redux';
-import { selectAllCartItems, updateProduct } from '../../cartSlice';
+import {
+  quantity,
+  selectAllCartItems,
+  total,
+  updateProduct
+} from '../../cartSlice';
+import { selectCurrencySymbolAndLabel } from '../../../CurrencyPicker/currencySlice';
 
 const CartModalStyle = styled.div`
   transition: all ${(props) => props.animationTime}s ease;
@@ -111,8 +117,17 @@ class CartModal extends React.Component {
   };
 
   render() {
-    const { modalVisible, animationGoing, animationTime, clickRef, cartItems } =
-      this.props;
+    const {
+      modalVisible,
+      animationGoing,
+      animationTime,
+      clickRef,
+      cartItems,
+      currencySymbolAndLabel,
+      total
+    } = this.props;
+
+    const { symbol } = currencySymbolAndLabel;
 
     return (
       <Modal>
@@ -143,7 +158,10 @@ class CartModal extends React.Component {
             </ItemContainer>
             <FooterParagraph>
               <span>Total:</span>
-              <b>$200.00</b>
+              <b>
+                {symbol}
+                {total}
+              </b>
             </FooterParagraph>
             <ButtonsWrapper>
               <ViewBagButton href="/cart" onClick={this.goToCartPage} as="a">
@@ -161,7 +179,9 @@ class CartModal extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  cartItems: selectAllCartItems(state)
+  cartItems: selectAllCartItems(state),
+  total: total(state),
+  currencySymbolAndLabel: selectCurrencySymbolAndLabel(state)
 });
 
 export default connect(mapStateToProps)(withRouter(CartModal));

@@ -34,4 +34,13 @@ export const selectSelectedCurrency = (state) =>
   state.currencies.selectedCurrency;
 export const selectCurrencies = (state) => state.currencies.currencies;
 
+export const selectCurrencySymbolAndLabel = (state) => {
+  const currencies = selectCurrencies(state);
+  const currency = currencies
+    ? currencies[state.currencies.selectedCurrency]
+    : {};
+
+  return currency;
+};
+
 export default currencySlice.reducer;

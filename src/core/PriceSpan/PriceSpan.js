@@ -4,9 +4,9 @@ import { selectSelectedCurrency } from '../../features/CurrencyPicker/currencySl
 
 class PriceSpan extends React.Component {
   render() {
-    const { prices, selectedCurrency } = this.props;
+    const { prices, singlePrice, selectedCurrency } = this.props;
 
-    const price = prices[selectedCurrency].amount;
+    const price = prices ? prices[selectedCurrency].amount : singlePrice;
     const currencySymbol = prices[selectedCurrency].currency.symbol;
 
     return (

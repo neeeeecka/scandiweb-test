@@ -3,8 +3,15 @@ import styled from 'styled-components';
 import BigItem from '../../../core/ProductTweaker/_Layouts/Big/BigItem';
 import { ButtonFill } from '../../../styles/global.css';
 
-import { updateProduct, selectAllCartItems } from '../cartSlice';
+import {
+  updateProduct,
+  selectAllCartItems,
+  total,
+  quantity
+} from '../cartSlice';
 import { connect } from 'react-redux';
+import PriceSpan from '../../../core/PriceSpan';
+import { selectCurrencySymbolAndLabel } from '../../CurrencyPicker/currencySlice';
 
 const CartPageSection = styled.section`
   display: flex;
@@ -54,7 +61,8 @@ const OrderButton = styled(ButtonFill)`
 
 class CartPage extends React.Component {
   render() {
-    const { cartItems } = this.props;
+    const { cartItems, quantity, total, currencySymbolAndLabel } = this.props;
+    const { symbol } = currencySymbolAndLabel;
 
     return (
       <CartPageSection>
@@ -71,11 +79,14 @@ class CartPage extends React.Component {
           </CartOrderLabelWrapper>
           <CartOrderLabelWrapper>
             <span>Qty:</span>
-            <b>3</b>
+            <b>{quantity}</b>
           </CartOrderLabelWrapper>
           <CartOrderLabelWrapper>
             <span>Total:</span>
-            <b>$200.00</b>
+            <b>
+              {symbol}
+              {total}
+            </b>
           </CartOrderLabelWrapper>
           <OrderButton>ORDER</OrderButton>
         </CartOrderWrapper>
@@ -85,7 +96,10 @@ class CartPage extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  cartItems: selectAllCartItems(state)
+  cartItems: selectAllCartItems(state),
+  total: total(state),
+  quantity: quantity(state),
+  currencySymbolAndLabel: selectCurrencySymbolAndLabel(state)
 });
 
 const mapDispatchToProps = {

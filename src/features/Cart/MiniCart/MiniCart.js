@@ -4,7 +4,6 @@ import styled from 'styled-components';
 import Icon from '../../../assets/Icon';
 import CustomComponent from '../../../core/CustomComponent';
 import handleClickOutsideModal from '../../../handlers/handleClickOutsideModal';
-import { keyframes } from 'styled-components';
 import CartModal from './CartModal';
 
 const WrapperStyle = styled.div`
