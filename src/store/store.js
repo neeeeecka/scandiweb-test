@@ -1,7 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 import categoriesSlice from '../features/Categories/categoriesSlice';
-import currencySlice from '../features/Categories/CurrencyPicker/currencySlice';
-import counterReducer from '../features/Counter/counterSlice';
+import currencySlice from '../features/CurrencyPicker/currencySlice';
 import productListingSlice from '../features/ProductListing/productListingSlice';
 
 export default configureStore({

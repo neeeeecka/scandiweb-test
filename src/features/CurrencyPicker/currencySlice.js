@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { fetchFromGQL } from '../../../services/fetch/fetchFromGQL';
-import { GQL_GET_CURRENCIES } from '../../../services/graphql/queries';
+import { fetchFromGQL } from '../../services/fetch/fetchFromGQL';
+import { GQL_GET_CURRENCIES } from '../../services/graphql/queries';
 
 export const fetchCurrencies = createAsyncThunk(
   'currencies/fetchCurrencies',

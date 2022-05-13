@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { selectSelectedCurrency } from '../../features/Categories/CurrencyPicker/currencySlice';
+import { selectSelectedCurrency } from '../../features/CurrencyPicker/currencySlice';
 
 class PriceSpan extends React.Component {
   render() {

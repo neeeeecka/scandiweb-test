@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import GlobalCSS from './styles/global.css';
 import { Route, Routes } from 'react-router-dom';
 import ProductListing from './features/ProductListing';
-import CartPage from './features/CartPage';
+import CartPage from './features/Cart/CartPage';
 import PDP from './features/PDP';
 import { connect } from 'react-redux';
 import {
@@ -16,7 +16,7 @@ import {
 import {
   fetchCurrencies,
   selectCurrencies
-} from './features/Categories/CurrencyPicker/currencySlice';
+} from './features/CurrencyPicker/currencySlice';
 
 const AppContainer = styled.div`
   padding: 0 80px;
