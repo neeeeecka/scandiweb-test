@@ -32,7 +32,7 @@ export const fetchProductAdditionals = createAsyncThunk(
   'productListing/fetchProductAdditionals',
   async (id) => {
     const { data } = await fetchFromGQL(GQL_GET_PRODUCT, { id });
-    console.log(data.product);
+    // console.log(data.product);
     return data.product;
   }
 );

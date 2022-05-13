@@ -3,12 +3,9 @@ import styled from 'styled-components';
 import { ButtonFill } from '../../../../styles/global.css';
 import PreviewBig from '../../PreviewBig';
 
-import ColorPicker from '../../AttributeSet/ColorPicker';
-import SizePicker from '../../AttributeSet/SizePicker';
 import AttributeSet from '../../AttributeSet/';
 
 import {
-  BigItemWrapper,
   FullPageItemWrapper,
   ItemHeading,
   PickerLabel,
@@ -22,6 +19,7 @@ import {
 } from '../../../../features/ProductListing/productListingSlice';
 
 import PriceSpan from '../../../PriceSpan';
+import CartItem from '../../../../models/CartItem';
 
 const ItemMenus = styled.div`
   width: 292px;
@@ -50,6 +48,7 @@ const ItemDescription = styled.div`
 
 class FullPage extends React.Component {
   state = {
+    cartItem: new CartItem(),
     selectedAttributes: {}
   };
 
@@ -58,8 +57,24 @@ class FullPage extends React.Component {
     fetchProductAdditionals(id);
   }
 
+  componentDidUpdate(prevProps) {
+    const { product } = this.props;
+    if (product && product !== prevProps.product) {
+      const cartItem = new CartItem(product);
+      this.setState({
+        cartItem
+      });
+    }
+  }
+
+  addToCart = () => {
+    const { product } = this.props;
+    const { selectedAttributes } = this.state;
+    const cartItem = new CartItem(product, selectedAttributes, 1);
+  };
+
   render() {
-    const { id, product } = this.props;
+    const { product } = this.props;
 
     if (product) {
       const { name, brand, prices, gallery, description, attributes } = product;
@@ -75,13 +90,14 @@ class FullPage extends React.Component {
             {attributes && (
               <AttributeSet
                 attributes={attributes}
-                selectedAttributes={this.state.selectedAttributes}
+                selectedAttributes={this.state.cartItem.selectedAttributes}
                 onChange={(attribute, value) => {
+                  const newCartItem = this.state.cartItem.selectAttribute(
+                    attribute.id,
+                    value
+                  );
                   this.setState({
-                    selectedAttributes: {
-                      ...this.state.selectedAttributes,
-                      [attribute.id]: value
-                    }
+                    cartItem: newCartItem
                   });
                 }}
               />
@@ -91,7 +107,9 @@ class FullPage extends React.Component {
               <PickerLabel>Price:</PickerLabel>
               <ItemPrice>{prices && <PriceSpan prices={prices} />}</ItemPrice>
             </PickerWrapper>
-            <AddToCartButton>Add to cart</AddToCartButton>
+            <AddToCartButton onClick={this.addToCart}>
+              Add to cart
+            </AddToCartButton>
             <ItemDescription
               dangerouslySetInnerHTML={{
                 __html: description

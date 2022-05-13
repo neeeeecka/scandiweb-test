@@ -9,6 +9,9 @@ export const cartSlice = createSlice({
     productSelected(state, action) {
       const { product } = action.payload;
       state.products[product.id] = product;
+    },
+    updateProduct(state, action) {
+      // const { attributes,  } = action.payload;
     }
   }
 });
