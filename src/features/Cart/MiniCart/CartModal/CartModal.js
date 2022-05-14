@@ -161,12 +161,12 @@ class CartModal extends React.Component {
               </b>
             </FooterParagraph>
             <ButtonsWrapper>
-              <ViewBagButton href="/cart" onClick={this.goToCartPage} as="a">
-                View bag
-              </ViewBagButton>
-              <CheckoutButton href="/cart" onClick={this.goToCartPage} as="a">
-                Checkout
-              </CheckoutButton>
+              <Link to="/cart">
+                <ViewBagButton>View bag</ViewBagButton>
+              </Link>
+              <Link to="/cart">
+                <CheckoutButton>Checkout</CheckoutButton>
+              </Link>
             </ButtonsWrapper>
           </CartModalContent>
         </CartModalStyle>
@@ -182,4 +182,4 @@ const mapStateToProps = (state) => ({
   currencySymbolAndLabel: selectCurrencySymbolAndLabel(state)
 });
 
-export default connect(mapStateToProps)(withRouter(CartModal));
+export default connect(mapStateToProps)(CartModal);
