@@ -73,6 +73,16 @@ class FullPage extends React.Component {
     }
   }
 
+  editItem = (attribute, value) => {
+    const newCartItem = CartItem.fromSerialized(this.state.cartItem);
+
+    newCartItem.selectAttribute(attribute.id, value);
+
+    this.setState({
+      cartItem: newCartItem.serialized
+    });
+  };
+
   addToCart = () => {
     const { updateProduct, addProduct } = this.props;
     const { cartItem } = this.state;
@@ -104,17 +114,7 @@ class FullPage extends React.Component {
               <AttributeSet
                 attributes={attributes}
                 selectedAttributes={this.state.cartItem.selectedAttributes}
-                onChange={(attribute, value) => {
-                  const newCartItem = CartItem.fromSerialized(
-                    this.state.cartItem
-                  );
-
-                  newCartItem.selectAttribute(attribute.id, value);
-
-                  this.setState({
-                    cartItem: newCartItem.serialized
-                  });
-                }}
+                onChange={this.editItem}
               />
             )}
 
