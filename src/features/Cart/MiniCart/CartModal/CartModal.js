@@ -5,7 +5,6 @@ import { ButtonFill, ButtonOutline } from '../../../../styles/global.css';
 import CompactItem from '../../../../core/ProductTweaker/_Layouts/CompactItem';
 import { Link } from 'react-router-dom';
 
-import withRouter from '../../../../HOCs/withRouter';
 import { connect } from 'react-redux';
 import { quantity, selectAllCartItems, total } from '../../cartSlice';
 import { selectCurrencySymbolAndLabel } from '../../../CurrencyPicker/currencySlice';

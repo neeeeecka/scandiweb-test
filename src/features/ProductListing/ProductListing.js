@@ -1,10 +1,10 @@
-import CustomComponent from '../../core/CustomComponent';
 import styled from 'styled-components';
 import ProductCard from './ProductCard';
 
 import { connect } from 'react-redux';
 import { selectSelectedCategory } from '../Categories/categoriesSlice';
 import { fetchCategoryItems, selectAllProducts } from './productListingSlice';
+import React from 'react';
 
 const ProductListingSection = styled.section`
   display: flex;
@@ -25,7 +25,7 @@ const ProductList = styled.div`
   gap: max(5px, 3.5vw);
 `;
 
-class ProductListing extends CustomComponent {
+class ProductListing extends React.Component {
   // static contextType = getApolloContext();
 
   async componentDidMount() {
