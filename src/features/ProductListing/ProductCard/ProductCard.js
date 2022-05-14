@@ -70,6 +70,11 @@ const iconStyle = `
   filter: brightness(0) invert(1);
 `;
 
+const OutOfStockSpan = styled.span`
+  color: #ff0000;
+  margin-left: 5px;
+`;
+
 class ProductCard extends React.Component {
   addToCart = () => {
     const { updateProduct, product } = this.props;
@@ -84,7 +89,7 @@ class ProductCard extends React.Component {
   render() {
     const { product } = this.props;
 
-    const { id, name, brand, prices, gallery } = product;
+    const { id, name, brand, prices, gallery, inStock } = product;
 
     const image = gallery[0];
 
@@ -94,11 +99,16 @@ class ProductCard extends React.Component {
           <CardImage src={image} alt="Product preview" />
         </Link>
         <ButtonWrapper>
-          <PopupButton aria-label="Add item to cart" onClick={this.addToCart}>
-            <Icon name="cart" style={iconStyle} />
-          </PopupButton>
+          {inStock ? (
+            <PopupButton aria-label="Add item to cart" onClick={this.addToCart}>
+              <Icon name="cart" style={iconStyle} />
+            </PopupButton>
+          ) : null}
         </ButtonWrapper>
-        <CardTitle>{`${brand} ${name}`}</CardTitle>
+        <CardTitle>
+          {`${brand} ${name}`}
+          {inStock ? null : <OutOfStockSpan>{'(Out of stock)'}</OutOfStockSpan>}
+        </CardTitle>
         <CardPrice>
           <PriceSpan prices={prices} />
         </CardPrice>

@@ -18,7 +18,7 @@ import {
   fetchProductAdditionals
 } from '../../../../features/ProductListing/productListingSlice';
 
-import { updateProduct } from '../../../../features/Cart/cartSlice';
+import { addProduct, updateProduct } from '../../../../features/Cart/cartSlice';
 
 import PriceSpan from '../../../PriceSpan';
 import CartItem from '../../../../models/CartItem';
@@ -38,6 +38,10 @@ const ItemPrice = styled.h2`
 
 const AddToCartButton = styled(ButtonFill)`
   width: 100%;
+  &:disabled {
+    background: gray;
+    cursor: not-allowed;
+  }
 `;
 
 const ItemDescription = styled.div`
@@ -70,20 +74,23 @@ class FullPage extends React.Component {
   }
 
   addToCart = () => {
-    const { updateProduct } = this.props;
+    const { updateProduct, addProduct } = this.props;
     const { cartItem } = this.state;
 
     const newCartItem = CartItem.fromSerialized(cartItem);
     newCartItem.newUID();
+    // newCartItem.recalculateAttributeHash();
 
-    updateProduct(newCartItem.serialized);
+    // updateProduct(newCartItem.serialized);
+    addProduct(newCartItem.serialized);
   };
 
   render() {
     const { product } = this.props;
 
     if (product) {
-      const { name, brand, prices, gallery, description, attributes } = product;
+      const { name, brand, prices, gallery, description, attributes, inStock } =
+        product;
 
       return (
         <FullPageItemWrapper>
@@ -115,8 +122,11 @@ class FullPage extends React.Component {
               <PickerLabel>Price:</PickerLabel>
               <ItemPrice>{prices && <PriceSpan prices={prices} />}</ItemPrice>
             </PickerWrapper>
-            <AddToCartButton onClick={this.addToCart}>
-              Add to cart
+            <AddToCartButton
+              onClick={inStock ? this.addToCart : null}
+              disabled={!inStock}
+            >
+              {inStock ? 'Add to cart' : 'Out of stock'}
             </AddToCartButton>
             <ItemDescription
               dangerouslySetInnerHTML={{
@@ -138,7 +148,8 @@ const mapStateToProps = (state, ownProps) => ({
 
 const mapDispatchToProps = {
   fetchProductAdditionals,
-  updateProduct
+  // updateProduct,
+  addProduct
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(FullPage);

@@ -8,6 +8,8 @@ const cartItemsAdapter = createEntityAdapter({
     const aId = a.id + a.uid;
     const bId = b.id + b.uid;
     return aId.localeCompare(bId);
+
+    // return a.attributeHash.localeCompare(b.attributeHash);
   }
 });
 
@@ -20,9 +22,31 @@ export const cartSlice = createSlice({
   name: 'cart',
   initialState: initialState,
   reducers: {
+    addProduct: (state, action) => {
+      const cartItem = action.payload;
+
+      let existingItem = similarItem(state, cartItem);
+
+      if (
+        existingItem &&
+        existingItem.attributeHash === cartItem.attributeHash
+      ) {
+        existingItem.quantity += 1;
+      } else {
+        cartItemsAdapter.upsertOne(state, cartItem);
+      }
+    },
     updateProduct(state, action) {
       const cartItem = action.payload;
-      cartItemsAdapter.upsertOne(state, cartItem);
+
+      const existingItem = similarItem(state, cartItem);
+
+      if (existingItem) {
+        existingItem.quantity += cartItem.quantity;
+        cartItemsAdapter.removeOne(state, cartItem.uid);
+      } else {
+        cartItemsAdapter.upsertOne(state, cartItem);
+      }
     }
   }
 });
@@ -33,7 +57,22 @@ export const {
   selectIds: selectCartItemIds
 } = cartItemsAdapter.getSelectors((state) => state.cart);
 
-export const { updateProduct } = cartSlice.actions;
+export const { updateProduct, addProduct } = cartSlice.actions;
+
+export const similarItem = (state, cartItem) => {
+  for (let i = 0; i < state.ids.length; i++) {
+    const uid = state.ids[i];
+    const item = state.entities[uid];
+    if (
+      item.id === cartItem.id &&
+      item.attributeHash === cartItem.attributeHash &&
+      item.uid !== cartItem.uid
+    ) {
+      return item;
+    }
+  }
+  return null;
+};
 
 export const quantity = (state) => {
   const allItems = selectAllCartItems(state);

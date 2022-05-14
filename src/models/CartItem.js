@@ -34,11 +34,12 @@ class CartItem {
     newCartItem.id = serialized.id;
     newCartItem.uid = serialized.uid;
     newCartItem.quantity = serialized.quantity;
+    newCartItem.attributeHash = serialized.attributeHash;
 
     newCartItem.selectedAttributes = structuredClone(
       serialized.selectedAttributes
     );
-    newCartItem.attributeHash = CartItem.makeAttributeHash(newCartItem);
+    // newCartItem.attributeHash = CartItem.makeAttributeHash(newCartItem);
 
     return newCartItem;
   }
@@ -52,6 +53,7 @@ class CartItem {
   }
 
   static makeAttributeHash(cartItem) {
+    // console.log('Making attribute hash for cart item: ', cartItem);
     const sorted = Object.keys(cartItem.selectedAttributes).sort((a, b) =>
       a.localeCompare(b)
     );
@@ -67,9 +69,14 @@ class CartItem {
     this.uid = makeUniqueId();
   }
 
+  recalculateAttributeHash() {
+    this.attributeHash = CartItem.makeAttributeHash(this);
+  }
+
   selectAttribute(attributeId, value) {
     this.selectedAttributes[attributeId] = value;
-    this.attributeHash = CartItem.makeAttributeHash(this);
+    // this.attributeHash = CartItem.makeAttributeHash(this);
+    this.recalculateAttributeHash();
   }
 
   setQuantity(quantity) {
