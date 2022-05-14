@@ -3,7 +3,6 @@ import { useSelector, useDispatch, connect } from 'react-redux';
 import styled from 'styled-components';
 import Icon from '../../../assets/Icon';
 import CustomComponent from '../../../core/CustomComponent';
-import handleClickOutsideModal from '../../../handlers/handleClickOutsideModal';
 import { quantity } from '../cartSlice';
 import CartModal from './CartModal';
 

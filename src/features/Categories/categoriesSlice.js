@@ -1,7 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { fetchFromGQL } from '../../services/fetch/fetchFromGQL';
 import { GQL_GET_CATEGORIES } from '../../services/graphql/queries';
-import { fetchCategoryItems } from '../ProductListing/productListingSlice';
 
 const urlParams = new URLSearchParams(window.location.search);
 
