@@ -144,13 +144,13 @@ class CartModal extends React.Component {
               <span>, {quantity} items</span>
             </Paragraph>
             <ItemContainer>
-              {/* {cartItems.map((cartItem) => (
+              {cartItems.map((cartItem) => (
                 <CompactItem
                   cartItem={cartItem}
                   id={cartItem.id}
                   key={cartItem.uid}
                 />
-              ))} */}
+              ))}
             </ItemContainer>
             <FooterParagraph>
               <span>Total:</span>

@@ -80,7 +80,7 @@ class CartItem {
   }
 
   setQuantity(quantity) {
-    this.quantity = Math.max(1, quantity);
+    this.quantity = Math.max(0, quantity);
   }
 }
 

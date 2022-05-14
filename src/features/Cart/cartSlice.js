@@ -39,13 +39,17 @@ export const cartSlice = createSlice({
     updateProduct(state, action) {
       const cartItem = action.payload;
 
-      const existingItem = similarItem(state, cartItem);
-
-      if (existingItem) {
-        existingItem.quantity += cartItem.quantity;
+      if (cartItem.quantity === 0) {
         cartItemsAdapter.removeOne(state, cartItem.uid);
       } else {
-        cartItemsAdapter.upsertOne(state, cartItem);
+        const existingItem = similarItem(state, cartItem);
+
+        if (existingItem) {
+          existingItem.quantity += cartItem.quantity;
+          cartItemsAdapter.removeOne(state, cartItem.uid);
+        } else {
+          cartItemsAdapter.upsertOne(state, cartItem);
+        }
       }
     }
   }
