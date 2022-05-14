@@ -1,14 +1,11 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import styled from 'styled-components';
-import { selectProductById } from '../../../../features/ProductListing/productListingSlice';
 
 import CountPicker from '../../CountPicker';
 
-import { updateProduct } from '../../../../features/Cart/cartSlice';
 import PriceSpan from '../../../PriceSpan';
 import AttributeSet from '../../AttributeSet';
-import CartItem from '../../../../models/CartItem';
+import ItemController from '../ItemController';
 
 const ItemWrapper = styled.div`
   display: flex;
@@ -55,53 +52,39 @@ const ItemPreview = styled.div`
 
 class CompactItem extends React.Component {
   render() {
-    const { product, cartItem, updateProduct } = this.props;
-
-    const { name, brand, prices, gallery, description, attributes } = product;
-    const { quantity, selectedAttributes, attributeHash, uid } = cartItem;
+    const { cartItem, id } = this.props;
 
     return (
-      <ItemWrapper>
-        <ItemMenus>
-          <ItemHeading>
-            <h1>{brand}</h1>
-            <h2>{name}</h2>
-          </ItemHeading>
-          <ItemPrice>{prices && <PriceSpan prices={prices} />}</ItemPrice>
-          <AttributeSet
-            attributes={attributes}
-            selectedAttributes={selectedAttributes}
-            onChange={(attribute, value) => {
-              const newCartItem = CartItem.fromSerialized(cartItem);
-              newCartItem.selectAttribute(attribute.id, value);
+      <ItemController cartItem={cartItem} id={id}>
+        {({ product, updateAttributtes, updateQuantity }) => {
+          const { name, brand, prices, gallery, description, attributes } =
+            product;
+          const { quantity, selectedAttributes, attributeHash, uid } = cartItem;
 
-              updateProduct(newCartItem.serialized);
-            }}
-          />
-        </ItemMenus>
-        <CountPicker
-          count={quantity}
-          onChange={(newCount) => {
-            const newCartItem = CartItem.fromSerialized(cartItem);
-            newCartItem.setQuantity(newCount);
-
-            updateProduct(newCartItem.serialized);
-          }}
-        />
-        <ItemPreview>
-          <img src={gallery[0]} alt="Aplllo Running Short" />
-        </ItemPreview>
-      </ItemWrapper>
+          return (
+            <ItemWrapper>
+              <ItemMenus>
+                <ItemHeading>
+                  <h1>{brand}</h1>
+                  <h2>{name}</h2>
+                </ItemHeading>
+                <ItemPrice>{prices && <PriceSpan prices={prices} />}</ItemPrice>
+                <AttributeSet
+                  attributes={attributes}
+                  selectedAttributes={selectedAttributes}
+                  onChange={updateAttributtes}
+                />
+              </ItemMenus>
+              <CountPicker count={quantity} onChange={updateQuantity} />
+              <ItemPreview>
+                <img src={gallery[0]} alt="Aplllo Running Short" />
+              </ItemPreview>
+            </ItemWrapper>
+          );
+        }}
+      </ItemController>
     );
   }
 }
 
-const mapStateToProps = (state, ownProps) => ({
-  product: selectProductById(state, ownProps.id)
-});
-
-const mapDispatchToProps = {
-  updateProduct
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(CompactItem);
+export default CompactItem;

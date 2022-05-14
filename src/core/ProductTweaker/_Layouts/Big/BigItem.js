@@ -1,12 +1,5 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import styled from 'styled-components';
-import {
-  selectProductById,
-  fetchProductAdditionals
-} from '../../../../features/ProductListing/productListingSlice';
-
-import { updateProduct } from '../../../../features/Cart/cartSlice';
 
 import CountPicker from '../../CountPicker';
 
@@ -14,7 +7,7 @@ import PreviewSmall from '../../PreviewSmall/';
 import { BigItemWrapper, ItemHeading } from '../../productTweaker.css';
 import PriceSpan from '../../../PriceSpan';
 import AttributeSet from '../../AttributeSet';
-import CartItem from '../../../../models/CartItem';
+import ItemController from '../ItemController';
 
 const ItemMenus = styled.div`
   flex: 1;
@@ -30,67 +23,46 @@ const ItemPrice = styled.h2`
 `;
 
 class BigItem extends React.Component {
-  componentDidMount() {
-    const { fetchProductAdditionals, id } = this.props;
-    fetchProductAdditionals(id);
-  }
-
   render() {
-    const { product, cartItem, updateProduct } = this.props;
+    const { cartItem, id } = this.props;
 
-    if (product) {
-      const { name, brand, prices, gallery, description, attributes } = product;
-      const { quantity, selectedAttributes, attributeHash, uid } = cartItem;
+    return (
+      <ItemController cartItem={cartItem} id={id}>
+        {({ product, updateAttributtes, updateQuantity }) => {
+          const { name, brand, prices, gallery, description, attributes } =
+            product;
+          const { quantity, selectedAttributes, attributeHash, uid } = cartItem;
 
-      return (
-        <BigItemWrapper>
-          <ItemMenus>
-            <ItemHeading>
-              <h1>{brand}</h1>
-              <h2>{name}</h2>
-              {/* {uid} */}
-            </ItemHeading>
-            <ItemPrice>{prices && <PriceSpan prices={prices} />}</ItemPrice>
-            {attributes && (
-              <AttributeSet
-                attributes={attributes}
-                selectedAttributes={selectedAttributes}
-                onChange={(attribute, value) => {
-                  const newCartItem = CartItem.fromSerialized(cartItem);
-                  newCartItem.selectAttribute(attribute.id, value);
+          return (
+            <BigItemWrapper>
+              <ItemMenus>
+                <ItemHeading>
+                  <h1>{brand}</h1>
+                  <h2>{name}</h2>
+                  {/* {uid} */}
+                </ItemHeading>
+                <ItemPrice>{prices && <PriceSpan prices={prices} />}</ItemPrice>
+                {attributes && (
+                  <AttributeSet
+                    attributes={attributes}
+                    selectedAttributes={selectedAttributes}
+                    onChange={updateAttributtes}
+                  />
+                )}
+              </ItemMenus>
 
-                  updateProduct(newCartItem.serialized);
-                }}
+              <CountPicker
+                layout="big"
+                count={quantity}
+                onChange={updateQuantity}
               />
-            )}
-          </ItemMenus>
-
-          <CountPicker
-            layout="big"
-            count={quantity}
-            onChange={(newCount) => {
-              const newCartItem = CartItem.fromSerialized(cartItem);
-              newCartItem.setQuantity(newCount);
-
-              updateProduct(newCartItem.serialized);
-            }}
-          />
-          <PreviewSmall previews={gallery} />
-        </BigItemWrapper>
-      );
-    } else {
-      return null;
-    }
+              <PreviewSmall previews={gallery} />
+            </BigItemWrapper>
+          );
+        }}
+      </ItemController>
+    );
   }
 }
 
-const mapStateToProps = (state, ownProps) => ({
-  product: selectProductById(state, ownProps.id)
-});
-
-const mapDispatchToProps = {
-  updateProduct,
-  fetchProductAdditionals
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(BigItem);
+export default BigItem;
