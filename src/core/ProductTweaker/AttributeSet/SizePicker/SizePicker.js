@@ -71,7 +71,7 @@ class SizePicker extends React.Component {
       <SizeWrapper>
         <PickerLabel>Size:</PickerLabel>
         <AttributeSetButtonWrapper>
-          {items.map(({ displayValue, value }) => {
+          {items.map(({ displayValue, id, value }) => {
             const active =
               value === activeChoice || displayValue === activeChoice;
 
@@ -91,9 +91,7 @@ class SizePicker extends React.Component {
                   }}
                 />
                 <SizeButton htmlFor={uniqueId} active={active}>
-                  {Number(displayValue)
-                    ? displayValue
-                    : textToSizeSymbols[displayValue]}
+                  {Number(displayValue) ? displayValue : value}
                 </SizeButton>
               </div>
             );

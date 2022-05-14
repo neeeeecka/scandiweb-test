@@ -20,7 +20,7 @@ class CartItem {
         const attributesCopy = productCopy.attributes;
 
         attributesCopy.forEach((attribute) => {
-          this.selectedAttributes[attribute.id] = attribute.items[0].id;
+          this.selectedAttributes[attribute.id] = attribute.items[0].value;
         });
       }
     }
