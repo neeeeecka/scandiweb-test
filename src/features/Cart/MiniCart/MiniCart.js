@@ -56,21 +56,29 @@ class MiniCart extends CustomComponent {
 
     this.clickRef = React.createRef();
 
-    const [cleanupClickHandler, safeToggle] = handleClickOutsideModal(
-      this.clickRef,
-      this.handleClickOutside
-    );
+    // const [cleanupClickHandler, safeToggle] = handleClickOutsideModal(
+    //   this.clickRef,
+    //   this.handleClickOutside
+    // );
 
-    this.safeToggle = safeToggle;
+    // this.safeToggle = safeToggle;
 
-    this.addCleanup(cleanupClickHandler);
+    // this.addCleanup(cleanupClickHandler);
 
     this.focusRef = React.createRef();
   }
 
+  closeModal = () => {
+    this.setState({ modalVisible: false });
+  };
+
+  openModal = () => {
+    this.setState({ modalVisible: true });
+  };
+
   handleClickOutside = () => {
     if (this.state.modalVisible) {
-      this.toggleModal();
+      // this.toggleModal();
     }
   };
 
@@ -80,17 +88,17 @@ class MiniCart extends CustomComponent {
     }
   }
 
-  toggleModal = () => {
-    this.safeToggle(() => {
-      this.setState({
-        modalVisible: !this.state.modalVisible,
-        animationGoing: true
-      });
-      setTimeout(() => {
-        this.setState({ animationGoing: false });
-      }, this.state.animationTime);
-    });
-  };
+  // toggleModal = () => {
+  //   this.safeToggle(() => {
+  //     this.setState({
+  //       modalVisible: !this.state.modalVisible,
+  //       animationGoing: true
+  //     });
+  //     setTimeout(() => {
+  //       this.setState({ animationGoing: false });
+  //     }, this.state.animationTime);
+  //   });
+  // };
 
   render() {
     const { modalVisible, animationGoing, animationTime } = this.state;
@@ -100,7 +108,7 @@ class MiniCart extends CustomComponent {
     return (
       <WrapperStyle>
         <ButtonStyle
-          onClick={() => this.toggleModal()}
+          onClick={() => this.openModal()}
           aria-label="See minicart"
           ref={this.focusRef}
         >
@@ -111,6 +119,7 @@ class MiniCart extends CustomComponent {
         </ButtonStyle>
 
         <CartModal
+          closeModal={this.closeModal}
           modalVisible={modalVisible}
           animationGoing={animationGoing}
           animationTime={animationTime / 1000}

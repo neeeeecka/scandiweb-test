@@ -21,9 +21,10 @@ const CartModalStyle = styled.div`
 
   opacity: ${(props) => (props.visible ? 1 : 0)};
 
-  &:before {
+  & > div:first-child {
+    opacity: ${(props) => (props.visible ? 1 : 0)};
+
     transition: all ${(props) => props.animationTime}s ease;
-    content: '';
     display: block;
     left: 0;
     width: 100%;
@@ -31,6 +32,8 @@ const CartModalStyle = styled.div`
     background: #39374838;
   }
 `;
+
+const BackDrop = styled.div``;
 
 const CartModalContent = styled.div`
   transition: all 0.25s ease;
@@ -113,6 +116,7 @@ class CartModal extends React.Component {
 
   render() {
     const {
+      closeModal,
       modalVisible,
       animationGoing,
       animationTime,
@@ -132,6 +136,7 @@ class CartModal extends React.Component {
           animationGoing={animationGoing}
           animationTime={animationTime}
         >
+          <BackDrop onClick={closeModal} />
           <CartModalContent
             key="modal"
             ref={clickRef}

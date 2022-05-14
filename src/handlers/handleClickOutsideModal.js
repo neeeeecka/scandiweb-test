@@ -10,9 +10,11 @@ const handleClickOutsideModal = (ref, callback) => {
   const handleClick = (e) => {
     /**
      * Race condition(document event comes after element event), but should work.
+     * DOM node is getting destroyed before the event, so e.target.parents are null and not modal
      */
     if (transitionFinished.current) {
       if (ref.current && !ref.current.contains(e.target)) {
+        console.log();
         callback();
       }
     }
