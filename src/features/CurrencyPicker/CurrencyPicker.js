@@ -23,23 +23,15 @@ const ButtonStyle = styled.button`
   font-size: inherit;
   font-weight: inherit;
   padding: 0 9px;
+
+  i {
+    width: 8px;
+    height: 8px;
+    position: relative;
+    top: 9px;
+    margin-left: 8px;
+  }
 `;
-
-// const ArrowDown = `
-//   width: 8px;
-//   height: 8px;
-//   position: relative;
-//   top: 9px;
-//   margin-left: 8px;
-// `;
-
-const ArrowDownIcon = {
-  width: '8px',
-  height: '8px',
-  position: 'relative',
-  top: '9px',
-  marginLeft: '8px'
-};
 
 const CurrencyDropdownStyle = styled.div`
   flex-direction: column;
@@ -122,10 +114,7 @@ class CurrencyPicker extends CustomComponent {
       <ButtonWrapperStyle>
         <ButtonStyle onClick={this.toggleMenu} aria-label="Choose currency">
           <span>$</span>
-          <Icon
-            name={menuVisible ? 'arrow-up' : 'arrow-down'}
-            style={ArrowDownIcon}
-          />
+          <Icon name={menuVisible ? 'arrow-up' : 'arrow-down'} />
         </ButtonStyle>
         <CurrencyDropdownStyle visible={menuVisible} ref={this.clickRef}>
           {currencies.map(({ label, symbol }) => (

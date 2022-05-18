@@ -32,11 +32,11 @@ const CaretButton = styled.button`
   &:active {
     background: rgba(0, 0, 0, 0.5);
   }
-`;
 
-const IconStyle = {
-  width: '8px'
-};
+  i {
+    width: 8px;
+  }
+`;
 
 const ItemsWrapper = styled.div`
   flex: 1;
@@ -155,13 +155,13 @@ class PreviewSmall extends React.Component {
               onClick={() => this.rotatePreview(-1)}
               aria-label="Previous image"
             >
-              <Icon name="caret-left" style={IconStyle} />
+              <Icon name="caret-left" />
             </CaretButton>
             <CaretButton
               onClick={() => this.rotatePreview(+1)}
               aria-label="Next image"
             >
-              <Icon name="caret-right" style={IconStyle} />
+              <Icon name="caret-right" />
             </CaretButton>
           </ButtonsWrapper>
         )}

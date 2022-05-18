@@ -40,12 +40,12 @@ const Button = styled.button`
     width: 45px;
     height: 45px;
   }
-`;
 
-const iconStyle = {
-  width: '10px',
-  height: '10px'
-};
+  i {
+    width: 10px;
+    height: 10px;
+  }
+`;
 
 const Value = styled.span``;
 
@@ -62,11 +62,11 @@ class CountPicker extends React.Component {
     return (
       <ItemCounter>
         <Button aria-label="increment" onClick={() => this.handleChange(1)}>
-          <Icon name="plus" style={iconStyle} />
+          <Icon name="plus" />
         </Button>
         <Value aria-label="count">{count}</Value>
         <Button aria-label="decrement" onClick={() => this.handleChange(-1)}>
-          <Icon name="minus" style={iconStyle} />
+          <Icon name="minus" />
         </Button>
       </ItemCounter>
     );

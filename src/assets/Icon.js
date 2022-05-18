@@ -11,11 +11,9 @@ const IconStyle = styled.i`
 
 class Icon extends React.Component {
   render() {
-    const { name, style } = this.props;
-    // const Style = styled(IconStyle)`
-    //   ${style}
-    // `;
-    return <IconStyle src={`/assets/${name}.svg`} style={style} />;
+    const { name } = this.props;
+
+    return <IconStyle src={`/assets/${name}.svg`} />;
   }
 }
 

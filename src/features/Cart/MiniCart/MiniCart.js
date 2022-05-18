@@ -18,13 +18,13 @@ const ButtonStyle = styled.button`
   display: flex;
   padding: 0 9px;
   position: relative;
-`;
 
-const CartStyle = {
-  width: '20px',
-  height: '20px',
-  position: 'relative'
-};
+  i {
+    width: 20px;
+    height: 20px;
+    position: relative;
+  }
+`;
 
 const CartCounter = styled.span`
   position: absolute;
@@ -102,7 +102,7 @@ class MiniCart extends CustomComponent {
           aria-label="See minicart"
           ref={this.focusRef}
         >
-          <Icon name={'cart'} style={CartStyle} />
+          <Icon name={'cart'} />
           <CartCounter>
             <span>{quantity}</span>
           </CartCounter>

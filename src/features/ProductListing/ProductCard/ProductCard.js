@@ -40,6 +40,11 @@ const PopupButton = styled.button`
   ${ProductCardStyle}:hover &, &:focus {
     transform: translateY(-50%) scale(1);
   }
+
+  i {
+    transform: scale(0.5);
+    filter: brightness(0) invert(1);
+  }
 `;
 
 const CardImage = styled.img`
@@ -66,11 +71,6 @@ const ButtonWrapper = styled.div`
   margin-top: 0;
   height: 25px;
 `;
-
-const iconStyle = {
-  transform: 'scale(0.5)',
-  filter: 'brightness(0) invert(1)'
-};
 
 const OutOfStockOverlay = styled.div`
   position: absolute;
@@ -130,7 +130,7 @@ class ProductCard extends React.Component {
         <ButtonWrapper>
           {inStock ? (
             <PopupButton aria-label="Add item to cart" onClick={this.addToCart}>
-              <Icon name="cart" style={iconStyle} />
+              <Icon name="cart" />
             </PopupButton>
           ) : null}
         </ButtonWrapper>
