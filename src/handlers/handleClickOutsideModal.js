@@ -2,7 +2,18 @@
  *
  * @param {React.RefObject<HTMLElement>} ref
  * @callback callback
- * @returns {Function, Function} Cleanup, safeToggle
+ * @returns {[Function, Function]} Cleanup, safeToggle
+ * @description
+ * Returns [cleanup, safeToggle] a function that will clean up the click handler and a function that
+ * can be used to safely toggle state.
+ * @example
+ * const [cleanup, safeToggle] = handleClickOutsideModal(
+ *  this.clickRef,
+ *  this.closeMenu
+ * );
+ *
+ * this.safeToggle = safeToggle;
+ * addCleanup(cleanup);
  */
 const handleClickOutsideModal = (ref, callback) => {
   const transitionFinished = { current: false };
