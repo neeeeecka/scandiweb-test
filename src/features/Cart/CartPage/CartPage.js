@@ -10,7 +10,6 @@ import {
   quantity
 } from '../cartSlice';
 import { connect } from 'react-redux';
-import PriceSpan from '../../../core/PriceSpan';
 import { selectCurrencySymbolAndLabel } from '../../CurrencyPicker/currencySlice';
 
 const CartPageSection = styled.section`

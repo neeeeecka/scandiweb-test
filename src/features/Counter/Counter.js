@@ -1,6 +1,6 @@
-import React from "react";
-import { useSelector, useDispatch, connect } from "react-redux";
-import { decrement, increment } from "./counterSlice";
+import React from 'react';
+import { connect } from 'react-redux';
+import { decrement, increment } from './counterSlice';
 // import styles from "./Counter.module.css";
 
 class Counter extends React.Component {
@@ -8,7 +8,7 @@ class Counter extends React.Component {
   //   const dispatch = useDispatch();
 
   render() {
-    const { count, dispatch, increment, decrement } = this.props;
+    const { count, increment, decrement } = this.props;
 
     return (
       <div>
@@ -27,7 +27,7 @@ class Counter extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  count: state.counter.value,
+  count: state.counter.value
 });
 
 const mapDispatchToProps = { increment, decrement };

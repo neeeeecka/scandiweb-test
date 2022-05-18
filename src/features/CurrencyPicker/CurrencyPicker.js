@@ -1,5 +1,5 @@
 import React from 'react';
-import { useSelector, useDispatch, connect } from 'react-redux';
+import { connect } from 'react-redux';
 import styled from 'styled-components';
 import Icon from '../../assets/Icon';
 import handleClickOutsideModal from '../../handlers/handleClickOutsideModal';
@@ -9,6 +9,11 @@ import {
   selectSelectedCurrency,
   selectCurrency
 } from './currencySlice';
+import {
+  selectCurrentModal,
+  openModal,
+  closeModal
+} from '../../store/modalsSlice';
 
 const ButtonWrapperStyle = styled.div`
   cursor: pointer;
@@ -71,8 +76,6 @@ const CurrencyDropdownButton = styled.button`
 `;
 
 class CurrencyPicker extends CustomComponent {
-  state = { menuVisible: false };
-
   constructor(props) {
     super(props);
 
@@ -90,22 +93,25 @@ class CurrencyPicker extends CustomComponent {
 
   handleClickOutside = () => {
     if (this.state.menuVisible) {
-      this.closeMenu();
+      this.props.closeModal();
     }
   };
 
   toggleMenu = (e) => {
+    const { currentModal, closeModal, openModal } = this.props;
+    const menuVisible = currentModal === 'currencypicker';
+
     this.safeToggle(() => {
-      this.setState({ menuVisible: !this.state.menuVisible });
+      if (menuVisible) {
+        closeModal();
+      } else {
+        openModal('currencypicker');
+      }
     });
   };
 
-  closeMenu = () => {
-    this.setState({ menuVisible: false });
-  };
-
   chooseCurrency = (currencyLabel) => {
-    const { currencies, selectCurrency, selectedCurrency } = this.props;
+    const { currencies, selectCurrency } = this.props;
 
     const currencyIndex = currencies.findIndex(
       (currency) => currency.label === currencyLabel
@@ -117,9 +123,9 @@ class CurrencyPicker extends CustomComponent {
   };
 
   render() {
-    const { menuVisible } = this.state;
+    const { currencies, selectedCurrency, currentModal } = this.props;
 
-    const { currencies, selectedCurrency } = this.props;
+    const menuVisible = currentModal === 'currencypicker';
 
     return (
       <ButtonWrapperStyle>
@@ -152,11 +158,14 @@ class CurrencyPicker extends CustomComponent {
 
 const mapStateToProps = (state) => ({
   currencies: selectCurrencies(state),
-  selectedCurrency: selectSelectedCurrency(state)
+  selectedCurrency: selectSelectedCurrency(state),
+  currentModal: selectCurrentModal(state)
 });
 
 const mapDispatchToProps = {
-  selectCurrency
+  selectCurrency,
+  openModal,
+  closeModal
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(CurrencyPicker);

@@ -6,7 +6,6 @@ import CurrenctyPicker from '../CurrencyPicker';
 import { Link } from 'react-router-dom';
 import {
   categorySelected,
-  fetchCategories,
   selectCategories,
   selectSelectedCategory
 } from './categoriesSlice';

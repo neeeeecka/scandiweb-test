@@ -13,9 +13,16 @@ const handleClickOutsideModal = (ref, callback) => {
      * DOM node is getting destroyed before the event, so e.target.parents are null and not modal
      */
     if (transitionFinished.current) {
-      if (ref.current && !ref.current.contains(e.target)) {
-        console.log();
-        callback();
+      const modal = ref.current;
+
+      if (modal) {
+        // const divRect = modal.getBoundingClientRect();
+
+        // var inside = false;
+
+        if (!modal.contains(e.target)) {
+          callback();
+        }
       }
     }
   };

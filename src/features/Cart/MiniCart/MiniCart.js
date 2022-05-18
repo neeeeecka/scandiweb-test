@@ -1,9 +1,14 @@
 import React from 'react';
-import { useSelector, useDispatch, connect } from 'react-redux';
+import { connect } from 'react-redux';
 import styled from 'styled-components';
 import Icon from '../../../assets/Icon';
 import CustomComponent from '../../../core/CustomComponent';
-import handleClickOutsideModal from '../../../handlers/handleClickOutsideModal';
+
+import {
+  selectCurrentModal,
+  openModal,
+  closeModal
+} from '../../../store/modalsSlice';
 import { quantity } from '../cartSlice';
 import CartModal from './CartModal';
 
@@ -56,34 +61,15 @@ class MiniCart extends CustomComponent {
 
     this.clickRef = React.createRef();
 
-    const [cleanupClickHandler, safeToggle] = handleClickOutsideModal(
-      this.clickRef,
-      this.handleClickOutside
-    );
-
-    this.safeToggle = safeToggle;
-
-    this.addCleanup(cleanupClickHandler);
-
     this.focusRef = React.createRef();
   }
 
   closeModal = () => {
-    this.safeToggle(() => {
-      this.setState({ modalVisible: false });
-    });
+    this.props.closeModal();
   };
 
   openModal = () => {
-    this.safeToggle(() => {
-      this.setState({ modalVisible: true });
-    });
-  };
-
-  handleClickOutside = () => {
-    if (this.state.modalVisible) {
-      this.closeModal();
-    }
+    this.props.openModal('minicart');
   };
 
   componentDidUpdate(prevProps) {
@@ -92,22 +78,12 @@ class MiniCart extends CustomComponent {
     }
   }
 
-  // toggleModal = () => {
-  //   this.safeToggle(() => {
-  //     this.setState({
-  //       modalVisible: !this.state.modalVisible,
-  //       animationGoing: true
-  //     });
-  //     setTimeout(() => {
-  //       this.setState({ animationGoing: false });
-  //     }, this.state.animationTime);
-  //   });
-  // };
-
   render() {
-    const { modalVisible, animationGoing, animationTime } = this.state;
+    const { animationGoing, animationTime } = this.state;
 
-    const { quantity } = this.props;
+    const { quantity, currentModal } = this.props;
+
+    const modalVisible = currentModal === 'minicart';
 
     return (
       <WrapperStyle>
@@ -135,7 +111,13 @@ class MiniCart extends CustomComponent {
 }
 
 const mapStateToProps = (state) => ({
-  quantity: quantity(state)
+  quantity: quantity(state),
+  currentModal: selectCurrentModal(state)
 });
 
-export default connect(mapStateToProps)(MiniCart);
+const mapDispatchToProps = {
+  openModal,
+  closeModal
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(MiniCart);

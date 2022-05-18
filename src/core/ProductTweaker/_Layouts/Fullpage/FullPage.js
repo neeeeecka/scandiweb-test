@@ -18,7 +18,7 @@ import {
   fetchProductAdditionals
 } from '../../../../features/ProductListing/productListingSlice';
 
-import { addProduct, updateProduct } from '../../../../features/Cart/cartSlice';
+import { addProduct } from '../../../../features/Cart/cartSlice';
 
 import PriceSpan from '../../../PriceSpan';
 import CartItem from '../../../../models/CartItem';
@@ -84,7 +84,7 @@ class FullPage extends React.Component {
   };
 
   addToCart = () => {
-    const { updateProduct, addProduct } = this.props;
+    const { addProduct } = this.props;
     const { cartItem } = this.state;
 
     const newCartItem = CartItem.fromSerialized(cartItem);

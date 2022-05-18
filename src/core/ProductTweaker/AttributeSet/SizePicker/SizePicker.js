@@ -47,13 +47,6 @@ const SizeButton = styled.label`
   }
 `;
 
-const textToSizeSymbols = {
-  Small: 'S',
-  Medium: 'M',
-  Large: 'L',
-  'Extra Large': 'XL'
-};
-
 class SizePicker extends React.Component {
   state = {
     uid: makeUniqueId()

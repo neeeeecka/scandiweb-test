@@ -29,9 +29,8 @@ class BigItem extends React.Component {
     return (
       <ItemController cartItem={cartItem} id={id}>
         {({ product, updateAttributtes, updateQuantity }) => {
-          const { name, brand, prices, gallery, description, attributes } =
-            product;
-          const { quantity, selectedAttributes, attributeHash, uid } = cartItem;
+          const { name, brand, prices, gallery, attributes } = product;
+          const { quantity, selectedAttributes } = cartItem;
 
           return (
             <BigItemWrapper>
