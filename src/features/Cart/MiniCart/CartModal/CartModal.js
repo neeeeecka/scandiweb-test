@@ -114,6 +114,11 @@ class CartModal extends React.Component {
     this.props.navigate('/cart');
   };
 
+  handleCloseModal = () => {
+    const { closeModal } = this.props;
+    closeModal();
+  };
+
   render() {
     const {
       closeModal,
@@ -165,10 +170,10 @@ class CartModal extends React.Component {
               </b>
             </FooterParagraph>
             <ButtonsWrapper>
-              <Link to="/cart">
+              <Link to="/cart" onClick={this.handleCloseModal}>
                 <ViewBagButton>View bag</ViewBagButton>
               </Link>
-              <Link to="/cart">
+              <Link to="/cart" onClick={this.handleCloseModal}>
                 <CheckoutButton>Checkout</CheckoutButton>
               </Link>
             </ButtonsWrapper>

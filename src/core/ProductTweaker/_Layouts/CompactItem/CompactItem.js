@@ -73,6 +73,7 @@ class CompactItem extends React.Component {
                   attributes={attributes}
                   selectedAttributes={selectedAttributes}
                   onChange={updateAttributtes}
+                  disabled={true}
                 />
               </ItemMenus>
               <CountPicker count={quantity} onChange={updateQuantity} />

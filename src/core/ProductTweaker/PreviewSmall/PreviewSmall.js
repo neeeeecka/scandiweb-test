@@ -34,9 +34,9 @@ const CaretButton = styled.button`
   }
 `;
 
-const IconStyle = `
-    width: 8px;
-`;
+const IconStyle = {
+  width: '8px'
+};
 
 const ItemsWrapper = styled.div`
   flex: 1;

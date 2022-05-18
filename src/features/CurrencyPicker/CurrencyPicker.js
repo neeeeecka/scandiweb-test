@@ -25,13 +25,21 @@ const ButtonStyle = styled.button`
   padding: 0 9px;
 `;
 
-const ArrowDown = `
-  width: 8px;
-  height: 8px;
-  position: relative;
-  top: 9px;
-  margin-left: 8px;
-`;
+// const ArrowDown = `
+//   width: 8px;
+//   height: 8px;
+//   position: relative;
+//   top: 9px;
+//   margin-left: 8px;
+// `;
+
+const ArrowDownIcon = {
+  width: '8px',
+  height: '8px',
+  position: 'relative',
+  top: '9px',
+  marginLeft: '8px'
+};
 
 const CurrencyDropdownStyle = styled.div`
   flex-direction: column;
@@ -122,7 +130,7 @@ class CurrencyPicker extends CustomComponent {
           <span>$</span>
           <Icon
             name={menuVisible ? 'arrow-up' : 'arrow-down'}
-            style={ArrowDown}
+            style={ArrowDownIcon}
           />
         </ButtonStyle>
         <CurrencyDropdownStyle visible={menuVisible} ref={this.clickRef}>

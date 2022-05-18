@@ -18,11 +18,11 @@ const ButtonStyle = styled.button`
   position: relative;
 `;
 
-const CartStyle = `
-  width: 20px;
-  height: 20px;
-  position: relative;
-`;
+const CartStyle = {
+  width: '20px',
+  height: '20px',
+  position: 'relative'
+};
 
 const CartCounter = styled.span`
   position: absolute;
@@ -56,29 +56,33 @@ class MiniCart extends CustomComponent {
 
     this.clickRef = React.createRef();
 
-    // const [cleanupClickHandler, safeToggle] = handleClickOutsideModal(
-    //   this.clickRef,
-    //   this.handleClickOutside
-    // );
+    const [cleanupClickHandler, safeToggle] = handleClickOutsideModal(
+      this.clickRef,
+      this.handleClickOutside
+    );
 
-    // this.safeToggle = safeToggle;
+    this.safeToggle = safeToggle;
 
-    // this.addCleanup(cleanupClickHandler);
+    this.addCleanup(cleanupClickHandler);
 
     this.focusRef = React.createRef();
   }
 
   closeModal = () => {
-    this.setState({ modalVisible: false });
+    this.safeToggle(() => {
+      this.setState({ modalVisible: false });
+    });
   };
 
   openModal = () => {
-    this.setState({ modalVisible: true });
+    this.safeToggle(() => {
+      this.setState({ modalVisible: true });
+    });
   };
 
   handleClickOutside = () => {
     if (this.state.modalVisible) {
-      // this.toggleModal();
+      this.closeModal();
     }
   };
 

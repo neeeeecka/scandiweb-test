@@ -12,22 +12,26 @@ import TextPicker from './TextPicker/TextPicker';
 
 class AttributeSet extends React.Component {
   makeChoiceHandler = (attribute) => {
-    const { onChange } = this.props;
+    const { onChange, disabled } = this.props;
 
-    return (value) => {
-      onChange(
-        {
-          id: attribute.id,
-          name: attribute.name,
-          type: attribute.type
-        },
-        value
-      );
-    };
+    if (disabled) {
+      return () => null;
+    } else {
+      return (value) => {
+        onChange(
+          {
+            id: attribute.id,
+            name: attribute.name,
+            type: attribute.type
+          },
+          value
+        );
+      };
+    }
   };
 
   render() {
-    const { attributes, selectedAttributes } = this.props;
+    const { attributes, selectedAttributes, disabled } = this.props;
 
     return (
       <>
@@ -39,7 +43,8 @@ class AttributeSet extends React.Component {
             key: attribute.name,
             items: attribute.items,
             onChoice: choiceHandler,
-            name: attribute.name
+            name: attribute.name,
+            disabled: disabled
           };
 
           // const AttributeSetController = PrepareAttributeSet(props);

@@ -1,5 +1,5 @@
-import React from "react";
-import styled from "styled-components";
+import React from 'react';
+import styled from 'styled-components';
 
 const IconStyle = styled.i`
   display: inline-block;
@@ -12,10 +12,10 @@ const IconStyle = styled.i`
 class Icon extends React.Component {
   render() {
     const { name, style } = this.props;
-    const Style = styled(IconStyle)`
-      ${style}
-    `;
-    return <Style src={`/assets/${name}.svg`} />;
+    // const Style = styled(IconStyle)`
+    //   ${style}
+    // `;
+    return <IconStyle src={`/assets/${name}.svg`} style={style} />;
   }
 }
 

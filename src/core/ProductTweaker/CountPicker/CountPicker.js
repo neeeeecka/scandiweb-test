@@ -42,10 +42,10 @@ const Button = styled.button`
   }
 `;
 
-const iconStyle = `
-    width: 10px;
-    height: 10px;
-`;
+const iconStyle = {
+  width: '10px',
+  height: '10px'
+};
 
 const Value = styled.span``;
 

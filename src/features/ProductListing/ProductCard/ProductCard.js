@@ -22,6 +22,8 @@ const ProductCardStyle = styled.div`
     transition: all 0.25s ease;
     filter: drop-shadow(0px 4px 35px rgba(168, 172, 176, 0.19));
   }
+
+  ${(props) => (props.inStock ? '' : 'color: #8D8F9A; cursor: not-allowed;')}
 `;
 
 const PopupButton = styled.button`
@@ -65,14 +67,31 @@ const ButtonWrapper = styled.div`
   height: 25px;
 `;
 
-const iconStyle = `
-  transform: scale(0.5);
-  filter: brightness(0) invert(1);
+const iconStyle = {
+  transform: 'scale(0.5)',
+  filter: 'brightness(0) invert(1)'
+};
+
+const OutOfStockOverlay = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 const OutOfStockSpan = styled.span`
-  color: #ff0000;
-  margin-left: 5px;
+  color: #8d8f9a;
+  text-transform: uppercase;
+  font-size: 24px;
+`;
+
+const CardImageWrapper = styled.div`
+  position: relative;
 `;
 
 class ProductCard extends React.Component {
@@ -94,10 +113,20 @@ class ProductCard extends React.Component {
     const image = gallery[0];
 
     return (
-      <ProductCardStyle>
-        <Link to={`/pdp?product=${id}`}>
-          <CardImage src={image} alt="Product preview" />
-        </Link>
+      <ProductCardStyle inStock={inStock}>
+        {inStock ? (
+          <Link to={`/pdp?product=${id}`}>
+            <CardImage src={image} alt="Product preview" />
+          </Link>
+        ) : (
+          <CardImageWrapper>
+            <CardImage src={image} alt="Product preview" />
+            <OutOfStockOverlay>
+              <OutOfStockSpan>Out of stock</OutOfStockSpan>
+            </OutOfStockOverlay>
+          </CardImageWrapper>
+        )}
+
         <ButtonWrapper>
           {inStock ? (
             <PopupButton aria-label="Add item to cart" onClick={this.addToCart}>
@@ -105,10 +134,7 @@ class ProductCard extends React.Component {
             </PopupButton>
           ) : null}
         </ButtonWrapper>
-        <CardTitle>
-          {`${brand} ${name}`}
-          {inStock ? null : <OutOfStockSpan>{'(Out of stock)'}</OutOfStockSpan>}
-        </CardTitle>
+        <CardTitle>{`${brand} ${name}`}</CardTitle>
         <CardPrice>
           <PriceSpan prices={prices} />
         </CardPrice>
