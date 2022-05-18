@@ -3,7 +3,7 @@ import cartSlice from '../features/Cart/cartSlice';
 import categoriesSlice from '../features/Categories/categoriesSlice';
 import currencySlice from '../features/CurrencyPicker/currencySlice';
 import productListingSlice from '../features/ProductListing/productListingSlice';
-import modalsSlice from './modalsSlice';
+// import modalsSlice from './modalsSlice';
 
 export default configureStore({
   reducer: {
@@ -11,7 +11,7 @@ export default configureStore({
     categories: categoriesSlice,
     productListing: productListingSlice,
     currencies: currencySlice,
-    cart: cartSlice,
-    modals: modalsSlice
+    cart: cartSlice
+    // modals: modalsSlice
   }
 });

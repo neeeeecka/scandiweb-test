@@ -9,11 +9,6 @@ import {
   selectSelectedCurrency,
   selectCurrency
 } from './currencySlice';
-import {
-  selectCurrentModal,
-  openModal,
-  closeModal
-} from '../../store/modalsSlice';
 
 const ButtonWrapperStyle = styled.div`
   cursor: pointer;
@@ -76,6 +71,8 @@ const CurrencyDropdownButton = styled.button`
 `;
 
 class CurrencyPicker extends CustomComponent {
+  state = { menuVisible: false };
+
   constructor(props) {
     super(props);
 
@@ -83,7 +80,7 @@ class CurrencyPicker extends CustomComponent {
 
     const [cleanupClickHandler, safeToggle] = handleClickOutsideModal(
       this.clickRef,
-      this.handleClickOutside
+      this.closeMenu
     );
 
     this.safeToggle = safeToggle;
@@ -91,23 +88,18 @@ class CurrencyPicker extends CustomComponent {
     this.addCleanup(cleanupClickHandler);
   }
 
-  handleClickOutside = () => {
-    if (this.state.menuVisible) {
-      this.props.closeModal();
-    }
+  closeMenu = () => {
+    this.safeToggle(() => this.setState({ menuVisible: false }));
   };
 
-  toggleMenu = (e) => {
-    const { currentModal, closeModal, openModal } = this.props;
-    const menuVisible = currentModal === 'currencypicker';
+  openMenu = () => {
+    this.safeToggle(() => this.setState({ menuVisible: true }));
+  };
 
-    this.safeToggle(() => {
-      if (menuVisible) {
-        closeModal();
-      } else {
-        openModal('currencypicker');
-      }
-    });
+  toggleMenu = () => {
+    this.safeToggle(() =>
+      this.setState({ menuVisible: !this.state.menuVisible })
+    );
   };
 
   chooseCurrency = (currencyLabel) => {
@@ -123,16 +115,12 @@ class CurrencyPicker extends CustomComponent {
   };
 
   render() {
-    const { currencies, selectedCurrency, currentModal } = this.props;
-
-    const menuVisible = currentModal === 'currencypicker';
+    const { menuVisible } = this.state;
+    const { currencies, selectedCurrency } = this.props;
 
     return (
       <ButtonWrapperStyle>
-        <ButtonStyle
-          onClick={(e) => this.toggleMenu(e)}
-          aria-label="Choose currency"
-        >
+        <ButtonStyle onClick={this.toggleMenu} aria-label="Choose currency">
           <span>$</span>
           <Icon
             name={menuVisible ? 'arrow-up' : 'arrow-down'}
@@ -158,14 +146,11 @@ class CurrencyPicker extends CustomComponent {
 
 const mapStateToProps = (state) => ({
   currencies: selectCurrencies(state),
-  selectedCurrency: selectSelectedCurrency(state),
-  currentModal: selectCurrentModal(state)
+  selectedCurrency: selectSelectedCurrency(state)
 });
 
 const mapDispatchToProps = {
-  selectCurrency,
-  openModal,
-  closeModal
+  selectCurrency
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(CurrencyPicker);

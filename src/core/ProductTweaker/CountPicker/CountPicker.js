@@ -51,8 +51,10 @@ const Value = styled.span``;
 
 class CountPicker extends React.Component {
   handleChange = (delta) => {
-    const { count, onChange } = this.props;
-    onChange(count + delta);
+    setTimeout(() => {
+      const { count, onChange } = this.props;
+      onChange(count + delta);
+    });
   };
 
   render() {

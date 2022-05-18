@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import MiniCart from '../Cart/MiniCart';
 import CurrenctyPicker from '../CurrencyPicker';
@@ -9,6 +9,8 @@ import {
   selectCategories,
   selectSelectedCategory
 } from './categoriesSlice';
+
+import { closeModal } from '../../store/modalsSlice';
 
 import { connect } from 'react-redux';
 import { fetchCategoryItems } from '../ProductListing/productListingSlice';
@@ -65,7 +67,14 @@ const Logo = styled.span`
   height: 41px;
 `;
 
-class Header extends Component {
+class Header extends React.Component {
+  constructor(props) {
+    super(props);
+    this.headerRef = React.createRef();
+  }
+
+  componentDidMount() {}
+
   render() {
     const {
       categories,
@@ -73,11 +82,12 @@ class Header extends Component {
       categorySelected,
       fetchCategoryItems
     } = this.props;
+
     const selectedCategoryName = selectedCategory.name || categories[0]?.name;
 
     return (
       <>
-        <StyledHeader>
+        <StyledHeader ref={this.headerRef}>
           <Link to="/">
             <Logo />
           </Link>
@@ -109,16 +119,15 @@ class Header extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    categories: selectCategories(state),
-    selectedCategory: selectSelectedCategory(state)
-  };
-};
+const mapStateToProps = (state) => ({
+  categories: selectCategories(state),
+  selectedCategory: selectSelectedCategory(state)
+});
 
 const mapDispatchToProps = {
   categorySelected,
-  fetchCategoryItems
+  fetchCategoryItems,
+  closeModal
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Header);

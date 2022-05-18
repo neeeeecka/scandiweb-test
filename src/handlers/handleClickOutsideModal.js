@@ -2,7 +2,7 @@
  *
  * @param {React.RefObject<HTMLElement>} ref
  * @callback callback
- * @returns {Function} Cleanup
+ * @returns {Function, Function} Cleanup, safeToggle
  */
 const handleClickOutsideModal = (ref, callback) => {
   const transitionFinished = { current: false };

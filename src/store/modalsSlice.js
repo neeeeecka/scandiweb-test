@@ -10,8 +10,11 @@ export const modalsSlice = createSlice({
       const modalName = action.payload;
       state.modal = modalName;
     },
-    closeModal: (state) => {
-      state.modal = '';
+    closeModal: (state, action) => {
+      const modalName = action.payload;
+      if (state.modal === modalName) {
+        state.modal = '';
+      }
     }
   }
 });

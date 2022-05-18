@@ -4,11 +4,8 @@ import styled from 'styled-components';
 import Icon from '../../../assets/Icon';
 import CustomComponent from '../../../core/CustomComponent';
 
-import {
-  selectCurrentModal,
-  openModal,
-  closeModal
-} from '../../../store/modalsSlice';
+import handleClickOutsideModal from '../../../handlers/handleClickOutsideModal';
+
 import { quantity } from '../cartSlice';
 import CartModal from './CartModal';
 
@@ -53,7 +50,8 @@ const CartCounter = styled.span`
 class MiniCart extends CustomComponent {
   state = {
     animationGoing: false,
-    animationTime: 150
+    animationTime: 150,
+    modalVisible: false
   };
 
   constructor(props) {
@@ -62,14 +60,28 @@ class MiniCart extends CustomComponent {
     this.clickRef = React.createRef();
 
     this.focusRef = React.createRef();
+
+    const [cleanup, safeToggle] = handleClickOutsideModal(
+      this.clickRef,
+      this.closeModal
+    );
+
+    this.safeToggle = safeToggle;
+    this.addCleanup(cleanup);
   }
 
   closeModal = () => {
-    this.props.closeModal();
+    this.safeToggle(() => this.setState({ modalVisible: false }));
   };
 
   openModal = () => {
-    this.props.openModal('minicart');
+    this.safeToggle(() => this.setState({ modalVisible: true }));
+  };
+
+  toggleModal = () => {
+    this.safeToggle(() =>
+      this.setState({ modalVisible: !this.state.modalVisible })
+    );
   };
 
   componentDidUpdate(prevProps) {
@@ -79,11 +91,9 @@ class MiniCart extends CustomComponent {
   }
 
   render() {
-    const { animationGoing, animationTime } = this.state;
+    const { animationGoing, animationTime, modalVisible } = this.state;
 
-    const { quantity, currentModal } = this.props;
-
-    const modalVisible = currentModal === 'minicart';
+    const { quantity } = this.props;
 
     return (
       <WrapperStyle>
@@ -111,13 +121,7 @@ class MiniCart extends CustomComponent {
 }
 
 const mapStateToProps = (state) => ({
-  quantity: quantity(state),
-  currentModal: selectCurrentModal(state)
+  quantity: quantity(state)
 });
 
-const mapDispatchToProps = {
-  openModal,
-  closeModal
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(MiniCart);
+export default connect(mapStateToProps)(MiniCart);
