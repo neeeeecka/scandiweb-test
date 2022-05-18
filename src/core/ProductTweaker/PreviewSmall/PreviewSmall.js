@@ -46,7 +46,6 @@ const ItemsWrapper = styled.div`
 `;
 
 const Slider = styled.div`
-  transition: all 1s ease;
   flex: 1;
   display: flex;
 `;
@@ -63,6 +62,40 @@ const Item = styled.div`
     object-fit: contain;
   }
 `;
+
+function animateTo(element, currentX, newX, seconds, callback) {
+  let x = currentX;
+
+  let lastDate = Date.now();
+
+  let t = 0;
+
+  const diff = newX - currentX;
+
+  const frame = () => {
+    const now = Date.now();
+    const delta = (now - lastDate) / 1000;
+    lastDate = now;
+    t += delta;
+
+    let done = false;
+
+    if (t <= seconds) {
+      x += (diff * delta) / seconds;
+    } else {
+      x = newX;
+      done = true;
+    }
+    element.style.transform = `translateX(${x}px)`;
+
+    if (done) {
+      callback();
+    } else {
+      requestAnimationFrame(frame);
+    }
+  };
+  frame();
+}
 
 class PreviewSmall extends React.Component {
   state = {
@@ -84,13 +117,11 @@ class PreviewSmall extends React.Component {
   }
 
   initSlider = () => {
-    this.sliderRef.current.style.transitionDuration = '0s';
-    this.sliderRef.current.style.transform = `translateX(-200px)`;
+    const sliderWidth = this.sliderRef.current.offsetWidth;
 
-    setTimeout(() => {
-      this.sliderRef.current.style.transitionDuration = `${this.state.transitionDuration}s`;
-      this.isTransitioning = false;
-    }, 30);
+    this.sliderRef.current.style.transform = `translateX(-${sliderWidth}px)`;
+
+    this.isTransitioning = false;
   };
 
   rotatePreview = (delta) => {
@@ -99,14 +130,12 @@ class PreviewSmall extends React.Component {
 
       const sliderWidth = this.sliderRef.current.offsetWidth;
 
-      const newPosition = -200 - sliderWidth * delta;
-
-      this.sliderRef.current.style.transform = `translateX(${newPosition}px)`;
+      const newPosition = -sliderWidth - sliderWidth * delta;
 
       const { previews } = this.props;
       const count = previews.length;
 
-      setTimeout(() => {
+      animateTo(this.sliderRef.current, -sliderWidth, newPosition, 0.2, () => {
         this.setState(
           {
             selectedPreview: actualIndex(
@@ -115,11 +144,10 @@ class PreviewSmall extends React.Component {
             )
           },
           () => {
-            // this.stateUpdated();
             this.initSlider();
           }
         );
-      }, this.state.transitionDuration * 1000);
+      });
     }
   };
 
@@ -138,13 +166,13 @@ class PreviewSmall extends React.Component {
       <SmallPreview>
         <ItemsWrapper>
           <Slider ref={this.sliderRef}>
-            <Item>
+            <Item key={itemLeft}>
               <img src={itemLeft} alt="preview" />
             </Item>
-            <Item>
+            <Item key={item}>
               <img src={item} alt="preview" />
             </Item>
-            <Item>
+            <Item key={itemRight}>
               <img src={itemRight} alt="preview" />
             </Item>
           </Slider>

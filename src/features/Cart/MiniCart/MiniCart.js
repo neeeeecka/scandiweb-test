@@ -71,7 +71,9 @@ class MiniCart extends CustomComponent {
   }
 
   closeModal = () => {
-    this.safeToggle(() => this.setState({ modalVisible: false }));
+    if (this.state.modalVisible) {
+      this.safeToggle(() => this.setState({ modalVisible: false }));
+    }
   };
 
   openModal = () => {

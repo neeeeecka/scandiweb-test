@@ -81,7 +81,9 @@ class CurrencyPicker extends CustomComponent {
   }
 
   closeMenu = () => {
-    this.safeToggle(() => this.setState({ menuVisible: false }));
+    if (this.state.menuVisible) {
+      this.safeToggle(() => this.setState({ menuVisible: false }));
+    }
   };
 
   openMenu = () => {
