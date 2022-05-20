@@ -23,7 +23,7 @@ const ProductCardStyle = styled.div`
     filter: drop-shadow(0px 4px 35px rgba(168, 172, 176, 0.19));
   }
 
-  ${(props) => (props.inStock ? '' : 'color: #8D8F9A; cursor: not-allowed;')}
+  ${(props) => (props.inStock ? '' : 'color: #8D8F9A;')}
 `;
 
 const PopupButton = styled.button`
