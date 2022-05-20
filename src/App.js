@@ -18,7 +18,7 @@ import {
 } from './features/CurrencyPicker/currencySlice';
 
 const AppContainer = styled.div`
-  padding: 0 80px;
+  padding: 0 var(--horizontal-wrapper-padding);
   margin-top: 80px;
   position: relative;
   padding-bottom: 100px;

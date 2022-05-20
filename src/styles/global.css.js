@@ -6,6 +6,7 @@ export default createGlobalStyle`
     --color-primary-light: #6fe18c;
     --color-primary-dark: #62ca7d;
     --color-text: #1D1F22;
+    --horizontal-wrapper-padding: 10vw;
   }
   *{
     font-family: 'Raleway', sans-serif;

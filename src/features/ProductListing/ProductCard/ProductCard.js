@@ -50,7 +50,7 @@ const PopupButton = styled.button`
 const CardImage = styled.img`
   width: 100%;
   aspect-ratio: 1/1;
-  object-fit: cover;
+  object-fit: contain;
 `;
 
 const CardTitle = styled.h1`
@@ -114,18 +114,16 @@ class ProductCard extends React.Component {
 
     return (
       <ProductCardStyle inStock={inStock}>
-        {inStock ? (
-          <Link to={`/pdp?product=${id}`}>
-            <CardImage src={image} alt="Product preview" />
-          </Link>
-        ) : (
+        <Link to={`/pdp?product=${id}`}>
           <CardImageWrapper>
             <CardImage src={image} alt="Product preview" />
-            <OutOfStockOverlay>
-              <OutOfStockSpan>Out of stock</OutOfStockSpan>
-            </OutOfStockOverlay>
+            {!inStock && (
+              <OutOfStockOverlay>
+                <OutOfStockSpan>Out of stock</OutOfStockSpan>
+              </OutOfStockOverlay>
+            )}
           </CardImageWrapper>
-        )}
+        </Link>
 
         <ButtonWrapper>
           {inStock ? (

@@ -26,7 +26,7 @@ const StyledHeader = styled.header`
   left: 0;
   background: white;
   z-index: 3;
-  padding: 0 80px;
+  padding: 0 var(--horizontal-wrapper-padding);
   height: 80px;
 
   :not(nav) > a {
